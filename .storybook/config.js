@@ -1,6 +1,6 @@
 import { configure } from '@storybook/react';
 
-const req = require.context('../src/components', true, /stories\.js$/);
+const req = require.context('../src/stories', true, /stories\.js$/);
 
 function loadStories() {
   return req.keys().map(filename => req(filename));
@@ -10,4 +10,3 @@ function loadStories() {
 // configure(require.context('../stories', true, /\.stories\.js$/), module);
 
 configure(loadStories, module);
-// configure(require.context('../src/components', true, /\.stories\.js$/), module);
