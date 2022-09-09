@@ -1,10 +1,4 @@
----
-# title: 自定义页面名称
-nav:
-  title: 太极
-# group:
-# title: 自定义分组名称
----
+## 八法五步
 
 Demo:
 
@@ -12,7 +6,7 @@ Demo:
 import React from 'react';
 import { Foo } from 'blog';
 
-export default () => <Foo title="First Demo22" />;
+export default () => <Foo title="八法五步" />;
 ```
 
 More skills for writing demo: https://d.umijs.org/guide/basic#write-component-demo
