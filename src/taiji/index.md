@@ -1,11 +1,3 @@
----
-# title: 自定义页面名称
-nav:
-  title: 太极
-# group:
-# title: 自定义分组名称
----
-
 Demo:
 
 ```tsx

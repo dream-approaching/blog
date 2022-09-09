@@ -1,5 +1,5 @@
 ---
-title: 八法五步
+title: 83式
 nav:
   title: 太极
 # group:

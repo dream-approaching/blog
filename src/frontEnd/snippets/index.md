@@ -1,7 +1,7 @@
 ---
-title: 八法五步
+title: 代码片段
 nav:
-  title: 太极
+  title: 前端
 # group:
 # title: 自定义分组名称
 ---

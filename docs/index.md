@@ -1,4 +1,16 @@
-## Hello blog!
+---
+title: dumi - 为组件开发场景而生的文档工具
+order: 10
+hero:
+  title: 龙子
+  desc: 📖 为组件开发场景而生的文档工具
+  actions:
+    - text: 前端
+      link: /front-end/interview
+    - text: 太极
+      link: /taji/83
+footer: Open-source MIT Licensed | Copyright © 闽ICP备19003454号-1<br />Powered by self
+---
 
 - 前端开发(都是一些集合的入口，点击跳到自己写的文章集合)
   - html
