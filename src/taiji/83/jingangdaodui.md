@@ -1,5 +1,5 @@
 ---
-title: 简介
+title: 金刚捣碓
 nav:
   title: 太极
 group:
