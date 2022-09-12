@@ -12,7 +12,7 @@ interface videoInfo {
 
 const threshold = [0.01]; // 这是触发时机 0.01代表出现 1%的面积出现在可视区触发一次回掉函数 threshold = [0, 0.25, 0.5, 0.75]  表示分别在0% 25% 50% 75% 时触发回掉函数
 
-export default ({
+const Video = ({
   title,
   url,
   poster,
@@ -75,3 +75,5 @@ export default ({
     </div>
   );
 };
+
+export default Video;
