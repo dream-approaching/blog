@@ -1,7 +1,9 @@
 ---
 title: javascript
+nav:
+  title: 前端
 group:
-  title: 面试复习
+  title: Interview
 ---
 
 ### 1. JavaScript 有哪些数据类型，它们的区别？
@@ -55,24 +57,128 @@ console.log(true instanceof Boolean); //false
 console.log('str' instanceof String); //false
 console.log([] instanceof Array); //true
 console.log(function () {} instanceof Function); //true
-console.log({} instanceof object); //true
+console.log({} instanceof Object); //true
 ```
 
 可以看到，`instanceof` 只能正确判断引用数据类型，而不能判断基本数据类型。`instanceof` 运算符可以用来测试一个对象在其原型链中是否存在一个构造函数的 `prototype` 属性。
 
 #### 2.3. constructor
 
-![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20220913145140.png)  
- `constructor` 有两个作用，一是判断数据的类型，二是对象实例通过 `constructor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor` 就不能用来判断数据类型了：  
- ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20220913150303.png)
+```js
+console.log((2).constructor === Number); // true
+console.log(true.constructor === Boolean); //true
+console.log('str'.constructor === String); //true
+console.log([].constructor === Array); //true
+console.log(function () {}.constructor === Function); //true
+console.log({}.constructor === Object); //true
+```
+
+`constructor` 有两个作用，一是判断数据的类型，二是对象实例通过 `constructor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor` 就不能用来判断数据类型了：
+
+```js
+function Fn() {}
+Fn.prototype = new Array();
+var f = new Fn();
+console.log(f.constructor === Fn); // false
+console.log(f.constructor === Array); // true
+```
 
 #### 2.4. Object.prototype.toString.call()
 
-`Object.prototype.toString.call()` 使用 `Object` 对象的原型方法 `toString` 来判断数据类型：  
- ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20220913150416.png)
+`Object.prototype.toString.call()` 使用 `Object` 对象的原型方法 `toString` 来判断数据类型：
+
+```js
+var a = Object.prototype.toString;
+
+console.log(a.call(2)); //[object Number]
+console.log(a.call(true)); // [object Boolean]
+console.log(a.call('str')); //[object String]
+console.log(a.call([])); //[object Array]
+
+console.log(a.call(function () {})); //[object Function]
+console.log(a.call({})); //[object Object]
+console.log(a.call(undefined)); //[object Undefined]
+console.log(a.call(null)); // [object Null]
+```
 
 ---
 
 同样是检测对象 `obj` 调用 `toString` 方法，`obj.toString()`的结果和 `Object.prototype.toString.call(obj)`的结果不一样，这是为什么？
 
-> 这是因为 toString 是 `Object` 的原型方法，而 `Array`、`function` 等类 型作为 `Object` 的实例，都重写了 `toString` 方法。不同的对象类型调 用 `toString` 方法时，根据原型链的知识，调用的是对应的重写之后的 `toString` `方法（function` 类型返回内容为函数体的字符串，`Array` 类型返回元素组成的字符串…），而不会去调用 `Object` 上原型 `toString` 方法（返回对象的具体类型），所以采用 `obj.toString()` 不能得到其对象类型，只能将 `obj` 转换为字符串类型；因此，在想要 得到对象的具体类型时，应该调用 `Object` 原型上的 `toString` 方法。
+> 这是因为 toString 是 `Object` 的原型方法，而 `Array`、`function` 等类型作为 `Object` 的实例，都重写了 `toString` 方法。不同的对象类型调用 `toString` 方法时，根据原型链的知识，调用的是对应的重写之后的 `toString` 方法（`function` 类型返回内容为函数体的字符串，`Array` 类型返回元素组成的字符串…），而不会去调用 `Object` 上原型 `toString` 方法（返回对象的具体类型），所以采用 `obj.toString()` 不能得到其对象类型，只能将 `obj` 转换为字符串类型；因此，在想要得到对象的具体类型时，应该调用 `Object` 原型上的 `toString` 方法。
+
+### 3. null 和 undefined 区别
+
+首先 `Undefined` 和 `Null` 都是基本数据类型，这两个基本数据类型分别都只有一个值，就是 `undefined` 和 `null。`
+
+`undefined` 代表的含义是未定义，`null` 代表的含义是空对象。一般变量声明了但还没有定义的时候会返回 `undefined`，`null` 主要用于赋值给一些可能会返回对象的变量，作为初始化。
+
+`undefined` 在 `JavaScript` 中不是一个保留字，这意味着可以使用 `undefined` 来作为一个变量名，但是这样的做法是非常危险的，它会 影响对 `undefined` 值的判断。我们可以通过一些方法获得安全的 `undefined` 值，比如说 `void 0`。
+
+当对这两种类型使用 `typeof` 进行判断时，`Null` 类型化会返回 "`object`"，这是一个历史遗留的问题。当使用双等号对两种类型的 值进行比较时会返回 `true`，使用三个等号时会返回 `false`。
+
+### 4. intanceof 操作符的实现原理及实现
+
+`instanceof` 运算符用于判断构造函数的 `prototype` 属性是否出现 在对象的原型链中的任何位置。
+
+```ts
+function myInstanceof(left, right) {
+  // 获取对象的原型
+  let proto = Object.getPrototypeOf(left);
+  // 获取构造函数的prototype对象
+  let prototype = right.prototype;
+  // 判断构造函数的prototype对象是否在对象的原型链上
+  while (true) {
+    if (!proto) return false;
+    if (proto === prototype) return true;
+    // 如果没有找到，就续从其原型上找，Object.getPrototypeOf 方法用来获取指定对象的原型
+    proto = Object.getPrototypeOf(proto);
+  }
+}
+```
+
+### 5. 如何获取安全的 undefined 值？
+
+因为 `undefined` 是一个标识符，所以可以被当作变量来使用和赋值， 但是这样会影响 `undefined` 的正常判断。表达式 `void ___` 没有返回值，因此返回结果是 `undefined`。`void` 并不改变表达式的结果， 只是让表达式不返回值。因此可以用 `void 0` 来获得 `undefined`。
+
+### 6. Object.is() 与比较操作符 "==="、"=="" 的区别？
+
+使用双等号（`==`）进行相等判断时，如果两边的类型不一致，则会进行强制类型转化后再进行比较。 使用三等号（`===`）进行相等判断时，如果两边的类型不一致时，不会做强制类型准换，直接返回 `false`。 使用 `Object.is` 来进行相等判断时，一般情况下和三等号的判断相同，它处理了一些特殊的情况，比如 `-0` 和 `+0` 不再相等，两个 `NaN` 是相等的。
+
+### 7. 什么是 JavaScript 中的包装类型？
+
+在 `JavaScript` 中，基本类型是没有属性和方法的，但是为了便于操作基本类型的值，在调用基本类型的属性或方法时 `JavaScript` 会在后台隐式地将基本类型的值转换为对象，如：
+
+```js
+const a = 'abc';
+a.length; //3
+a.toUppercase(); //"ABC"
+```
+
+在 访 问 `'abc'.length` 时 ， `JavaScript` 将 `'abc'` 在 后 台 转 换 成 `String('abc')`，然后再访问其 `length` 属性。
+
+`JavaScript` 也可以使用 `Object` 函数显式地将基本类型转换为包装类型：
+
+```js
+var a = 'abc';
+Object(a); //String {"abc"}
+```
+
+也可以使用 `valueOf` 方法将包装类型倒转成基本类型：
+
+```js
+var a = 'abc';
+var b = Object(a);
+var c = b.valueOf(); //'abc'
+```
+
+看看如下代码会打印出什么：
+
+```js
+var a = new Boolean(false);
+if (!a) {
+  console.log('Oops'); //never runs
+}
+```
+
+答案是什么都不会打印，因为虽然包裹的基本类型是 `false`，但是 `false` 被包裹成包装类型后就成了对象，所以其非值为 `false`，所以 循环体中的内容不会运行。
