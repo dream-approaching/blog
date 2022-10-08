@@ -8,7 +8,7 @@ group:
 > 作者：[Dr. Axel Rauschmayer](http://dr-axel.de/)  
 > 时间：2018 年 4 月 8 日
 
-这篇博文简要介绍了 TypeScript 的静态类型表示法。
+这篇博文简要介绍了 `TypeScript` 的静态类型表示法。
 
 ### 1. 你能学到什么
 
@@ -28,24 +28,24 @@ interface Array<T> {
 
 ### 2. 尝试代码示例
 
-TypeScript 有一个[在线编辑器](http://www.typescriptlang.org/play/)。为了得到最全面的检查，您应该打开“选项”菜单中的所有选项。这相当于在严格模式下运行 TypeScript 编译器。
+`TypeScript` 有一个[在线编辑器](http://www.typescriptlang.org/play/)。为了得到最全面的检查，您应该打开“选项”菜单中的所有选项。这相当于在严格模式下运行 `TypeScript` 编译器。
 
 ### 3. 指定类型检查的全面性
 
-我总是用最严格的 TypeScript 检查，`--strict`。如果不用的话，程序编写起来会稍微容易一些，但是也会失去静态类型检查的许多好处。目前，`--strict`相当于启用以下设置:
+我总是用最严格的 `TypeScript` 检查，`--strict`。如果不用的话，程序编写起来会稍微容易一些，但是也会失去静态类型检查的许多好处。目前，`--strict`相当于启用以下设置:
 
-- `--noImplicitAny`: 如果 TypeScript 不能推断类型，则必须指定它。这主要适用于函数和方法的参数:通过这些设置，您必须对它们进行注释。
-- `--noImplicitThis`: 当 this 表达式的值为 any 类型的时候，生成一个错误。
+- `--noImplicitAny`: 如果 `TypeScript` 不能推断类型，则必须指定它。这主要适用于函数和方法的参数:通过这些设置，您必须对它们进行注释。
+- `--noImplicitThis`: 当 `this` 表达式的值为 `any` 类型的时候，生成一个错误。
 - `--alwaysStrict`: 以严格模式解析并为每个源文件生成 "use strict"语句
-- `--strictNullChecks`: null 不属于任何类型(除了它自己的类型 null 之外)，如果它是一个可接受的值，就必须显式地提到它。
+- `--strictNullChecks`: `null` 不属于任何类型(除了它自己的类型 `null` 之外)，如果它是一个可接受的值，就必须显式地提到它。
 - `--strictFunctionTypes`: 更强的函数类型检查
-- `--strictPropertyInitialization`: 确保类的非 undefined 属性已经在构造函数里初始化。若要令此选项生效，需要同时启用--strictNullChecks。
+- `--strictPropertyInitialization`: 确保类的非 `undefined` 属性已经在构造函数里初始化。若要令此选项生效，需要同时启用`--strictNullChecks`。
 
 更多信息: 在 TypeScript 手册[编译器选项](https://www.tslang.cn/docs/handbook/compiler-options.html)一章。
 
 ### 4. 类型
 
-在本文中，类型只是一组值。JavaScript 语言(不是 TypeScript)有 7 种类型:
+在本文中，类型只是一组值。`JavaScript` 语言(不是 `TypeScript`)有 7 种类型:
 
 - `Undefined`
 - `Null`

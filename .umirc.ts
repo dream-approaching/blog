@@ -9,6 +9,7 @@ export default defineConfig({
   styles: [
     `.__dumi-default-navbar-logo:not([data-plaintext]) { padding-left: 90px !important;text-indent: -10000px; }`,
   ],
+  mfsu: {},
   extraBabelPlugins: [
     [
       'import',
