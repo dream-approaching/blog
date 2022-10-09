@@ -5,3 +5,5 @@ group:
 ---
 
 ### checkbox
+
+<code src="./checkbox/index.tsx"></code>
