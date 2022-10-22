@@ -121,7 +121,7 @@ console.log(a.call(null)); // [object Null]
 
 `instanceof` 运算符用于判断构造函数的 `prototype` 属性是否出现 在对象的原型链中的任何位置。
 
-```ts
+```js
 function myInstanceof(left, right) {
   // 获取对象的原型
   let proto = Object.getPrototypeOf(left);

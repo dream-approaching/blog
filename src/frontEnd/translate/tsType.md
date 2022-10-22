@@ -14,13 +14,10 @@ group:
 
 读完这篇文章，你应该能够理解以下代码的含义:
 
-```
+```ts
 interface Array<T> {
   concat(...items: Array<T[] | T>): T[];
-  reduce<U>(
-    callback: (state: U, element: T, index: number, array: T[]) => U,
-    firstState?: U
-    ): U;
+  reduce<U>(callback: (state: U, element: T, index: number, array: T[]) => U, firstState?: U): U;
 }
 ```
 
@@ -63,7 +60,7 @@ TypeScript 为 JavaScript 带来了额外的一层:静态类型。这些只有�
 
 变量名后面的冒号表示开始了一个类型注释:冒号后面的类型签名描述了变量可以具有的值。例如，下面这行告诉 TypeScript x 只存储数字:
 
-```
+```js
 let x: number;
 ```
 
@@ -73,7 +70,7 @@ let x: number;
 
 即使每个存储位置在 TypeScript 中都有一个静态类型，也不必总是显式地指定它。TypeScript 经常可以推断出来。例如，如果你写:
 
-```
+```js
 let x = 123;
 ```
 
@@ -111,7 +108,7 @@ let x = 123;
 
 有两种方法来表示数组 arr 被用作一个列表，其元素都是数字:
 
-```
+```js
 let arr: number[] = [];
 let arr: Array<number> = [];
 ```
@@ -124,7 +121,7 @@ let arr: Array<number> = [];
 
 如果在数组中存储一个二维点，则使用该数组作为元组。看起来是这样的:
 
-```
+```ts
 let point: [number, number] = [7, 5];
 ```
 
@@ -132,9 +129,9 @@ let point: [number, number] = [7, 5];
 
 元组的另一个例子是`Object.entries(obj)`的返回值:obj 的每个属性都有一个[key, value]对数组。
 
-```
-> Object.entries({a:1, b:2})
-[ [ 'a', 1 ], [ 'b', 2 ] ]
+```ts
+Object.entries({ a: 1, b: 2 });
+// [ [ 'a', 1 ], [ 'b', 2 ] ]
 ```
 
 Object.entries()的结果类型为:`Array<[string, any]>`
@@ -143,13 +140,13 @@ Object.entries()的结果类型为:`Array<[string, any]>`
 
 一个函数类型的例子:
 
-```
-(num: number) => string
+```js
+(num: number) => string;
 ```
 
 这种类型包含所有接受单个参数、数字和返回字符串的函数。让我们在类型注释中使用这个类型(这里假设 String 是一个函数):
 
-```
+```ts
 const func: (num: number) => string = String;
 ```
 
@@ -157,21 +154,21 @@ const func: (num: number) => string = String;
 
 下面的代码是一个更实际的例子:
 
-```
-function stringify123(callback: (num: number) => string) {
+```ts
+function stringify12345(callback: (num: number) => string) {
   return callback(123);
 }
 ```
 
 我们指定用函数类型来描述 stringify123()的参数。由于这个类型注释，TypeScript 拒绝下面的函数调用。
 
-```
+```ts
 f(Number);
 ```
 
 但它接受以下函数调用:(上面假设 String 是一个函数)
 
-```
+```ts
 f(String);
 ```
 
@@ -179,7 +176,7 @@ f(String);
 
 注释函数的所有参数是一个很好的实践。你也可以指定返回值类型(但是 TypeScript 很擅长推断):
 
-```
+```js
 function stringify123(callback: (num: number) => string): string {
   const num = 123;
   return callback(num);
@@ -190,18 +187,22 @@ function stringify123(callback: (num: number) => string): string {
 
 void 是函数的一种特殊返回值类型:它告诉 TypeScript 函数总是返回 undefined(显式或隐式):
 
-```
-function f1(): void { return undefined } // OK
-function f2(): void { } // OK
-function f3(): void { return 'abc' } // error
+```js
+function f1(): void {
+  return undefined;
+} // OK
+function f2(): void {} // OK
+function f3(): void {
+  return 'abc';
+} // error
 ```
 
 #### 9.2 可选参数
 
 标识符后面的问号表示该参数是可选的。例如:
 
-```
-function stringify123(callback?: (num: number) => string) {
+```ts
+function stringify1234(callback?: (num: number) => string) {
   const num = 123;
   if (callback) {
     return callback(num); // (A)
@@ -216,8 +217,8 @@ function stringify123(callback?: (num: number) => string) {
 
 TypeScript 支持 ES6 参数默认值:
 
-```
-function createPoint(x=0, y=0) {
+```js
+function createPoint(x = 0, y = 0) {
   return [x, y];
 }
 ```
@@ -225,8 +226,8 @@ function createPoint(x=0, y=0) {
 有默认值表示该参数可选。通常可以省略类型注释，因为 TypeScript 可以推断类型。例如，它可以推断 x 和 y 都是 number 类型。  
 如果您想添加类型注释，应该如下所示。
 
-```
-function createPoint(x:number = 0, y:number = 0) {
+```js
+function createPoint(x: number = 0, y: number = 0) {
   return [x, y];
 }
 ```
@@ -235,9 +236,9 @@ function createPoint(x:number = 0, y:number = 0) {
 
 可以将 ES6 rest 操作符用于 TypeScript 参数定义。对应参数的类型必须是数组:
 
-```
+```js
 function joinNumbers(...nums: number[]): string {
-    return nums.join('-');
+  return nums.join('-');
 }
 joinNumbers(1, 2, 3); // '1-2-3'
 ```
@@ -246,25 +247,25 @@ joinNumbers(1, 2, 3); // '1-2-3'
 
 在 JavaScript 中，变量有时同同时具几种类型。要描述这些变量，可以使用 union 类型。例如，在下面的代码中，x 的类型不是 null 就是 number:
 
-```
+```js
 let x = null;
 x = 123;
 ```
 
 x 的类型可以描述为`null|number`:
 
-```
-let x: null|number = null;
+```js
+let x: null | number = null;
 x = 123;
 ```
 
 我们重写函数 stringify123():这次，我们不希望参数回调是可选的，它应该总是存在。如果调用者不想提供函数，他们必须显式传递 null。具体实现如下:
 
-```
-function stringify123(
-  callback: null | ((num: number) => string)) {
+```js
+function stringify123(callback: null | ((num: number) => string)) {
   const num = 123;
-  if (callback) { // (A)
+  if (callback) {
+    // (A)
     return callback(123); // (B)
   }
   return String(num);
@@ -277,8 +278,8 @@ function stringify123(
 
 T 类型的可选参数和未定义的|T 类型的参数非常相似。(顺便提一句，可选属性也是如此。) 主要区别是你可以省略可选参数:
 
-```
-function f1(x?: number) { }
+```js
+function f1(x?: number) {}
 f1(); // OK
 f1(undefined); // OK
 f1(123); // OK
@@ -286,8 +287,8 @@ f1(123); // OK
 
 但是你不能忽略类型为`undefined|T`的参数:
 
-```
-function f2(x: undefined | number) { }
+```js
+function f2(x: undefined | number) {}
 f2(); // error
 f2(undefined); // OK
 f2(123); // OK
@@ -312,7 +313,7 @@ f2(123); // OK
 
 接口描述了一个对象的记录。例如:
 
-```
+```ts
 interface Point {
   x: number;
   y: number;
@@ -321,11 +322,11 @@ interface Point {
 
 TypeScript 类型系统的一大优势是它在结构上工作，而不是名义上。也就是说，接口点匹配所有具有适当结构的对象:
 
-```
+```js
 function pointToString(p: Point) {
   return `(${p.x}, ${p.y})`;
 }
-pointToString({x: 5, y: 7}); // '(5, 7)'
+pointToString({ x: 5, y: 7 }); // '(5, 7)'
 ```
 
 相反，Java 的 nominal 类型系统需要类来 implement 接口。
@@ -334,7 +335,7 @@ pointToString({x: 5, y: 7}); // '(5, 7)'
 
 如果可以省略某个属性，则在其名称后面加上问号:
 
-```
+```js
 interface Person {
   name: string;
   company?: string;
@@ -345,7 +346,7 @@ interface Person {
 
 接口还可以包含方法:
 
-```
+```js
 interface Point {
   x: number;
   y: number;
@@ -367,7 +368,7 @@ interface Point {
 
 普通变量通过`const、let`等引入。类型变量通过尖括号(< >)引入。例如，下面的代码包含类型变量 T，通过<T>引入。
 
-```
+```js
 interface Stack<T> {
   push(x: T): void;
   pop(): T;
@@ -382,10 +383,12 @@ interface Stack<T> {
 
 如果使用 Stack，则必须为 T 分配一个类型。下面的代码显示了一个虚拟堆栈，其惟一目的是匹配接口。
 
-```
+```js
 const dummyStack: Stack<number> = {
   push(x: number) {},
-  pop() { return 123 },
+  pop() {
+    return 123;
+  },
 };
 ```
 
@@ -393,8 +396,8 @@ const dummyStack: Stack<number> = {
 
 Maps 在 TypeScript 中是通用类型的。例如:
 
-```
-const myMap: Map<boolean,string> = new Map([
+```js
+const myMap: Map<boolean, string> = new Map([
   [false, 'no'],
   [true, 'yes'],
 ]);
@@ -404,7 +407,7 @@ const myMap: Map<boolean,string> = new Map([
 
 函数(和方法)也可以引入类型变量:
 
-```
+```js
 function id<T>(x: T): T {
   return x;
 }
@@ -412,13 +415,13 @@ function id<T>(x: T): T {
 
 您可以像下面这样使用这个函数。
 
-```
-id<number>(123);
+```js
+id < number > 123;
 ```
 
 由于类型推断，您也可以省略类型参数:
 
-```
+```js
 id(123);
 ```
 
@@ -426,9 +429,9 @@ id(123);
 
 函数可以将其类型参数传递给接口、类等:
 
-```
+```js
 function fillArray<T>(len: number, elem: T) {
-  return new Array<T>(len).fill(elem);
+  return new Array() < T > len.fill(elem);
 }
 ```
 
@@ -440,7 +443,7 @@ function fillArray<T>(len: number, elem: T) {
 
 这意味着:我们不需要显式地指定数组<T>的类型 T -它是由参数 elem 推断的:
 
-```
+```js
 const arr = fillArray(3, '*');
 // Inferred type: string[]
 ```
@@ -449,13 +452,10 @@ const arr = fillArray(3, '*');
 
 让我们用我们所学到的知识来理解我们之前看到的这段代码:
 
-```
+```js
 interface Array<T> {
   concat(...items: Array<T[] | T>): T[];
-  reduce<U>(
-    callback: (state: U, element: T, index: number, array: T[]) => U,
-    firstState?: U
-    ): U;
+  reduce<U>(callback: (state: U, element: T, index: number, array: T[]) => U, firstState?: U): U;
 }
 ```
 
