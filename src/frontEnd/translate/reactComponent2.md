@@ -1,7 +1,11 @@
 ---
 title: 展示组件与容器组件(react)
+nav:
+  title: 前端
+  order: 0
 group:
   title: 外文翻译
+  order: 2
 ---
 
 > 原文：[Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)  

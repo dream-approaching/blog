@@ -2,8 +2,10 @@
 title: javascript
 nav:
   title: 前端
+  order: 0
 group:
   title: 基本知识
+  order: 0
 ---
 
 ### 1. JavaScript 有哪些数据类型，它们的区别？
