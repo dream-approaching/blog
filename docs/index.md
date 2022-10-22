@@ -6,7 +6,7 @@ hero:
   desc: 基于 dumi 生成的文档，用于记录前端相关知识和太极笔记
   actions:
     - text: 前端
-      link: /front-end/interview
+      link: /front-end/basic
     - text: 太极
       link: /taji/83
 features:

@@ -3,8 +3,12 @@ title: react hooks
 nav:
   title: 前端
 group:
-  title: Interview
+  title: 基本知识
 ---
+
+### useImageOnLoad
+
+<code src="./hooks/useImageOnLoad/index.tsx"></code>
 
 ### useInterval
 
@@ -29,3 +33,7 @@ group:
 ### useHover
 
 <code src="./hooks/useHover/index.tsx"></code>
+
+### useCopyToClipboard
+
+<code src="./hooks/useCopyToClipboard/index.tsx"></code>
