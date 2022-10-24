@@ -43,6 +43,7 @@ const Video = ({
 
   useEffect(() => {
     const playerDom = document.querySelector(`.${classRandom}`);
+    console.log('%c zjs playerDom:', 'color: #fff;background: #b457ff;', playerDom);
     lazyload.observe(playerDom?.children[0]); // 添加需要被观察的元素。
     return () => {
       setIsShow(true);
@@ -52,7 +53,13 @@ const Video = ({
 
   return (
     <div>
-      <Card headStyle={{ padding: 0 }} bodyStyle={{ padding: 0 }} bordered={false} title={title}>
+      <Card
+        headStyle={{ padding: 0 }}
+        bodyStyle={{ padding: 0 }}
+        bordered={false}
+        title={title}
+        style={{ maxWidth: '500px' }}
+      >
         <Player poster={poster} className={`${classRandom}`}>
           {isShow && <source src={url} />}
           <BigPlayButton className="playBtn" position="center" />
@@ -60,7 +67,12 @@ const Video = ({
         </Player>
       </Card>
       {videoInfo && (
-        <Descriptions bordered size="small" column={{ xxl: 3, xl: 3, lg: 3, md: 1, sm: 1, xs: 1 }}>
+        <Descriptions
+          style={{ maxWidth: '500px' }}
+          bordered
+          size="small"
+          column={{ xxl: 3, xl: 3, lg: 3, md: 1, sm: 1, xs: 1 }}
+        >
           <Descriptions.Item className={styles.descItem} label="老师">
             {videoInfo.name || '刘建成'}
           </Descriptions.Item>

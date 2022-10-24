@@ -16,7 +16,6 @@ export default () => {
     <Video
       title="正常"
       url="https://6465-dev-vza4u-1302956475.tcb.qcloud.la/83/jingangdaodui2/video_attack.mp4?sign=70c43b6a2ac302ee7377e569176b594f&t=1662946308"
-      //   url="http://taiji.zhengjinshou.cn/83/baiheliangchi/video_normal.mp4"
       videoInfo={{ shotName: '吴少华', shotTime: '2019年11月25日' }}
     />
   );

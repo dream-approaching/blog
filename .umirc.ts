@@ -20,6 +20,7 @@ export default defineConfig({
       },
     ],
   ],
+  navs: [null, { title: 'GitHub', path: 'https://github.com/dream-approaching/blog' }],
   // base: '/blog',
   // publicPath: '/blog/'
   // more config: https://d.umijs.org/config
