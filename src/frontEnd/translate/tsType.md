@@ -1,11 +1,7 @@
 ---
 title: 理解 typescript 类型符号
-nav:
-  title: 前端
-  order: 0
 group:
   title: 外文翻译
-  order: 2
 ---
 
 > 原文：[Understanding TypeScript’s type notation](https://2ality.com/2018/04/type-notation-typescript.html)  

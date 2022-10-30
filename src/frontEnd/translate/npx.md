@@ -1,11 +1,8 @@
 ---
 title: npx 简介:一个 npm 的包执行器
-nav:
-  title: 前端
-  order: 0
 group:
   title: 外文翻译
-  order: 2
+  order: 4
 ---
 
 > 原文：[Introducing npx: an npm package runner](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)  

@@ -1,11 +1,7 @@
 ---
 title: React Hook 简介
-nav:
-  title: 前端
-  order: 0
 group:
   title: 外文翻译
-  order: 2
 ---
 
 > 原文：[Introducing Hooks](https://reactjs.org/docs/hooks-intro.html)  
