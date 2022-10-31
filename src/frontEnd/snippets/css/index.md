@@ -8,3 +8,7 @@ group:
 ### checkbox
 
 <code src="./checkbox/index.tsx"></code>
+
+### image-overlay-hover
+
+<code src="./image-overlay-hover/index.tsx"></code>
