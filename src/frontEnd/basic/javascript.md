@@ -213,7 +213,15 @@ if (!a) {
 
 但对于引用类型的数据（主要是对象和数组）来说，变量指向数据的内存地址，保存的只是一个指针，`const` 只能保证这个指针是固定不变的，至于它指向的数据结构是不是可变的，就完全不能控制了。
 
-### 11. 如果 new 一个箭头函数会怎么样
+### 11. 箭头函数与普通函数的区别
+
+- 箭头函数比普通函数更加简洁
+- 箭头函数没有自己的 `this`
+- `call()`、`apply()`、`bind()`等方法不能改变箭头函数中 `this` 的指向
+- 箭头函数不能作为构造函数使用
+- 箭头函数不能用作 `Generator` 函数，不能使用 `yield` 关键字
+
+### 12. 如果 new 一个箭头函数会怎么样
 
 箭头函数是 `ES6` 中的提出来的，它没有 `prototype`，也没有自己的 `this` 指向，更不可以使用 `arguments` 参数，所以不能 New 一个箭头函数。
 
@@ -226,7 +234,7 @@ if (!a) {
 
 所以，上面的第二、三步，箭头函数都是没有办法执行的。
 
-### 12. 箭头函数的 this 指向哪里？
+### 13. 箭头函数的 this 指向哪里？
 
 箭头函数不同于传统 `JavaScript` 中的函数，箭头函数并没有属于自己的 `this`，它所谓的 `this` 是捕获其所在上下文的 `this` 值，作为自己的 `this` 值，并且由于没有属于自己的 `this`，所以是不会被 `new` 调用的，这个所谓的 `this` 也不会被改变。可以⽤ Babel 理解⼀下箭头函数:
 
@@ -251,7 +259,7 @@ var obj = {
 };
 ```
 
-### 13. 扩展运算符的作用及使用场景
+### 14. 扩展运算符的作用及使用场景
 
 （1）对象扩展运算符对象的扩展运算符 (`...`) 用于取出参数对象中的所有可遍历属性，拷贝到当前对象之中。
 
@@ -277,7 +285,7 @@ let baz = { ...bar, ...{ a: 2, b: 4 } }; // {a: 2, b: 4}
 
 利用上述特性就可以很方便的修改对象的部分属性。在 `redux` 中的 `reducer` 函数规定必须是一个纯函数，reducer 中的 state 对象要求不能直接修改，可以通过扩展运算符把修改路径的对象都复制一遍，然后产生一个新的对象返回。
 
-### 14. Proxy 可以实现什么功能？
+### 15. Proxy 可以实现什么功能？
 
 在 Vue3.0 中通过 `Proxy` 来替换原本的 `Object.defineProperty` 来实现数据响应式。
 
@@ -323,7 +331,7 @@ p.a; // 'a' = 2
 
 当然这是简单版的响应式实现，如果需要实现一个 `Vue` 中的响应式，需要在 `get` 中收集依赖，在 `set` 派发更新，之所以 Vue3.0 要使用 `Proxy` 替换原本的 `API` 原因在于 `Proxy` 无需一层层递归为每个属性添加代理，一次即可完成以上操作，性能上更好，并且原本的实现有一些数据更新不能监听到，但是 `Proxy` 可以完美监听到任何方式的数据改变，唯一缺陷就是浏览器的兼容性不好。
 
-### 15. 常用的正则表达式有哪些
+### 16. 常用的正则表达式有哪些
 
 ```js
 // （1）匹配 16 进制颜色值
@@ -341,3 +349,101 @@ var regex = /^1[34578]\d{9}$/g;
 // （5）用户名正则
 var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
 ```
+
+### 17. JavaScript 脚本延迟加载的方式有哪些？
+
+- `script defer` 属性，这个属性会让脚本的加载与文档的解析同步解析，然后在文档解析完成后再执行这个脚本文件，这样的话就能使页面的渲染不被阻塞。多个设置了 `defer` 属性的脚本按规范来说最后是顺序执行的，但是在一些浏览器中可能不是这样。
+- `script async` 属性，这个属性会使脚本异步加载，不会阻塞页面的解析过程，但是当脚本加载完成后立即执行 `js` 脚本，这个时候如果文档没有解析完成的话同样会阻塞。多个 `async` 属性的脚本的执行顺序是不可预测的，一般不会按照代码的顺序依次执行。
+- 动态的创建 `script` 标签来引入 `js` 脚本
+- 使用 `setTimeout` 延迟
+- 让 `JS` 放在文档的底部
+
+### 18. 什么是 DOM 和 BOM？
+
+- DOM 全称是 Document Object Model，也就是文档对象模型。 图中区域 5
+- BOM 全称是 Browser Object Model，也就是浏览器对象模型。 图中区域 1、2、3、4  
+   ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20221031144444.png)
+
+### 19. 为什么函数的 arguments 参数是类数组而不是数组？如何遍历类数组?
+
+`arguments` 是一个对象，它的属性是从 0 开始依次递增的数字，还有 `callee` 和 `length` 等属性，与数组相似；但是它却没有数组常见的方法属性，如 `forEach`, `reduce` 等，所以叫它们类数组。
+
+遍历类数组，有三个方法
+
+- 将数组的方法应用到类数组上，这时候就可以使用 `call` 和 `apply` 方法，如：
+
+  ```js
+  function foo() {
+    Array.prototype.forEach.call(arguments, (a) => console.log(a));
+  }
+  ```
+
+- 使用 `Array.from` 方法将类数组转化成数组：‌
+
+  ```js
+  function foo() {
+    const arrArgs = Array.from(arguments);
+    arrArgs.forEach((a) => console.log(a));
+  }
+  ```
+
+- 使用展开运算符将类数组转化成数组
+
+  ```js
+  function foo() {
+    const arrArgs = [...arguments];
+    arrArgs.forEach((a) => console.log(a));
+  }
+  ```
+
+### 20. escape、encodeURI、encodeURIComponent 的区别
+
+- 字符串编码
+  - `escape` 是对字符串(`string`)进行编码(而另外两种是对 `URL`)，作用是让它们在所有电脑上可读。其中 `ASCII 字母 数字 @\*/+` 这几个字符不会被编码，其余的都会
+- URI 编码
+  - `encodeURI` 是对整个 `URI` 进行转义，将 `URI` 中的非法字符转换为合法字符，所以对于一些在 `URI` 中有特殊意义的字符不会进行转义。
+  - `encodeURIComponent` 是对 `URI` 的组成部分进行转义，所以一些特殊字符也会得到转义。当需要编码 `URL` 中的参数的时候，那么 `encodeURIComponent` 是最好方法。
+    ```js
+    const uri = 'http://www.cnblogs.com/season-huang/some other thing';
+    encodeURI(uri); // 'http://www.cnblogs.com/season-huang/some%20other%20thing'
+    encodeURIComponent(uri); // 'http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2Fsome%20other%20thing'
+    ```
+
+### 21. 封装一个 ajax 请求
+
+```js
+//封装一个ajax请求
+function ajax(options) {
+  //创建XMLHttpRequest对象
+  const xhr = new XMLHttpRequest();
+
+  //初始化参数的内容
+  options = options || {};
+  options.type = (options.type || 'GET').toUpperCase();
+  options.dataType = options.dataType || 'json';
+  const params = options.data;
+
+  //发送请求
+  if (options.type === 'GET') {
+    xhr.open('GET', options.url + '?' + params, true);
+    xhr.send(null);
+  } else if (options.type === 'POST') {
+    xhr.open('POST', options.url, true);
+    xhr.send(params);
+  }
+  //接收请求
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      let status = xhr.status;
+      if (status >= 200 && status < 300) {
+        options.success && options.success(xhr.responseText, xhr.responseXML);
+      } else {
+        options.fail && options.fail(status);
+      }
+    }
+  };
+}
+```
+
+> readyState  
+> ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20221031151530.png)
