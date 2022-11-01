@@ -479,7 +479,7 @@ function ajax(options) {
 
   上面代码的实质是从 `fs` 模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 `ES6` 可以在编译时就完成模块加载，效率要比 `CommonJS` 模块的加载方式高。当然，这也导致了没法引用 `ES6` 模块本身，因为它不是对象。
 
-#### 24. for...in 和 for...of 的区别
+### 24. for...in 和 for...of 的区别
 
 - `for...in` 循环遍历的是对象的属性名，包括原型链上的属性
 - `for...of` 循环遍历的是对象的属性值，不包括原型属性和索引。是 `ES6` 新增的遍历方式
@@ -487,3 +487,99 @@ function ajax(options) {
   - 遍历数组时，会遍历数组的原型链上的属性，而且遍历的顺序不是按照数组的顺序来的，而是按照对象的顺序来的，所以不建议使用 `for in` 来遍历数组
   - 如果不想遍历原型方法和属性的话，可以在循环内部判断一下，使用 `hasOwnProperty()`方法可以判断某属性是不是该对象的实例属性
 - 一个数据结构只要部署了 `Symbol.iterator` 属性，就被视为具有 `iterator` 接口，就可以用 `for...of` 循环遍历它的成员
+
+### 25. Iterator 接口
+
+- 原生具备 Iterator 接口的数据结构如下
+  - Array
+  - Map
+  - Set
+  - String
+  - TypedArray
+  - 函数的 arguments 对象
+  - NodeList 对象
+- 默认调用 Iterator 接口的场合
+  - 解构赋值
+  - 扩展运算符
+  - yield\*
+  - for...of
+  - Array.from()
+  - Map(), Set(), WeakMap(), WeakSet()（比如 new Map([['a',1],['b',2]])）
+  - Promise.all()
+  - Promise.race()
+
+### 26. for 循环使用 await，for of 以及 for await of
+
+```js
+function getData(times) {
+  times = times || 0;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(times);
+    }, times * 1000);
+  });
+}
+```
+
+- for
+
+  ```js
+  let arrays = [2, 1, 3];
+  async function execute() {
+    for (let i = 0; i < arrays.length; i++) {
+      let data = await getData(arrays[i]);
+      console.log('返回结果：' + data);
+    }
+  }
+  execute();
+  //Promise {<pending>} // 立即返回Promise
+  // 返回结果：2 // 2秒后打印
+  // 返回结果：1  // 1秒后打印
+  // 返回结果：3 // 3秒后打印
+  ```
+
+- for of
+  ```js
+  let arrays = [2, 1, 3];
+  async function execute() {
+    let index = 1;
+    for (let item of arrays) {
+      let data = await getData(item);
+      console.log('返回结果：' + data);
+    }
+  }
+  execute();
+  //Promise {<pending>} // 立即返回Promise
+  // 返回结果：2 // 2秒后打印
+  // 返回结果：1  // 1秒后打印
+  // 返回结果：3 // 3秒后打印
+  ```
+- for await...of: 异步迭代器，该方法是主要用来遍历异步对象。是 ES2018 中引入方法。
+
+  ```js
+  let arrays = [getData(2), getData(1), getData(3)];
+  async function execute() {
+    for await (let item of arrays) {
+      console.log('返回结果：' + item);
+    }
+  }
+  execute();
+  //Promise {<pending>} // 立即返回Promise
+  // 返回结果：2 // 2秒后同时返回2和1
+  // 返回结果：1
+  // 返回结果：3 // 又过了1秒返回3
+  ```
+
+总结
+
+- `for`、`for of` 是 `await` 这一行代码在等待，`for await of` 是整个 `for` 在等待；
+- `for...of` 循环用于遍历同步的 `Iterator` 接口。新引入的 `for await...of` 循环，则是用于遍历异步的 `Iterator` 接口
+- `forEach` 中使用 `await` 无效
+- `map`、`filter`、`reduce` 中使用 `await` 将返回一个 `promise`，还需再使用 `Promise.all` 来获取结果
+
+### 27. forEach 和 map 的区别
+
+- `map` 方法会分配内存空间存储新数组并返回
+- `forEach` 方法没有返回值，而是直接对原数组进行操作
+
+> 注: forEach 和 map 不能跳出循环，for of 可以跳出循环
