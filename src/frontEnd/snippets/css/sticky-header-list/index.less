@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  min-height: 400px;
+  place-items: center;
+}
+
+.sticky-stack {
+  height: 320px;
+  margin: 0;
+  overflow-y: auto;
+  color: #fff;
+  background: #37474f;
+  border-radius: 1rem;
+}
+
+.sticky-stack dt {
+  position: sticky;
+  top: 0;
+  padding: 0.25rem 1rem;
+  color: #cfd8dc;
+  font-weight: bold;
+  background: #263238;
+}
+
+.sticky-stack dd {
+  margin: 0;
+  padding: 0.75rem 1rem;
+}
+
+.sticky-stack dd + dt {
+  margin-top: 1rem;
+}

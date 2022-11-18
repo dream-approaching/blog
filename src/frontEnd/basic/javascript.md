@@ -583,3 +583,35 @@ function getData(times) {
 - `forEach` 方法没有返回值，而是直接对原数组进行操作
 
 > 注: forEach 和 map 不能跳出循环，for of 可以跳出循环
+
+### 28. addEventListener 方法的参数和使用
+
+```js
+target.addEventListener(type, listener, options);
+target.addEventListener(type, listener, useCapture);
+target.addEventListener(type, listener, useCapture, wantsUntrusted);
+```
+
+- `type`  
+  一个区分大小写的字符串，表示要侦听的事件类型。
+- `listener`  
+  一个监听器对象，或者是一个实现了 EventListener 接口的对象，或者是一个函数。
+- `options`
+
+  - `capture?:boolean`  
+    可选的一个布尔值，指示此类型的事件将在被分派到 `DOM` 树中它下面的 `listener` 任何事件之前被分派到 已注册的。`EventTarget` 如果未指定，则默认为 `false`.
+
+  - `once?:boolean`  
+    指示 `listener` 在添加后最多应调用一次。如果 `true`，则 `listener` 在调用时将自动删除。如果未指定，则默认为 `false`.
+
+  - `passive?:boolean`  
+    可选的一个布尔值，如果 `true`，则表示由 指定的函数 `listener` 永远不会调用 `preventDefault()`。如果被动侦听器确实调用 `preventDefault()`了，则用户代理除了生成控制台警告外什么都不做。一般情况下默认为 `false` 。在 `Safari` 和 `Internet Explorer` 以外的浏览器中，`wheel`, `mousewheel`, `touchstart`， `touchmove` 事件默认为`true`
+
+  - `signal:AbortSignal`  
+    当调用给定 `AbortSignal` 对象的 `abort()` 方法时，侦听器将被删除。如果未指定，则 `noAbortSignal` 与侦听器相关联。
+
+### 29. call、apply、bind 的区别
+
+- `apply` 接收两个参数，第一个参数指定了函数体内 this 对象的指向，第二个参数是一个参数数组 `fun.apply(this, [arg1, arg2, ...])`
+- `call` 和 `apply` 功能一样，区别在于接收的是若干个参数列表 `fun.call(this, arg1, arg2, ...)`
+- `bind` 返回一个函数，需要手动调用。参数形式和 `call` 一致，第一个参数是 this 指向，后面的参数是函数的参数 `fun.bind(this, arg1, arg2, ...)()`

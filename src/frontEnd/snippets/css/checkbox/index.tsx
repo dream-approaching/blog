@@ -16,8 +16,8 @@ export default function Checkbox() {
       </svg>
 
       <div className="checkbox-container">
-        <input className="checkbox-input" id="apples" type="checkbox" />
-        <label className="checkbox" htmlFor="apples">
+        <input className="checkbox-input" id="checkbox-input-apples" type="checkbox" />
+        <label className="checkbox" htmlFor="checkbox-input-apples">
           <span>
             <svg width="12px" height="10px">
               <use xlinkHref="#check"></use>
@@ -25,8 +25,8 @@ export default function Checkbox() {
           </span>
           <span>Apples</span>
         </label>
-        <input className="checkbox-input" id="oranges" type="checkbox" />
-        <label className="checkbox" htmlFor="oranges">
+        <input className="checkbox-input" id="checkbox-input-oranges" type="checkbox" />
+        <label className="checkbox" htmlFor="checkbox-input-oranges">
           <span>
             <svg width="12px" height="10px">
               <use xlinkHref="#check"></use>
