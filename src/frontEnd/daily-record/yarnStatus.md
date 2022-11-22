@@ -18,7 +18,7 @@ group:
 
 > 参考与延伸
 >
-> - [What does "Linking Dependencies" during npm / yarn install really do?](https://stackoverflow.com/questions/50683248/what-does-linking-dependencies-during-npm-yarn-install-really-do)
+> - [stack overflow: What does "Linking Dependencies" during npm / yarn install really do?](https://stackoverflow.com/questions/50683248/what-does-linking-dependencies-during-npm-yarn-install-really-do)
 > - [yarn 文档](https://classic.yarnpkg.com/en/docs)
 > - [yarn 的 Building fresh packages 到底是在干啥呀？](https://www.eliseos.org/en/water/post/208)
 > - [npm scripts 使用指南](https://www.ruanyifeng.com/blog/2016/10/npm_scripts.html)
