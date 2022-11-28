@@ -10,6 +10,7 @@
 - daily-record 日常记录 50
 - interview 面试相关 60
 - translate 外文翻译 70
+- error-record 日常报错记录 80
 
 <!-- todo -->
 
