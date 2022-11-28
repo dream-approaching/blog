@@ -1,7 +1,7 @@
 ---
 title: 捕获冒泡
 group:
-  title: 面试相关
+  title: Interview
 ---
 
 ### 1. 基本概念

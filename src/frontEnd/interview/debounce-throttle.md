@@ -1,7 +1,7 @@
 ---
 title: 防抖节流
 group:
-  title: 面试相关
+  title: Interview
 ---
 
 ### 1. 基本概念

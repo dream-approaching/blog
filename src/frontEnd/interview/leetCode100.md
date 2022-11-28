@@ -1,7 +1,7 @@
 ---
 title: leetCode Hot 100
 group:
-  title: 面试相关
+  title: Interview
 ---
 
 ### 两数之和
