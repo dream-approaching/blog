@@ -1,5 +1,5 @@
 ---
-title: mac/linux
+title: 类Unix系统，含MacOS和Linux
 group:
   title: 常用命令行
 ---

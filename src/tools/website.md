@@ -25,6 +25,7 @@ nav:
 |    Carbon    |       代码变图片        |           https://carbon.now.sh/            |
 |  MakingCSS   |       在线调 css3       |           https://makingcss.com/            |
 |   caniuse    |         兼容性          |            https://caniuse.com/             |
+| statcounter  |    浏览器时长占有率     |         https://gs.statcounter.com/         |
 |  createapp   | 可视化生成 webpack 配置 |           https://createapp.dev/            |
 |  gitignore   |     生成.gitignore      | https://www.toptal.com/developers/gitignore |
 | base64-image |      图片转 base64      |        https://www.base64-image.de/         |
@@ -34,3 +35,4 @@ nav:
 |    runkit    |   js、node 等在线沙盒   |             https://runkit.com/             |
 |   globster   |  可视化 glob 模式匹配   |            https://globster.xyz/            |
 |    knowem    |   是否开启了 ogp 协议   |           https://smo.knowem.com/           |
+| explainshell |     命令行语句解释      |          https://explainshell.com/          |
