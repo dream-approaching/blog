@@ -2,7 +2,7 @@
 title: 事件循环
 group:
   title: Interview
-  order: 60
+  order: 29
 ---
 
 ### 1. 为什么 js 在浏览器中有事件循环的机制？

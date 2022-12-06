@@ -2,7 +2,7 @@
 title: Git
 group:
   title: 常用命令行
-  order: 40
+  order: 59
 ---
 
 ### 配置 git 用户信息

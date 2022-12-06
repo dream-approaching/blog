@@ -6,12 +6,13 @@
 - snippets 代码片段 10
 - typescript Typescript 20
 - nodejs NodeJs 25
-- keymap 常用快捷键 30
-- terminal 常用命令行 40
-- daily-record 日常记录 50
-- interview Interview 60
+- interview Interview 29
+- linux linux 35
+- daily-record 日常记录 39
+- keymap 常用快捷键 49
+- terminal 常用命令行 59
 - translate 外文翻译 70
-- error-record 日常报错记录 80
+- error-record 报错记录 80
 
 <!-- todo -->
 
