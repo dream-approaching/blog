@@ -23,6 +23,7 @@ nav:
 | :----------: | :---------------------: | :-----------------------------------------: |
 |   oktools    |      一些工具集合       |            https://oktools.net/             |
 |    Carbon    |       代码变图片        |           https://carbon.now.sh/            |
+|    picsum    |   随机生成图片的接口    |           https://picsum.photos/            |
 |  MakingCSS   |       在线调 css3       |           https://makingcss.com/            |
 |   caniuse    |         兼容性          |            https://caniuse.com/             |
 | statcounter  |    浏览器时长占有率     |         https://gs.statcounter.com/         |

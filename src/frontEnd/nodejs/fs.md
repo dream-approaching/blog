@@ -4,3 +4,9 @@ group:
   title: NodeJs
   order: 35
 ---
+
+### 读取文件
+
+```js
+
+```

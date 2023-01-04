@@ -36,7 +36,7 @@ git branch --sort=-committerdate
 
 设置别名
 
-```shell
+```sh
 git config --global alias.<alias> <command>
 
 
@@ -48,10 +48,22 @@ git co -b test
 
 查看所有别名
 
-```shell
+```sh
 git config -l | grep alias | sed 's/^alias\.//g'
 
 # eg:
 git config -l | grep alias | sed 's/^alias\.//g'
 co=checkout
+```
+
+### 查找包含指定提交的 Git 分支
+
+```sh
+git branch --contains <commit>
+
+# eg:
+git branch -r --contains 12467e8
+# origin/dev
+# origin/feature/20221124-radarRefactor-zjs
+# origin/release/20221215
 ```
