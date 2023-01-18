@@ -615,3 +615,133 @@ target.addEventListener(type, listener, useCapture, wantsUntrusted);
 - `apply` 接收两个参数，第一个参数指定了函数体内 this 对象的指向，第二个参数是一个参数数组 `fun.apply(this, [arg1, arg2, ...])`
 - `call` 和 `apply` 功能一样，区别在于接收的是若干个参数列表 `fun.call(this, arg1, arg2, ...)`
 - `bind` 返回一个函数，需要手动调用。参数形式和 `call` 一致，第一个参数是 this 指向，后面的参数是函数的参数 `fun.bind(this, arg1, arg2, ...)()`
+
+### 30. 对原型链的理解
+
+- 原型链是一种机制，指的是 `JavaScript` 每个对象都有一个内置的 `__proto__` 属性指向它的原型对象
+- 它的作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么就会去它的 `__proto__` 属性所指向的那个对象里找，如果父对象也不存在这个属性，则继续往上找，直到原型链顶端 `null`，由以上这种通过 `__proto__` 属性来连接对象直到 `null` 的一条链即为我们所谓的原型链
+- 我们平时调用的字符串方法、数组方法、对象方法、函数方法等都是靠 `__proto__` 继承而来的。
+- 图形理解  
+  ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20230118175459.png)
+
+> 参考: [CSDN——prototype、proto 与 constructor](https://blog.csdn.net/cc18868876837/article/details/81211729)  
+> 参考: [知乎——JavaScript 世界万物诞生记](https://zhuanlan.zhihu.com/p/22989691)
+
+### 31. 实现继承的几种方式
+
+```js
+// 假设有父类 Parent
+function Parent(name, age) {
+  this.name = name;
+  this.age = age;
+  this.colors = ['red', 'blue', 'yellow'];
+}
+Parent.prototype.showName = function () {
+  console.log(this.name);
+};
+```
+
+- 原型链继承
+
+  ```js
+  function Child() {}
+  Child.prototype = new Parent(); // 原型链继承
+  var a = new Child();
+  var b = new Child();
+  // 可以访问到父类的属性和方法，但是无法向实例传参
+  console.log(a.showName()); // undefined
+  console.log(a.colors); // ["red","blue","yellow"]
+  console.log(b.colors); // ["red","blue","yellow"]
+
+  // colors 是引用类型，所以会影响到其他实例
+  a.colors.push('black');
+  console.log(a.colors); // ["red","blue","yellow","black"]
+  console.log(b.colors); // ["red","blue","yellow","black"]
+  ```
+
+- 构造函数继承
+
+  ```js
+  function Child(name, age) {
+    Parent.call(this, name, age); // 或apply  构造函数继承
+  }
+  Child.prototype.showChildName = function () {
+    console.log(this.name);
+  };
+
+  // 可以向实例传参
+  var child1 = new Child('longzi', 23);
+  var child2 = new Child('xiaofeng', 18);
+
+  // 修改引用类型的属性，不会影响到其他实例
+  child1.colors.push('black');
+  console.log(child1.colors); // ["red", "blue", "yellow", "black"]
+  console.log(child2.colors); //["red", "blue", "yellow"]
+
+  // 可以继承父类的属性和方法
+  console.log(child1.name, child1.age); // longzi, 23
+  console.log(child2.name, child2.age); // xiaofeng, 18
+  console.log(child1.showChildName()); // longzi
+  console.log(child2.showChildName()); // xiaofeng
+
+  // 无法继承父类原型上的属性和方法
+  console.log(child1.showName()); // Uncaught TypeError: child1.showName is not a function
+  console.log(child2.showName()); // Uncaught TypeError: child2.showName is not a function
+  ```
+
+- 组合继承(原型链+构造函数)
+
+  ```js
+  function Child(name, age) {
+    Parent.call(this, name, age); // 构造函数继承
+  }
+  Child.prototype = new Parent(); // 原型链继承
+
+  // 可以向实例传参
+  var child1 = new Child('longzi', 23);
+  var child2 = new Child('xiaofeng', 18);
+
+  // 修改引用类型的属性，不会影响到其他实例
+  child1.colors.push('black');
+  console.log(child1.colors); // ["red", "blue", "yellow", "black"]
+  console.log(child2.colors); //["red", "blue", "yellow"]
+
+  // 可以继承父类原型上的属性和方法
+  console.log(child1.showName()); // longzi
+  ```
+
+- Object.create()
+  ```js
+  function Child(name, age) {
+    Parent.call(this, name, age); // 构造函数继承
+  }
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child; // 修正构造函数指向
+  var child1 = new Child('longzi', 23);
+  var child2 = new Child('xiaofeng', 18);
+  child1.colors.push('black');
+  console.log(child1.colors); // ["red", "blue", "yellow", "black"]
+  console.log(child2.colors); //["red", "blue", "yellow"]
+  console.log(child1.showName()); // longzi
+  ```
+- ES6: extends
+  ```js
+  class Parent {}
+  class Child1 extends Parent {
+    constructor(x, y, colors) {
+      super(x, y); // 调用父类的constructor(x, y)
+      this.colors = colors;
+    }
+    toString() {
+      return this.colors + ' ' + super.toString(); // 调用父类的toString()
+    }
+  }
+  ```
+
+| --- | 优点 | 缺点 |
+| --- | --- | --- |
+| 原型链继承 | 可以继承原型链上的属性和方法，查找效率高 | 1.父类实例属性为引用类型时，不恰当地修改会导致所有子类被修改</br> 2.无法给实例传递参数 |
+| 构造函数继承 | 1.可以在 Child 中向 Parent 传参</br>2.避免了引用类型的属性被所有实例共享 | 父类原型上的东西是没法继承的 |
+| 组合继承 | 解决上述两种方式的缺点 | 调用了两次父类的构造函数 |
+| Object.create() | 1.解决上述三种方式的缺点</br>2.ES5 首选 | 暂无 |
+| class.extends | 清晰 方便 | 注意：子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。 |
