@@ -4,6 +4,8 @@ title: Javascript
 
 ## Array
 
+### 重复
+
 ```js
 // 删除两个数组中重复的元素(找出两个数组不同的元素)
 export function difference(arr, repeatArr) {

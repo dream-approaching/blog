@@ -5,9 +5,11 @@ group:
   order: 35
 ---
 
+## nginx 相关
+
 #### 1. 服务器重启后 nginx 启动不了
 
-```sh
+```shell
 nginx: [error] open() "/run/nginx.pid" failed (2: No such file or directory)
 ```
 
@@ -15,7 +17,7 @@ nginx: [error] open() "/run/nginx.pid" failed (2: No such file or directory)
 
 #### 2. Nginx 允许跨域配置
 
-```sh
+```shell
 location / {
     add_header Access-Control-Allow-Origin *;
     add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';

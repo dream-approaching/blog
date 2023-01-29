@@ -4,6 +4,8 @@ group:
   title: Interview
 ---
 
+## 捕获冒泡
+
 ### 1. 基本概念
 
 > - 捕获：自顶向下

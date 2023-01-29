@@ -1,8 +1,10 @@
 ---
 title: PM2
 group:
-  title: 常用命令行
+  title: 常用命令行或快捷键
 ---
+
+## 命令行
 
 ### 执行 npm script
 
@@ -24,12 +26,10 @@ group:
 }
 ```
 
-```sh
+```shell
 # pm2 启动 dev
 pm2 start npm --name "cidian-server" -- run "dev"
-```
 
-```sh
 # 查看已启动服务
 pm2 ls
 ```

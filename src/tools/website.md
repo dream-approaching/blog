@@ -8,14 +8,15 @@ nav:
 
 ### 日常
 
-|     网站     |       描述       |                 链接                  |
-| :----------: | :--------------: | :-----------------------------------: |
-|  Excalidraw  |  简易流程图工具  |        https://excalidraw.com/        |
-|   draw.io    |   在线画图工具   |       https://app.diagrams.net/       |
-|   tinypng    |     图片压缩     |         https://tinypng.com/          |
-|     稿定     |   在线作图(PS)   | https://www.gaoding.com/dam/my-space/ |
-| cloudconvert |     格式转换     |       https://cloudconvert.com/       |
-|  clipchamp   | 视频剪辑，压缩等 |       https://clipchamp.com/en/       |
+|     网站     |       描述        |                 链接                  |
+| :----------: | :---------------: | :-----------------------------------: |
+|  Excalidraw  |  简易流程图工具   |        https://excalidraw.com/        |
+|   draw.io    |   在线画图工具    |       https://app.diagrams.net/       |
+|   tinypng    |     图片压缩      |         https://tinypng.com/          |
+|     稿定     |   在线作图(PS)    | https://www.gaoding.com/dam/my-space/ |
+| cloudconvert |     格式转换      |       https://cloudconvert.com/       |
+|  clipchamp   | 视频剪辑，压缩等  |       https://clipchamp.com/en/       |
+|   改图神器   | AI 万能图片编辑器 |        https://img.logosc.cn/         |
 
 ### 代码相关
 

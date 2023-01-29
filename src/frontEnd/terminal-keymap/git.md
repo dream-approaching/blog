@@ -1,9 +1,11 @@
 ---
 title: Git
 group:
-  title: 常用命令行
+  title: 常用命令行或快捷键
   order: 59
 ---
+
+# Git
 
 ### 配置 git 用户信息
 
@@ -36,7 +38,7 @@ git branch --sort=-committerdate
 
 设置别名
 
-```sh
+```shell
 git config --global alias.<alias> <command>
 
 
@@ -48,7 +50,7 @@ git co -b test
 
 查看所有别名
 
-```sh
+```shell
 git config -l | grep alias | sed 's/^alias\.//g'
 
 # eg:
@@ -58,7 +60,7 @@ co=checkout
 
 ### 查找包含指定提交的 Git 分支
 
-```sh
+```shell
 git branch --contains <commit>
 
 # eg:

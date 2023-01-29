@@ -5,53 +5,90 @@ group:
   order: 20
 ---
 
-### 参数类型注释
+## Function
+
+### 1. 参数类型注释
 
 ```ts
 function greet(name: string) {
   console.log('Hello, ' + name.toUpperCase() + '!!');
 }
+const greet = (name: string) => {
+  console.log('Hello, ' + name.toUpperCase() + '!!');
+};
 
 // 参数是对象
 function printCoord(pt: { x: number; y: number }) {
   console.log("The coordinate's x value is " + pt.x);
   console.log("The coordinate's y value is " + pt.y);
 }
+const printCoord = (pt: { x: number; y: number }) => {
+  console.log("The coordinate's x value is " + pt.x);
+  console.log("The coordinate's y value is " + pt.y);
+};
 
 // 参数是对象 可选
 function printName(obj: { first: string; last?: string }) {
   // ...
 }
+const printName = (obj: { first: string; last?: string }) => {
+  // ...
+};
 
-// 联合类型
+// 参数是联合类型
 function printId(id: number | string) {
   console.log('Your ID is: ' + id);
 }
+const printId = (id: number | string) => {
+  console.log('Your ID is: ' + id);
+};
 
 // 参数是函数
 function greeter(fn: (a: string) => void) {
   fn('Hello, World');
 }
+const greeter = (fn: (a: string) => void) => {
+  fn('Hello, World');
+};
 
-// 泛型参数
+// 参数是泛型参数
 function firstElement<Type>(arr: Type[]): Type | undefined {
   return arr[0];
 }
-// 泛型参数
+const firstElement = <T, N>(arr: T[]): T | undefined => {
+  return arr[0];
+};
+const firstElement: <T>(arr: T[]) => T | undefined = (arr) => {
+  return arr[0];
+};
+
+// 参数是泛型参数
 function map<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
   return arr.map(func);
 }
+const map2 = <Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] => {
+  return arr.map(func);
+};
+const map3: <Input, Output>(arr: Input[], func: (arg: Input) => Output) => Output[] = (
+  arr,
+  func,
+) => {
+  return arr.map(func);
+};
 ```
 
-### 返回类型注释
+### 2. 返回类型注释
 
 ```ts
 function getFavoriteNumber(): number {
   return 26;
 }
+const getFavoriteNumber2 = (): number => {
+  return 26;
+};
 ```
 
-### 常用示例
+### 3. 常用示例
 
 ```ts
 function sanitizeInput(str: string): string {

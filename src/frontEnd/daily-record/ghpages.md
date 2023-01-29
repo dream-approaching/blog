@@ -4,7 +4,7 @@ group:
   title: 日常记录
 ---
 
-### 通过 Github Actions 自动部署到服务器中
+## 通过 Github Actions 自动部署到服务器中
 
 1. 项目根目录加`.github/workflows/deploy.yml`
 2. 文件内容示例
@@ -64,7 +64,7 @@ group:
 
 常出现于 history 路由模式，路由跳转是 js 操作，刷新后服务器没有匹配的处理方法，因此需要将请求转交给 js 去执行
 
-```sh
+```shell
 server {
     listen       80;
     server_name  localhost;
