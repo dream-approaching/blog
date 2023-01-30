@@ -2,7 +2,7 @@
 title: nginx相关
 group:
   title: Linux
-  order: 35
+  order: 55
 ---
 
 ## nginx 相关
