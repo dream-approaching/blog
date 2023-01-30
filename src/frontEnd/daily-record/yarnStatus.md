@@ -1,6 +1,5 @@
 ---
 title: 在NPM / YARN安装期间，执行了哪些步骤
-order: 30
 group:
   title: 日常记录
   order: 39
