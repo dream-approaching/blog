@@ -8,7 +8,7 @@ hero:
     - text: 前端
       link: /front-end/basic
     - text: 太极
-      link: /taji/83
+      link: /taiji/83
 features:
   - icon: /web.png
     title: 前端相关
