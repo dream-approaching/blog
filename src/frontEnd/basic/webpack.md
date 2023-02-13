@@ -70,3 +70,43 @@ group:
 > - `webpack.optimize.MinChunkSizePlugin`: 防止过小的 chunk 被创建
 > - `webpack.optimize.AggressiveSplittingPlugin`: 分割 chunk
 > - `webpack.optimize.LimitChunkCountPlugin`: 限制 chunk 的数量
+
+### 3. webpack5 有哪些新特性
+
+- 移除了对 Node.js v10 的支持
+- 新增了长期缓存的算法，生产环境是默认开启的
+- 新增了资源模块类型，用于替代 `file-loader` 、`url-loader`和 `raw-loader`
+- 模块联邦: 允许一个应用程序使用来自另一个应用程序的代码，
+- 更好的 tree shaking 支持，支持 ES 模块语法
+- 内置的 HMR 支持，不需要再使用 `webpack-dev-server`
+- 内置 terser-webpack-plugin 插件，用于压缩 JS 代码
+
+### 4. 怎么优化 Webpack 的构建速度
+
+- 使用高版本的 Webpack
+- 多线程/多实例构建：HappyPack(不维护了)、thread-loader
+- 使用 DllPlugin 提高第三方库的构建速度
+- 压缩代码
+  - UglifyJsPlugin
+  - TerserPlugin
+  - mini-css-extract-plugin
+- 图片压缩
+  - image-webpack-loader
+  - imagemin-webpack-plugin
+- 缩小打包作用域
+  - exclude/include，优先使用 include
+  - noParse, 用于忽略那些没有依赖的第三方库
+  - IgnorePlugin 忽略某些文件
+  - resolve.modules 指明第三方模块的绝对路径 (减少不必要的查找)
+- tree-shaking
+  - mode: production
+  - sideEffects: false
+  - resolve.mainFields: ['module', 'main']
+  - resolve.extensions: ['.js', '.jsx', '.ts', '.tsx']
+- 代码分割
+  - SplitChunksPlugin
+  - 动态导入
+- 缓存
+  - babel-loader 开启缓存
+  - cache-loader
+  - hard-source-webpack-plugin

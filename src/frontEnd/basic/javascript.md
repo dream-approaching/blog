@@ -1,5 +1,6 @@
 ---
 title: javascript
+order: 20
 nav:
   title: 前端
   order: 0
@@ -745,3 +746,133 @@ Parent.prototype.showName = function () {
 | 组合继承 | 解决上述两种方式的缺点 | 调用了两次父类的构造函数 |
 | Object.create() | 1.解决上述三种方式的缺点</br>2.ES5 首选 | 暂无 |
 | class.extends | 清晰 方便 | 注意：子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。 |
+
+### 32. 什么是闭包？闭包的优缺点？有哪些常见的闭包使用场景？
+
+#### 32.1. 闭包
+
+闭包是指有权访问另一个函数作用域中变量的函数，创建闭包的最常见的方式就是在一个函数内创建另一个函数，创建的函数可以访问到当前函数的局部变量。
+
+```js
+// bar 是一个闭包
+function foo() {
+  var a = 2;
+  function bar() {
+    console.log(a);
+  }
+  return bar;
+}
+```
+
+#### 32.2. 闭包的优缺点
+
+- 优点
+  - 可以读取函数内部的变量
+  - 让这些变量的值始终保持在内存中
+- 缺点
+  - 会增大内存使用量
+  - 使用不当很容易造成内存泄漏
+
+#### 32.3. 常见的闭包使用场景
+
+- 防抖和节流
+- react hooks
+
+### 33. 深拷贝和浅拷贝
+
+#### 33.1. 浅拷贝
+
+浅拷贝只会拷贝一层对象，如果对象的属性值是对象类型，那么拷贝出来的结果是对象的引用。
+
+```js
+var obj = {
+  a: 1,
+  b: {
+    c: 2,
+  },
+};
+var obj2 = Object.assign({}, obj);
+obj2.a = 3;
+obj2.b.c = 4;
+console.log(obj); // {a: 1, b: {c: 4}}
+console.log(obj2); // {a: 3, b: {c: 4}}
+```
+
+#### 33.2. 深拷贝
+
+深拷贝会把一个对象从内存中完整的拷贝一份出来，从堆内存中开辟一个新的区域存放新对象，修改新对象不会影响原对象。
+
+```js
+var obj = {
+  a: 1,
+  b: {
+    c: 2,
+  },
+};
+var obj2 = JSON.parse(JSON.stringify(obj));
+obj2.a = 3;
+obj2.b.c = 4;
+console.log(obj); // {a: 1, b: {c: 2}}
+console.log(obj2); // {a: 3, b: {c: 4}}
+```
+
+#### 33.3. 赋值和浅拷贝深拷贝的区别
+
+赋值是将某一数值或对象赋给某个变量的过程，分两种情况：
+
+- 基本数据类型：赋值，赋值后两个变量互不影响
+- 引用数据类型: 赋址，两个变量指向同一个地址，同一个对象，相互之间有影响
+
+对引用数据类型进行赋址操作，两个变量指向同一个对象，改变变量 a 的值会影响变量 b 的值，哪怕改变的只是对象 a 中的基础数据类型：
+
+```js
+var a = {
+  name: 'Jane',
+  book: {
+    name: 'Vue.js',
+    price: 50,
+  },
+};
+var b = a;
+b.name = 'hahaha';
+b.book.price = 52;
+console.log(a); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
+console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
+```
+
+#### 33.4. 常用深拷贝、浅拷贝方法
+
+- 浅拷贝
+  - Object.assign: 第一级属性是深拷贝，第二级属性是浅拷贝
+  - 扩展运算符: 第一级属性是深拷贝，第二级属性是浅拷贝
+  - Array.prototype.slice()
+  - Array.prototype.concat()
+  - Array.from()
+- 深拷贝
+  - 递归
+    ```js
+    function deepClone(obj) {
+      if (typeof obj !== 'object' || obj === null) {
+        return obj;
+      }
+      let result = Array.isArray(obj) ? [] : {};
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          result[key] = deepClone(obj[key]);
+        }
+      }
+      return result;
+    }
+    ```
+  - JSON parse
+    ```js
+    function deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+    ```
+  - lodash
+    ```js
+    function deepClone(obj) {
+      return _.cloneDeep(obj);
+    }
+    ```

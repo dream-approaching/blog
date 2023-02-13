@@ -13,10 +13,10 @@ group:
 
 ### 2. Promise.all 有什么特性？
 
-> 接收一个 `promise` 数组，数组中不一定都是 `promise`，如果不是 `promise`，会先调用 `Promise.resolve` 转换成 `promise`  
-> 返回一个 `promise`，`resolve` 的结果是一个数组，数组中的元素是 `promise` resolve 的结果，顺序和 `promise` 数组中的顺序一致  
-> `Promise.all` 会等待所有的 `promise` 都 `resolve` 之后才会 `resolve`，如果有一个 `reject` 了，就会立即 `reject`，不会等待其他的 `promise resolve` 或者 `reject`  
-> 如果其中一个 `promise` 报错了，那其他的 `promise` 还会执行，因为 `promise` 是在创建的时候就会执行的，不会等到 `then` 的时候才执行
+> - 接收一个 `promise` 数组，数组中不一定都是 `promise`，如果不是 `promise`，会先调用 `Promise.resolve` 转换成 `promise`
+> - 返回一个 `promise`，`resolve` 的结果是一个数组，数组中的元素是 `promise` resolve 的结果，顺序和 `promise` 数组中的顺序一致
+> - `Promise.all` 会等待所有的 `promise` 都 `resolve` 之后才会 `resolve`，如果有一个 `reject` 了，就会立即 `reject`，不会等待其他的 `promise resolve` 或者 `reject`
+> - 如果其中一个 `promise` 报错了，那其他的 `promise` 还会执行，因为 `promise` 是在创建的时候就会执行的，不会等到 `then` 的时候才执行
 
 ### 3. 手写一个 promise.all
 

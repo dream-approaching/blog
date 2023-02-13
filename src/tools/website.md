@@ -38,3 +38,24 @@ nav:
 |   globster   |  可视化 glob 模式匹配   |            https://globster.xyz/            |
 |    knowem    |   是否开启了 ogp 协议   |           https://smo.knowem.com/           |
 | explainshell |     命令行语句解释      |          https://explainshell.com/          |
+
+### 页面性能检测
+
+|        网站        |                          链接                           |
+| :----------------: | :-----------------------------------------------------: |
+|     Lighthouse     |   https://developers.google.com/web/tools/lighthouse    |
+| PageSpeed Insights | https://developers.google.com/speed/pagespeed/insights/ |
+|    WebPageTest     |              https://www.webpagetest.org/               |
+|      Pingdom       |               https://tools.pingdom.com/                |
+|      GTmetrix      |                  https://gtmetrix.com/                  |
+|    WebPageTest     |              https://www.webpagetest.org/               |
+
+### 常用 CDN
+
+|    网站     |                链接                 |
+| :---------: | :---------------------------------: |
+| polyfill.io | https://polyfill.io/v3/url-builder/ |
+|  jsDelivr   |      https://www.jsdelivr.com/      |
+|    unpkg    |         https://unpkg.com/          |
+|    cdnjs    |         https://cdnjs.com/          |
+|   bootcdn   |       https://www.bootcdn.cn/       |
