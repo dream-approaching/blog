@@ -1,13 +1,13 @@
 ---
 title: 算法
-order: 90
+order: 900
 group:
   title: Interview
 ---
 
 ## 算法
 
-### 接雨水
+### 1、接雨水
 
 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
 
@@ -130,5 +130,57 @@ var trap = function (height) {
   }
 
   return sum;
+};
+```
+
+### 2、背包问题
+
+给你一个可装载重量为 W 的背包和 N 个物品，每个物品有重量和价值两个属性。其中第 i 个物品的重量为 wt[i]，价值为 val[i]，现在让你用这个背包装物品，最多能装的价值是多少？
+
+举个简单的例子，输入如下：
+
+```js
+(N = 3), (W = 4);
+wt = [2, 1, 3];
+val = [4, 2, 3];
+
+// 输出 6，选择前两件物品装进背包，总重量 3 小于 W，可以获得最大价值 6。
+```
+
+#### 1、暴力递归
+
+```js
+/**
+ * 1. 暴力递归
+ * 时间复杂度：O(2^n)
+ * 空间复杂度：O(n)
+ * @param {number} N
+ * @param {number} W
+ * @param {number[]} wt
+ * @param {number[]} val
+ * @return {number}
+ */
+var knapsack = function (N, W, wt, val) {
+  /**
+   * @param {number} i 当前考察到的物品
+   * @param {number} w 当前背包的剩余容量
+   */
+  function dp(i, w) {
+    // 如果没有物品或者背包没有空间了，返回 0
+    if (i < 0 || w <= 0) return 0;
+
+    let res = 0;
+    if (w - wt[i] >= 0) {
+      // 如果背包放入第 i 个物品的重量不超过背包的剩余容量，那么就可以放入
+      res = val[i] + dp(i - 1, w - wt[i]);
+    }
+
+    res = Math.max(res, dp(i - 1, w));
+
+    return res;
+  }
+
+  // 第一次调用的时候，i 是物品的最大索引，w 是背包的容量
+  return dp(N - 1, W);
 };
 ```

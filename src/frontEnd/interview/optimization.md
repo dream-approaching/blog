@@ -1,6 +1,6 @@
 ---
 title: 性能优化
-order: 35
+order: 60
 group:
   title: Interview
 ---
@@ -106,17 +106,39 @@ const urls = [
 
 const loadImg = (url) => {
   return new Promise((resolve, reject) => {
-    console.log('----', url.info, 'start');
+    console.log(`---- ${url.info} start`);
 
     // 模拟图片加载
     setTimeout(() => {
-      console.log('----', url.info, 'end');
+      console.log(`---- ${url.info} end`);
       resolve();
     }, url.time);
   });
 };
 
-function limitLoad(urls, handler, limit) {}
+function limitLoad(urls, handler, limit) {
+  let promises = [];
+
+  promises = urls.splice(0, limit).map((url, index) => {
+    return handler(url).then(() => {
+      return index;
+    });
+  });
+  console.log('%c zjs promises1:', promises);
+
+  // 选出第一个完成的 promise
+  let p = Promise.race(promises);
+  for (let i = 0; i < urls.length; i++) {
+    p = p.then((res) => {
+      promises[res] = handler(urls[i]).then(() => {
+        return res;
+      });
+
+      console.log('%c zjs promises2:', promises);
+      return Promise.race(promises);
+    });
+  }
+}
 
 limitLoad(urls, loadImg, 3);
 ```

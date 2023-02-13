@@ -1,6 +1,6 @@
 ---
 title: leetCode Hot 100
-order: 100
+order: 1000
 group:
   title: Interview
 ---
