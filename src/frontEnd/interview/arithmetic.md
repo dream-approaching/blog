@@ -147,40 +147,47 @@ val = [4, 2, 3];
 // 输出 6，选择前两件物品装进背包，总重量 3 小于 W，可以获得最大价值 6。
 ```
 
-#### 1、暴力递归
+#### 1、排序逐个放入背包
 
 ```js
 /**
- * 1. 暴力递归
- * 时间复杂度：O(2^n)
+ * 排序逐个放入背包
+ * 时间复杂度：O(nlogn)
  * 空间复杂度：O(n)
- * @param {number} N
- * @param {number} W
- * @param {number[]} wt
- * @param {number[]} val
+ * @param {number} N 物品数量
+ * @param {number} W 背包容量
+ * @param {number[]} wt 物品重量list
+ * @param {number[]} val 物品价值list
  * @return {number}
  */
 var knapsack = function (N, W, wt, val) {
-  /**
-   * @param {number} i 当前考察到的物品
-   * @param {number} w 当前背包的剩余容量
-   */
-  function dp(i, w) {
-    // 如果没有物品或者背包没有空间了，返回 0
-    if (i < 0 || w <= 0) return 0;
-
-    let res = 0;
-    if (w - wt[i] >= 0) {
-      // 如果背包放入第 i 个物品的重量不超过背包的剩余容量，那么就可以放入
-      res = val[i] + dp(i - 1, w - wt[i]);
-    }
-
-    res = Math.max(res, dp(i - 1, w));
-
-    return res;
+  // 按价值从大到小排序
+  let list = [];
+  for (let i = 0; i < N; i++) {
+    list.push({ wt: wt[i], val: val[i] });
   }
+  list.sort((a, b) => b.val - a.val);
 
-  // 第一次调用的时候，i 是物品的最大索引，w 是背包的容量
-  return dp(N - 1, W);
+  // 第一个物品重量大于背包容量，直接返回0
+  if (list[0].wt > W) {
+    return 0;
+  } else {
+    // 逐个放进背包，判断是否超重
+    let wtSum = 0;
+    let valSum = 0;
+    for (let i = 0; i < N; i++) {
+      if (wtSum + list[i].wt <= W) {
+        wtSum += list[i].wt;
+        valSum += list[i].val;
+      }
+    }
+    return valSum;
+  }
 };
+
+knapsack(3, 4, [2, 1, 3], [4, 2, 3]); // 6
+knapsack(4, 4, [2, 1, 3, 1], [4, 2, 3, 3]); // 9
+knapsack(4, 6, [2, 1, 3, 1], [4, 2, 3, 3]); // 10
+knapsack(5, 7, [2, 1, 3, 1, 1], [4, 2, 3, 3, 2]); // 12
+knapsack(5, 7, [8, 8, 8, 8, 8], [4, 2, 3, 3, 2]); // 12
 ```
