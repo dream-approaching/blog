@@ -77,7 +77,10 @@ group:
 - 新增了长期缓存的算法，生产环境是默认开启的
 - 新增了资源模块类型，用于替代 `file-loader` 、`url-loader`和 `raw-loader`
 - 模块联邦: 允许一个应用程序使用来自另一个应用程序的代码，
-- 更好的 tree shaking 支持，支持 ES 模块语法
+- 更好的 tree shaking 支持
+  - 支持嵌套的 tree-shaking
+  - 支持模块内部的 tree-shaking
+  - 支持部分 commonjs 的 tree-shaking
 - 内置的 HMR 支持，不需要再使用 `webpack-dev-server`
 - 内置 terser-webpack-plugin 插件，用于压缩 JS 代码
 
