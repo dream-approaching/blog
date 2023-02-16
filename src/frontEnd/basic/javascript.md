@@ -6,7 +6,7 @@ nav:
   order: 0
 group:
   title: 基本知识
-  order: 0
+  order: 30
 ---
 
 ### 1. JavaScript 有哪些数据类型，它们的区别？

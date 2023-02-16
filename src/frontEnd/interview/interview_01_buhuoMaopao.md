@@ -2,7 +2,7 @@
 title: 捕获冒泡
 group:
   title: Interview
-  order: 49
+  order: 119
 ---
 
 ## 捕获冒泡

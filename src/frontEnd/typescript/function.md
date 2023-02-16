@@ -13,7 +13,7 @@ group:
 function greet(name: string) {
   console.log('Hello, ' + name.toUpperCase() + '!!');
 }
-const greet = (name: string) => {
+const greet2 = (name: string) => {
   console.log('Hello, ' + name.toUpperCase() + '!!');
 };
 
@@ -22,7 +22,7 @@ function printCoord(pt: { x: number; y: number }) {
   console.log("The coordinate's x value is " + pt.x);
   console.log("The coordinate's y value is " + pt.y);
 }
-const printCoord = (pt: { x: number; y: number }) => {
+const printCoord2 = (pt: { x: number; y: number }) => {
   console.log("The coordinate's x value is " + pt.x);
   console.log("The coordinate's y value is " + pt.y);
 };
@@ -31,7 +31,7 @@ const printCoord = (pt: { x: number; y: number }) => {
 function printName(obj: { first: string; last?: string }) {
   // ...
 }
-const printName = (obj: { first: string; last?: string }) => {
+const printName2 = (obj: { first: string; last?: string }) => {
   // ...
 };
 
@@ -39,7 +39,7 @@ const printName = (obj: { first: string; last?: string }) => {
 function printId(id: number | string) {
   console.log('Your ID is: ' + id);
 }
-const printId = (id: number | string) => {
+const printId2 = (id: number | string) => {
   console.log('Your ID is: ' + id);
 };
 
@@ -47,7 +47,7 @@ const printId = (id: number | string) => {
 function greeter(fn: (a: string) => void) {
   fn('Hello, World');
 }
-const greeter = (fn: (a: string) => void) => {
+const greeter2 = (fn: (a: string) => void) => {
   fn('Hello, World');
 };
 
@@ -55,10 +55,10 @@ const greeter = (fn: (a: string) => void) => {
 function firstElement<Type>(arr: Type[]): Type | undefined {
   return arr[0];
 }
-const firstElement = <T, N>(arr: T[]): T | undefined => {
+const firstElement2 = <T, N>(arr: T[]): T | undefined => {
   return arr[0];
 };
-const firstElement: <T>(arr: T[]) => T | undefined = (arr) => {
+const firstElement3: <T>(arr: T[]) => T | undefined = (arr) => {
   return arr[0];
 };
 
