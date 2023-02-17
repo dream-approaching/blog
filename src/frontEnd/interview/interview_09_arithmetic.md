@@ -190,3 +190,75 @@ knapsack(4, 6, [2, 1, 3, 1], [4, 2, 3, 3]); // 10
 knapsack(5, 7, [2, 1, 3, 1, 1], [4, 2, 3, 3, 2]); // 12
 knapsack(5, 7, [8, 8, 8, 8, 8], [4, 2, 3, 3, 2]); // 0
 ```
+
+### 4、时间调度问题
+
+> 有 n 个活动的开始时间和结束时间，如何选择最多的活动，使得这些活动互不冲突。
+
+```js
+/**
+ * 时间调度问题
+ * 时间复杂度：O(nlogn)
+ * 空间复杂度：O(n)
+ * @param {number} n 活动数量
+ * @param {number[]} start 开始时间list
+ * @param {number[]} end 结束时间list
+ * @return {number}
+ */
+var schedule = function (n, start, end) {
+  // 按结束时间从小到大排序
+  let list = [];
+  for (let i = 0; i < n; i++) {
+    list.push({ start: start[i], end: end[i] });
+  }
+  list.sort((a, b) => a.end - b.end);
+
+  // 选择第一个活动
+  let count = 1;
+  let lastEnd = list[0].end;
+
+  // 从第二个活动开始，判断是否与上一个活动冲突
+  for (let i = 1; i < n; i++) {
+    if (list[i].start >= lastEnd) {
+      count++;
+      lastEnd = list[i].end;
+    }
+  }
+  return count;
+};
+
+schedule(4, [1, 3, 0, 5], [2, 4, 6, 7]); // 3
+```
+
+### 5、用最少的硬币付款
+
+> 有 1 元、2 元、5 元、10 元、20 元、50 元、100 元的硬币若干枚，现在要用这些硬币支付 K 元，最少需要多少枚硬币？
+
+```js
+/**
+ * 用最少的硬币付款
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(1)
+ * @param {number} k 金额
+ * @return {number} 硬币数量
+ */
+var coinChange = function (k) {
+  let count = 0;
+  let arr = [100, 50, 20, 10, 5, 2, 1];
+  for (let i = 0; i < arr.length; i++) {
+    // 如果剩余金额大于当前面值
+    if (k >= arr[i]) {
+      // 计算当前面值的硬币数量
+      count += Math.floor(k / arr[i]);
+      // 计算剩余金额
+      k = k % arr[i];
+    }
+  }
+  return count;
+};
+
+coinChange(1); // 1
+coinChange(3); // 2
+coinChange(27); // 3
+coinChange(47); // 3
+```
