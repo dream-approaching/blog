@@ -4,9 +4,88 @@ group:
   title: Interview
 ---
 
-## 算法
+# 算法
 
-### 1、接雨水
+## 1. 常见算法解决思路
+
+- 二分查找
+- 双指针
+- 滑动窗口
+- 动态规划
+- 贪心算法
+- 分治算法
+- 回溯算法
+
+### 1.1. 二分查找
+
+二分查找是一种在有序数组中查找某一特定元素的搜索算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束；如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组为空，则代表找不到。这种搜索算法每一次比较都使搜索范围缩小一半。
+
+二分查找的时间复杂度为 `O(logn)`，空间复杂度为 `O(1)`。
+
+### 1.2. 双指针
+
+双指针是一种使用两个指针遍历数组的技巧。它可以用来解决一些数组类的问题，比如：
+
+- 两数之和
+- 三数之和
+- 两数平方和
+- 反转字符串中的元音字母
+- 接雨水
+
+### 1.3. 动态规划
+
+动态规划是一种将复杂问题分解为更小的子问题来解决的优化技术。它将问题分解为子问题，通过求解子问题的解来求解原问题的解。动态规划的关键是找到子问题的重叠性质，从而减少计算量。
+
+用动态规划解决问题时，要遵循三个重要步骤：
+
+- 定义子问题
+- 实现需要反复执行而解决子问题的部分
+- 识别并求解出边界条件
+
+能用动态规划解决的一些著名问题：
+
+- 最长公共子序列
+- 背包问题
+- 硬币找零
+- 矩阵链乘法
+
+### 1.4. 贪心算法
+
+贪心算法是一种在每一步选择中都采取在当前状态下最好或最优的选择，从而希望导致结果是全局最好或最优的算法。贪心算法与动态规划的不同在于它对每个子问题的解决方案都做出选择，不能回退。动态规划则会保存以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。
+
+能用贪心算法解决的一些著名问题：
+
+- 硬币找零
+- 买卖股票的最佳时机
+- 分发饼干
+- 跳跃游戏
+- 加油站
+
+### 1.5. 分治算法
+
+分治算法是一种将问题分成一些小的问题然后递归求解的算法，而治的阶段则将分的阶段得到的各答案“修补”在一起，得到原问题的解。
+
+能用分治算法解决的一些著名问题：
+
+- 汉诺塔
+- 快速排序
+- 归并排序
+- 线性时间选择
+
+### 1.6. 回溯算法
+
+回溯算法是一种通过穷举所有可能情况来找到所有解的算法。如果一个候选解最后被发现并不是可行解，回溯算法会舍弃它，并在前面的一些步骤做出一些修改，并重新尝试找到可行解。
+
+能用回溯算法解决的一些著名问题：
+
+- 八皇后问题
+- 0-1 背包问题
+- 求解数独
+- 括号生成
+
+## 2. 常见算法题
+
+### 2.1. 接雨水
 
 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
 
@@ -19,13 +98,13 @@ group:
   > 输入：height = [4,2,0,3,2,5]  
   > 输出：9
 
-#### 思路
+#### 2.1.1. 思路
 
 - 先计算每个位置能装多少水，然后求和。
 - 每个位置能装的水，取决于左右两边最高的柱子中较矮的那个柱子，减去当前柱子的高度。
 - 假设左边最高的柱子高度为 `leftMax`，右边最高的柱子高度为 `rightMax`，当前柱子高度为 `height[i]`，则当前柱子能装的水为 `Math.min(leftMax, rightMax) - height[i]`。
 
-#### 代码
+#### 2.1.2. 代码
 
 ```js
 /**
@@ -132,7 +211,7 @@ var trap = function (height) {
 };
 ```
 
-### 2、背包问题
+### 2.2. 背包问题
 
 给你一个可装载重量为 W 的背包和 N 个物品，每个物品有重量和价值两个属性。其中第 i 个物品的重量为 wt[i]，价值为 val[i]，现在让你用这个背包装物品，最多能装的价值是多少？
 
@@ -146,7 +225,7 @@ val = [4, 2, 3];
 // 输出 6，选择前两件物品装进背包，总重量 3 小于 W，可以获得最大价值 6。
 ```
 
-#### 1、排序逐个放入背包
+#### 2.2.1. 贪心算法
 
 ```js
 /**
@@ -191,13 +270,43 @@ knapsack(5, 7, [2, 1, 3, 1, 1], [4, 2, 3, 3, 2]); // 12
 knapsack(5, 7, [8, 8, 8, 8, 8], [4, 2, 3, 3, 2]); // 0
 ```
 
-### 4、时间调度问题
-
-> 有 n 个活动的开始时间和结束时间，如何选择最多的活动，使得这些活动互不冲突。
+#### 2.2.2. 动态规划
 
 ```js
 /**
- * 时间调度问题
+ * 动态规划
+ * 时间复杂度：O(nW)
+ * 空间复杂度：O(nW)
+ * @param {number} N 物品数量
+ * @param {number} W 背包容量
+ * @param {number[]} wt 物品重量list
+ * @param {number[]} val 物品价值list
+ * @return {number}
+ */
+var knapsack = function (n, w, weights, values) {
+  let dp = new Array(n + 1).fill(0).map(() => new Array(w + 1).fill(0));
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= w; j++) {
+      if (j - weights[i - 1] < 0) {
+        dp[i][j] = dp[i - 1][j];
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weights[i - 1]] + values[i - 1]);
+      }
+    }
+  }
+  return dp[n][w];
+};
+```
+
+### 2.3. 时间调度问题
+
+> 有 n 个活动的开始时间和结束时间，如何选择最多的活动，使得这些活动互不冲突。
+
+#### 2.3.1. 贪心算法
+
+```js
+/**
+ * 贪心算法
  * 时间复杂度：O(nlogn)
  * 空间复杂度：O(n)
  * @param {number} n 活动数量
@@ -230,13 +339,47 @@ var schedule = function (n, start, end) {
 schedule(4, [1, 3, 0, 5], [2, 4, 6, 7]); // 3
 ```
 
-### 5、用最少的硬币付款
-
-> 有 1 元、2 元、5 元、10 元、20 元、50 元、100 元的硬币若干枚，现在要用这些硬币支付 K 元，最少需要多少枚硬币？
+#### 2.3.2. 动态规划
 
 ```js
 /**
- * 用最少的硬币付款
+ * 动态规划
+ * 时间复杂度：O(n^2)
+ * 空间复杂度：O(n)
+ * @param {number} n 活动数量
+ * @param {number[]} start 开始时间list
+ * @param {number[]} end 结束时间list
+ * @return {number}
+ */
+var schedule = function (n, start, end) {
+  // dp[i]表示前i个活动，最多可以选择的活动数量
+  let dp = new Array(n + 1).fill(0);
+
+  for (let i = 1; i <= n; i++) {
+    // 选择第i个活动
+    let count = 1;
+    for (let j = i - 1; j >= 1; j--) {
+      if (end[j - 1] <= start[i - 1]) {
+        count += dp[j];
+        break;
+      }
+    }
+    // 不选择第i个活动
+    dp[i] = Math.max(dp[i - 1], count);
+  }
+
+  return dp[n];
+};
+```
+
+### 2.4. 用最少的硬币付款
+
+> 有 1 元、2 元、5 元、10 元、20 元、50 元、100 元的硬币若干枚，现在要用这些硬币支付 K 元，最少需要多少枚硬币？
+
+#### 2.4.1. 贪心算法
+
+```js
+/**
  * 时间复杂度：O(n)
  * 空间复杂度：O(1)
  * @param {number} k 金额
@@ -261,4 +404,281 @@ coinChange(1); // 1
 coinChange(3); // 2
 coinChange(27); // 3
 coinChange(47); // 3
+```
+
+#### 2.4.2. 动态规划
+
+思路：
+
+- 双重循环，外层循环金额，内层循环面值。
+- 当金额大于等于当前面值时，计算当前面值的硬币数量，然后计算剩余金额。
+- 当金额小于当前面值时，跳过当前面值。
+- 当金额为 0 时，结束循环。
+- 最后返回 dp[amount]。
+- coins[j]表示面值
+- dp[i]表示金额为 i 时，最少需要的硬币数量。
+- i - coins[j]表示剩余未计算的金额。
+- dp[i - coins[j]]表示剩余未计算的金额，最少需要的硬币数量。
+- dp[i - coins[j]] + 1 表示当前金额，最少需要的硬币数量，1 表示当前面值的硬币数量。
+
+```js
+/**
+ * 硬币找零
+ * 时间复杂度：O(nm)
+ * 空间复杂度：O(nm)
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function (coins, amount) {
+  // dp[i]表示金额为i时，最少需要的硬币数量
+  let dp = new Array(amount + 1).fill(Infinity);
+  dp[0] = 0;
+  // i表示金额
+  for (let i = 1; i <= amount; i++) {
+    // j表示面值的索引,coins[j]表示面值
+    for (let j = 0; j < coins.length; j++) {
+      // 如果当前金额小于当前面值，跳过
+      if (i - coins[j] < 0) {
+        continue;
+      }
+      // 取当前金额的最小硬币数量
+      dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+    }
+  }
+  return dp[amount] === Infinity ? -1 : dp[amount];
+};
+
+coinChange([4, 3, 1], 6); // 2
+```
+
+### 2.5. 排序算法
+
+#### 2.5.1. 冒泡排序
+
+```js
+/**
+ * 冒泡排序
+ * 时间复杂度：O(n^2)
+ * 空间复杂度：O(1)
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var bubbleSort = function (arr) {
+  let len = arr.length;
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+};
+```
+
+#### 2.5.2. 选择排序
+
+```js
+/**
+ * 选择排序
+ * 时间复杂度：O(n^2)
+ * 空间复杂度：O(1)
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var selectionSort = function (arr) {
+  let len = arr.length;
+  for (let i = 0; i < len - 1; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < len; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+  }
+  return arr;
+};
+```
+
+#### 2.5.3. 插入排序
+
+```js
+/**
+ * 插入排序
+ * 时间复杂度：O(n^2)
+ * 空间复杂度：O(1)
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var insertionSort = function (arr) {
+  let len = arr.length;
+  for (let i = 1; i < len; i++) {
+    let preIndex = i - 1;
+    let current = arr[i];
+    while (preIndex >= 0 && arr[preIndex] > current) {
+      arr[preIndex + 1] = arr[preIndex];
+      preIndex--;
+    }
+    arr[preIndex + 1] = current;
+  }
+  return arr;
+};
+```
+
+#### 2.5.4. 希尔排序
+
+```js
+/**
+ * 希尔排序
+ * 时间复杂度：O(nlogn)
+ * 空间复杂度：O(1)
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var shellSort = function (arr) {
+  let len = arr.length;
+  let gap = Math.floor(len / 2);
+  while (gap > 0) {
+    for (let i = gap; i < len; i++) {
+      let preIndex = i - gap;
+      let current = arr[i];
+      while (preIndex >= 0 && arr[preIndex] > current) {
+        arr[preIndex + gap] = arr[preIndex];
+        preIndex -= gap;
+      }
+      arr[preIndex + gap] = current;
+    }
+    gap = Math.floor(gap / 2);
+  }
+  return arr;
+};
+```
+
+#### 2.5.5. 快速排序
+
+```js
+/**
+ * 快速排序
+ * 时间复杂度：O(nlogn)
+ * 空间复杂度：O(logn)
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var quickSort = function (arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  let pivotIndex = Math.floor(arr.length / 2);
+  let pivot = arr.splice(pivotIndex, 1)[0];
+  let left = [];
+  let right = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  return quickSort(left).concat([pivot], quickSort(right));
+};
+```
+
+### 2.6. 搜索算法
+
+#### 2.6.1. 二分查找
+
+```js
+/**
+ * 二分查找
+ * 时间复杂度：O(logn)
+ * 空间复杂度：O(1)
+ * @param {number[]} arr
+ * @param {number} target
+ * @return {number}
+ */
+var binarySearch = function (arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if (arr[mid] === target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  return -1;
+};
+```
+
+#### 2.6.2. 深度优先搜索
+
+```js
+/**
+ * 深度优先搜索
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
+ * @param {number[]} arr
+ * @param {number} target
+ * @return {number}
+ */
+var dfs = function (arr, target) {
+  let stack = [];
+  let visited = new Set();
+  stack.push(0);
+  while (stack.length) {
+    let cur = stack.pop();
+    if (arr[cur] === target) {
+      return cur;
+    }
+    visited.add(cur);
+    let next = cur + 1;
+    if (next < arr.length && !visited.has(next)) {
+      stack.push(next);
+    }
+    next = cur - 1;
+    if (next >= 0 && !visited.has(next)) {
+      stack.push(next);
+    }
+  }
+  return -1;
+};
+```
+
+#### 2.6.3. 广度优先搜索
+
+```js
+/**
+ * 广度优先搜索
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
+ * @param {number[]} arr
+ * @param {number} target
+ * @return {number}
+ */
+var bfs = function (arr, target) {
+  let queue = [];
+  let visited = new Set();
+  queue.push(0);
+  while (queue.length) {
+    let cur = queue.shift();
+    if (arr[cur] === target) {
+      return cur;
+    }
+    visited.add(cur);
+    let next = cur + 1;
+    if (next < arr.length && !visited.has(next)) {
+      queue.push(next);
+    }
+    next = cur - 1;
+    if (next >= 0 && !visited.has(next)) {
+      queue.push(next);
+    }
+  }
+  return -1;
+};
 ```
