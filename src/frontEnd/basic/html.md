@@ -5,11 +5,11 @@ group:
   title: 基本知识
 ---
 
-### 1. script defer 和 async 的区别
+## 1. script defer 和 async 的区别
 
 ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20221031142357.png)
 
-### 2. 常⽤的 meta 标签有哪些
+## 2. 常⽤的 meta 标签有哪些
 
 - `charset`，用来描述 HTML 文档的编码类型
   ```html

@@ -5,14 +5,14 @@ group:
   order: 119
 ---
 
-## 捕获冒泡
+# 捕获冒泡
 
-### 1. 基本概念
+## 1. 基本概念
 
 > - 捕获：自顶向下
 > - 冒泡：自底向上
 
-### 2. window.addEventListener 监听的是什么阶段的事件？
+## 2. window.addEventListener 监听的是什么阶段的事件？
 
 ```js
 window.addEventListener('click', => {}, Boolean)
@@ -20,7 +20,7 @@ window.addEventListener('click', => {}, Boolean)
 
 第三个参数默认是 `false`, 表示冒泡阶段，传 `true` 表示捕获阶段
 
-### 3. 平时有哪些场景会用到这个机制
+## 3. 平时有哪些场景会用到这个机制
 
 - 事件委托
 
@@ -57,7 +57,7 @@ window.addEventListener('click', => {}, Boolean)
   </script>
   ```
 
-### 场景题
+## 场景题
 
 - 一个历史页面上，有若干按钮的点击逻辑，每个按钮都有自己的 click 事件
 - 请实现新需求，每一个访问页面的用户上多了 banned 属性，表示该用户是否被封禁，如被封禁，则不执行原来逻辑，直接 alert: 你被封禁了

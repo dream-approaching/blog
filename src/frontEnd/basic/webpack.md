@@ -4,9 +4,48 @@ group:
   title: 基本知识
 ---
 
-## webpack
+# webpack
 
-### webpack 有几个核心概念
+## 1. 前端模块化是什么
+
+前端模块化就是把代码分成独立的模块有利于复用和维护。不过会有模块之间相互依赖的问题，所以有了 commonJS 规范，AMD，CMD 规范等等，以及用于 js 打包（编译等处理）的工具 ES6
+
+- Commonjs
+  - 主要用于服务端编程，加载模块是同步的，不适合在浏览器环境
+- AMD
+  - 主要在浏览器环境中异步加载模块，可以并行加载多个模块
+  - RequireJS 实现了 AMD 规范
+- CMD
+  - 与 AMD 规范相似，都用于浏览器编程，不同点在于：AMD 推崇依赖前置、提前执行，CMD 推崇依赖就近、延迟执行
+  - seajs 实现了 CMD 规范
+- ES6 模块功能主要由两个命令构成：export 和 import
+
+### 1.1. ES6 模块与 CommonJS 模块的差异
+
+- CommonJS 模块是运行时加载，ES6 模块是编译时加载模块
+- CommonJS 输出是值的拷贝；ES6 Modules 输出的是值的引用
+
+  ```js
+  // CommonJS模块
+  let { stat, exists, readFile } = require('fs');
+
+  // 等同于
+  let _fs = require('fs');
+  let stat = _fs.stat;
+  let exists = _fs.exists;
+  let readfile = _fs.readfile;
+  ```
+
+  上面代码的实质是整体加载 fs 模块（即加载 fs 的所有方法），生成一个对象（\_fs），然后再从这个对象上面读取 3 个方法。这种加载称为“运行时加载”，因为只有运行时才能得到这个对象，导致完全没办法在编译时做“静态优化”。
+
+  ```js
+  // ES6模块
+  import { stat, exists, readFile } from 'fs';
+  ```
+
+  上面代码的实质是从 fs 模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高。当然，这也导致了没法引用 ES6 模块本身，因为它不是对象。
+
+## 2. webpack 有几个核心概念
 
 > - `mode`: 模式，指定 `development`、`production` 或 `none` 之中的一个，默认值为 `production`
 > - `entry`: 入口，webpack 执行构建的第一步将从 `entry` 开始，可抽象成输入
@@ -15,7 +54,7 @@ group:
 > - `plugin`: 扩展插件，在 `webpack` 构建流程中的特定时机注入扩展逻辑来改变构建结果或做你想要的事情
 > - `devServer`: 开发服务器，用于快速开发应用程序
 
-### 1. webpack loader 是什么，有哪些常见的 loader
+## 3. webpack loader 是什么，有哪些常见的 loader
 
 > `loader` 可以理解为是一个转换器，将 Webpack 不认识的内容转化为认识的内容。`webpack` 本身只能理解 `JavaScript` 和 `JSON` 文件，`loader` 可以让 `webpack` 拥有了加载和解析非 JavaScript 文件的能力
 >
@@ -42,7 +81,7 @@ group:
 > - `image-webpack-loader`: 压缩图片
 > - `svg-inline-loader`: 将 SVG 文件转换成为内联的 SVG 代码
 
-### 2. webpack plugin 是什么，有哪些常见的 plugin
+## 4. webpack plugin 是什么，有哪些常见的 plugin
 
 > `plugin` 是插件，可以在 `webpack` 运行到某个时刻的时候，帮你做一些事情，如: 打包优化，资源管理和注入环境变量
 >
@@ -71,7 +110,7 @@ group:
 > - `webpack.optimize.AggressiveSplittingPlugin`: 分割 chunk
 > - `webpack.optimize.LimitChunkCountPlugin`: 限制 chunk 的数量
 
-### 3. webpack5 有哪些新特性
+## 5. webpack5 有哪些新特性
 
 - 移除了对 Node.js v10 的支持
 - 新增了长期缓存的算法，生产环境是默认开启的
@@ -84,7 +123,7 @@ group:
 - 内置的 HMR 支持，不需要再使用 `webpack-dev-server`
 - 内置 terser-webpack-plugin 插件，用于压缩 JS 代码
 
-### 4. 怎么优化 Webpack 的构建速度
+## 6. 怎么优化 Webpack 的构建速度
 
 - 使用高版本的 Webpack
 - 多线程/多实例构建：HappyPack(不维护了)、thread-loader

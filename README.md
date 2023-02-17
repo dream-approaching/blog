@@ -2,11 +2,11 @@
 
 ### 前端 tab 菜单顺序
 
-- daily-record 日常记录 0
+- basic 基本知识 0
+- daily-record 日常记录 3
 - translate 外文翻译 5
 - snippets 代码片段 10
 - typescript Typescript 20
-- basic 基本知识 30
 - nodejs NodeJs 40
 - linux linux 55
 - terminal 常用命令行或快捷键 59

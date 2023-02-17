@@ -6,10 +6,10 @@ nav:
   order: 0
 group:
   title: 基本知识
-  order: 30
+  order: 0
 ---
 
-### 1. JavaScript 有哪些数据类型，它们的区别？
+## 1. JavaScript 有哪些数据类型，它们的区别？
 
 JavaScript 共有八种数据类型，分别是 `Undefined`、`Null`、`Boolean`、 `Number`、`String`、`Object`、`Symbol`、`BigInt`。其中 `Symbol` 和 `BigInt` 是 ES6 中新增的数据类型：
 
@@ -33,9 +33,9 @@ JavaScript 共有八种数据类型，分别是 `Undefined`、`Null`、`Boolean`
   - 栈区内存由编译器自动分配释放，存放函数的参数值，局部变量的 值等。其操作方式类似于数据结构中的栈。
   - 堆区内存一般由开发着分配释放，若开发者不释放，程序结束时可 能由垃圾回收机制回收。
 
-### 2. 数据类型检测的方式有哪些
+## 2. 数据类型检测的方式有哪些
 
-#### 2.1. typeof
+### 2.1. typeof
 
 ```js
 console.log(typeof 2); // number
@@ -50,7 +50,7 @@ console.log(typeof null); // object
 
 其中数组、对象、null 都会被判断为 `object`，其他判断都正确。
 
-#### 2.2. instanceof
+### 2.2. instanceof
 
 `instanceof` 可以正确判断对象的类型，其内部运行机制是判断在其 原型链中能否找到该类型的原型。
 
@@ -65,7 +65,7 @@ console.log({} instanceof Object); //true
 
 可以看到，`instanceof` 只能正确判断引用数据类型，而不能判断基本数据类型。`instanceof` 运算符可以用来测试一个对象在其原型链中是否存在一个构造函数的 `prototype` 属性。
 
-#### 2.3. constructor
+### 2.3. constructor
 
 ```js
 console.log((2).constructor === Number); // true
@@ -86,7 +86,7 @@ console.log(f.constructor === Fn); // false
 console.log(f.constructor === Array); // true
 ```
 
-#### 2.4. Object.prototype.toString.call()
+### 2.4. Object.prototype.toString.call()
 
 `Object.prototype.toString.call()` 使用 `Object` 对象的原型方法 `toString` 来判断数据类型：
 
@@ -110,7 +110,30 @@ console.log(a.call(null)); // [object Null]
 
 > 这是因为 toString 是 `Object` 的原型方法，而 `Array`、`function` 等类型作为 `Object` 的实例，都重写了 `toString` 方法。不同的对象类型调用 `toString` 方法时，根据原型链的知识，调用的是对应的重写之后的 `toString` 方法（`function` 类型返回内容为函数体的字符串，`Array` 类型返回元素组成的字符串…），而不会去调用 `Object` 上原型 `toString` 方法（返回对象的具体类型），所以采用 `obj.toString()` 不能得到其对象类型，只能将 `obj` 转换为字符串类型；因此，在想要得到对象的具体类型时，应该调用 `Object` 原型上的 `toString` 方法。
 
-### 3. null 和 undefined 区别
+## 3. 堆栈的区别
+
+- 栈(stack)
+  - 会自动分配内存空间，会自动释放。
+  - 存放简单的数据段，占据固定大小的空间。
+  - 属于后进先出
+    ```js
+    function multiply(x, y) {
+      return x * y;
+    }
+    function printSquare(x) {
+      var s = multiply(x, x);
+      console.log(s);
+    }
+    printSquare(5);
+    ```
+    ![](https://user-gold-cdn.xitu.io/2017/11/11/bc37a6231fca3b0aa3cd36369e866837?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+- 堆(heap)
+  - 动态分配的内存，大小不定也不会自动释放。
+  - 存放引用类型变量的指针
+
+> 参考：[[译] JavaScript 如何工作：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/6844903510538993671)
+
+## 4. null 和 undefined 区别
 
 首先 `Undefined` 和 `Null` 都是基本数据类型，这两个基本数据类型分别都只有一个值，就是 `undefined` 和 `null。`
 
@@ -120,7 +143,7 @@ console.log(a.call(null)); // [object Null]
 
 当对这两种类型使用 `typeof` 进行判断时，`Null` 类型化会返回 "`object`"，这是一个历史遗留的问题。当使用双等号对两种类型的 值进行比较时会返回 `true`，使用三个等号时会返回 `false`。
 
-### 4. intanceof 操作符的实现原理及实现
+## 5. intanceof 操作符的实现原理及实现
 
 `instanceof` 运算符用于判断构造函数的 `prototype` 属性是否出现 在对象的原型链中的任何位置。
 
@@ -140,19 +163,19 @@ function myInstanceof(left, right) {
 }
 ```
 
-### 5. 如何获取安全的 undefined 值？
+## 6. 如何获取安全的 undefined 值？
 
 因为 `undefined` 是一个标识符，所以可以被当作变量来使用和赋值， 但是这样会影响 `undefined` 的正常判断。表达式 `void ___` 没有返回值，因此返回结果是 `undefined`。`void` 并不改变表达式的结果， 只是让表达式不返回值。因此可以用 `void 0` 来获得 `undefined`。
 
-### 6. Object.is() 与比较操作符 "==="、"=="" 的区别？
+## 7. Object.is() 与比较操作符 "==="、"=="" 的区别？
 
 使用双等号（`==`）进行相等判断时，如果两边的类型不一致，则会进行强制类型转化后再进行比较。 使用三等号（`===`）进行相等判断时，如果两边的类型不一致时，不会做强制类型准换，直接返回 `false`。 使用 `Object.is` 来进行相等判断时，一般情况下和三等号的判断相同，它处理了一些特殊的情况，比如 `-0` 和 `+0` 不再相等，两个 `NaN` 是相等的。
 
-### 7. 为什么会有 BigInt 的提案？
+## 8. 为什么会有 BigInt 的提案？
 
 `JavaScript` 中 `Number.MAX_SAFE_INTEGER` 表示最大安全数字，计算结果是 `9007199254740991`，即在这个数范围内不会出现精度丢失（小数除外）。但是一旦超过这个范围，js 就会出现计算不准确的情况，这在大数计算的时候不得不依靠一些第三方库进行解决，因此官方提出了 `BigInt` 来解决此问题。
 
-### 8. 如何判断一个对象是空对象
+## 9. 如何判断一个对象是空对象
 
 - 使用 JSON 自带的.stringify 方法来判断：
 
@@ -170,7 +193,7 @@ function myInstanceof(left, right) {
   }
   ```
 
-### 9. 什么是 JavaScript 中的包装类型？
+## 10. 什么是 JavaScript 中的包装类型？
 
 在 `JavaScript` 中，基本类型是没有属性和方法的，但是为了便于操作基本类型的值，在调用基本类型的属性或方法时 `JavaScript` 会在后台隐式地将基本类型的值转换为对象，如：
 
@@ -208,13 +231,13 @@ if (!a) {
 
 答案是什么都不会打印，因为虽然包裹的基本类型是 `false`，但是 `false` 被包裹成包装类型后就成了对象，所以其非值为 `false`，所以 循环体中的内容不会运行。
 
-### 10. const 对象的属性可以修改吗
+## 11. const 对象的属性可以修改吗
 
 `const` 保证的并不是变量的值不能改动，而是变量指向的那个内存地址不能改动。对于基本类型的数据（数值、字符串、布尔值），其值就保存在变量指向的那个内存地址，因此等同于常量。
 
 但对于引用类型的数据（主要是对象和数组）来说，变量指向数据的内存地址，保存的只是一个指针，`const` 只能保证这个指针是固定不变的，至于它指向的数据结构是不是可变的，就完全不能控制了。
 
-### 11. 箭头函数与普通函数的区别
+## 12. 箭头函数与普通函数的区别
 
 - 箭头函数比普通函数更加简洁
 - 箭头函数没有自己的 `this`
@@ -222,7 +245,7 @@ if (!a) {
 - 箭头函数不能作为构造函数使用
 - 箭头函数不能用作 `Generator` 函数，不能使用 `yield` 关键字
 
-### 12. 如果 new 一个箭头函数会怎么样
+## 13. 如果 new 一个箭头函数会怎么样
 
 箭头函数是 `ES6` 中的提出来的，它没有 `prototype`，也没有自己的 `this` 指向，更不可以使用 `arguments` 参数，所以不能 New 一个箭头函数。
 
@@ -235,7 +258,7 @@ if (!a) {
 
 所以，上面的第二、三步，箭头函数都是没有办法执行的。
 
-### 13. 箭头函数的 this 指向哪里？
+## 14. 箭头函数的 this 指向哪里？
 
 箭头函数不同于传统 `JavaScript` 中的函数，箭头函数并没有属于自己的 `this`，它所谓的 `this` 是捕获其所在上下文的 `this` 值，作为自己的 `this` 值，并且由于没有属于自己的 `this`，所以是不会被 `new` 调用的，这个所谓的 `this` 也不会被改变。可以⽤ Babel 理解⼀下箭头函数:
 
@@ -260,7 +283,7 @@ var obj = {
 };
 ```
 
-### 14. 扩展运算符的作用及使用场景
+## 15. 扩展运算符的作用及使用场景
 
 （1）对象扩展运算符对象的扩展运算符 (`...`) 用于取出参数对象中的所有可遍历属性，拷贝到当前对象之中。
 
@@ -286,7 +309,7 @@ let baz = { ...bar, ...{ a: 2, b: 4 } }; // {a: 2, b: 4}
 
 利用上述特性就可以很方便的修改对象的部分属性。在 `redux` 中的 `reducer` 函数规定必须是一个纯函数，reducer 中的 state 对象要求不能直接修改，可以通过扩展运算符把修改路径的对象都复制一遍，然后产生一个新的对象返回。
 
-### 15. Proxy 可以实现什么功能？
+## 16. Proxy 可以实现什么功能？
 
 在 Vue3.0 中通过 `Proxy` 来替换原本的 `Object.defineProperty` 来实现数据响应式。
 
@@ -332,7 +355,7 @@ p.a; // 'a' = 2
 
 当然这是简单版的响应式实现，如果需要实现一个 `Vue` 中的响应式，需要在 `get` 中收集依赖，在 `set` 派发更新，之所以 Vue3.0 要使用 `Proxy` 替换原本的 `API` 原因在于 `Proxy` 无需一层层递归为每个属性添加代理，一次即可完成以上操作，性能上更好，并且原本的实现有一些数据更新不能监听到，但是 `Proxy` 可以完美监听到任何方式的数据改变，唯一缺陷就是浏览器的兼容性不好。
 
-### 16. 常用的正则表达式有哪些
+## 17. 常用的正则表达式有哪些
 
 ```js
 // （1）匹配 16 进制颜色值
@@ -351,7 +374,7 @@ var regex = /^1[34578]\d{9}$/g;
 var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
 ```
 
-### 17. JavaScript 脚本延迟加载的方式有哪些？
+## 18. JavaScript 脚本延迟加载的方式有哪些？
 
 - `script defer` 属性，这个属性会让脚本的加载与文档的解析同步解析，然后在文档解析完成后再执行这个脚本文件，这样的话就能使页面的渲染不被阻塞。多个设置了 `defer` 属性的脚本按规范来说最后是顺序执行的，但是在一些浏览器中可能不是这样。
 - `script async` 属性，这个属性会使脚本异步加载，不会阻塞页面的解析过程，但是当脚本加载完成后立即执行 `js` 脚本，这个时候如果文档没有解析完成的话同样会阻塞。多个 `async` 属性的脚本的执行顺序是不可预测的，一般不会按照代码的顺序依次执行。
@@ -359,13 +382,13 @@ var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
 - 使用 `setTimeout` 延迟
 - 让 `JS` 放在文档的底部
 
-### 18. 什么是 DOM 和 BOM？
+## 19. 什么是 DOM 和 BOM？
 
 - DOM 全称是 Document Object Model，也就是文档对象模型。 图中区域 5
 - BOM 全称是 Browser Object Model，也就是浏览器对象模型。 图中区域 1、2、3、4  
    ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20221031144444.png)
 
-### 19. 为什么函数的 arguments 参数是类数组而不是数组？如何遍历类数组?
+## 20. 为什么函数的 arguments 参数是类数组而不是数组？如何遍历类数组?
 
 `arguments` 是一个对象，它的属性是从 0 开始依次递增的数字，还有 `callee` 和 `length` 等属性，与数组相似；但是它却没有数组常见的方法属性，如 `forEach`, `reduce` 等，所以叫它们类数组。
 
@@ -397,7 +420,7 @@ var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
   }
   ```
 
-### 20. escape、encodeURI、encodeURIComponent 的区别
+## 21. escape、encodeURI、encodeURIComponent 的区别
 
 - 字符串编码
   - `escape` 是对字符串(`string`)进行编码(而另外两种是对 `URL`)，作用是让它们在所有电脑上可读。其中 `ASCII 字母 数字 @\*/+` 这几个字符不会被编码，其余的都会
@@ -410,7 +433,7 @@ var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
     encodeURIComponent(uri); // 'http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2Fsome%20other%20thing'
     ```
 
-### 21. 封装一个 ajax 请求
+## 22. 封装一个 ajax 请求
 
 ```js
 //封装一个ajax请求
@@ -449,16 +472,16 @@ function ajax(options) {
 > readyState  
 > ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20221031151530.png)
 
-### 22. 什么是尾调用，使用尾调用有什么好处？
+## 23. 什么是尾调用，使用尾调用有什么好处？
 
 - 含义：尾调用指的是函数的最后一步调用另一个函数。
 - 好处：代码执行是基于执行栈的，所以当在一个函数里调用另一个函数时，会保留当前的执行上下文，然后再新建另外一个执行上下文加入栈中。但如果使用尾调用的话，因为已经是函数的最后一步，所以这时可以不必再保留当前的执行上下文，从而节省了内存，这就是尾调用优化
 
 > ES6 的尾调用优化只在严格模式下开启，正常模式是无效的。
 
-### 23. 什么是闭包？闭包的优缺点？有哪些常见的闭包使用场景？
+## 24. 什么是闭包？闭包的优缺点？有哪些常见的闭包使用场景？
 
-#### 23.1. 闭包
+### 24.1. 闭包
 
 闭包是指有权访问另一个函数作用域中变量的函数，创建闭包的最常见的方式就是在一个函数内创建另一个函数，创建的函数可以访问到当前函数的局部变量。
 
@@ -473,7 +496,7 @@ function foo() {
 }
 ```
 
-#### 23.2. 闭包的优缺点
+### 24.2. 闭包的优缺点
 
 - 优点
   - 可以读取函数内部的变量
@@ -482,14 +505,139 @@ function foo() {
   - 会增大内存使用量
   - 使用不当很容易造成内存泄漏
 
-#### 23.3. 常见的闭包使用场景
+### 24.3. 常见的闭包使用场景
 
 - 防抖和节流
 - react hooks
 
-### 24. 深拷贝和浅拷贝
+## 25. 防抖、节流
 
-#### 24.1. 浅拷贝
+- 防抖和节流的作用都是防止函数多次调用
+- 防抖：任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行。
+  - 应用场景(执行最后一次)
+    - input 在 onchange 时候的触发(用户输入验证/搜索等)
+    - 按钮重复点击(也是一种场景，不过我习惯用 btnLoading)
+  - 代码实现
+    ```js
+    // 简单实现
+    const debounce = (fn, ms = 0) => {
+      let timeoutId;
+      return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), ms);
+      };
+    };
+    // 参考二有更好的方式
+    ```
+- 节流：指定时间间隔内只会执行一次任务；
+  - 应用场景(有间隔地持续执行)
+    - 鼠标滚动时会执行的函数
+    - 窗口 resize
+    - 拖拽(slider)
+  - 代码实现
+  ```js
+  const throttle = (fn, ms) => {
+    let canRun = true;
+    let timer;
+    let lastTime = Date.now();
+    return function (...args) {
+      if (canRun) {
+        fn.apply(this, args);
+        canRun = false;
+      } else {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          if (Date.now() - lastTime >= ms) {
+            fn.apply(this, args);
+            lastTime = Date.now();
+          }
+        }, Math.max(ms - (Date.now() - lastTime), 0));
+      }
+    };
+  };
+  ```
+
+> - 参考：[掘金——函数节流与函数防抖](https://juejin.im/entry/58c0379e44d9040068dc952f)
+> - 参考：[InterviewMap——防抖](https://yuchengkai.cn/docs/frontend/#%E9%98%B2%E6%8A%96)
+> - 参考：[github issues——节流和防抖的个人见解](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/5)
+
+## 26. 重绘和回流（重绘和重排）
+
+- 回流也叫重排
+- 当对 DOM 结构的修改引发 DOM 几何尺寸变化的时候，会发生回流的过程
+  - 一个 DOM 元素的几何属性变化，常见的几何属性有 width、height、padding、margin、left、top、border 等等
+  - 使 DOM 节点发生增减或者移动
+  - 读写 offset 族、scroll 族和 client 族属性的时候，浏览器为了获取这些值，需要进行回流操作
+  - 调用 window.getComputedStyle 方法
+- 当 DOM 的修改导致了样式的变化，并且没有影响几何属性的时候，会导致重绘(repaint)
+  - 例如改变元素背景色时
+  - visibility: hidden 隐藏一个 DOM 节点-只触发重绘
+- 重绘不一定导致回流，但回流一定发生了重绘。
+- 如何减少重绘和回流
+
+  - 不要逐个变样式
+
+    ```js
+    // bad
+    var left = 10,
+      top = 10;
+    el.style.left = left + 'px';
+    el.style.top = top + 'px';
+    // better
+    el.className += ' theclassname';
+    // 当top和left的值是动态计算而成时...
+    // better
+    el.style.cssText += '; left: ' + left + 'px; top: ' + top + 'px;';
+    ```
+
+  - 不要频繁计算样式
+    ```js
+    // no-no!
+    for (big; loop; here) {
+      el.style.left = el.offsetLeft + 10 + 'px';
+      el.style.top = el.offsetTop + 10 + 'px';
+    }
+    // better
+    var left = el.offsetLeft,
+      top = el.offsetTop;
+    esty = el.style;
+    for (big; loop; here) {
+      left += 10;
+      top += 10;
+      esty.left = left + 'px';
+      esty.top = top + 'px';
+    }
+    ```
+  - 对于 resize、scroll 等进行防抖/节流处理
+  - 使用[createDocumentFragment](https://www.jianshu.com/p/8ae83364c09c)
+    > - 参考：[翻译计划-重绘重排重渲染](https://xdlrt.github.io/2016/11/05/2016-11-05/)
+    > - 参考：[谈谈你对重绘和回流的理解](https://juejin.im/post/6844904021308735502#heading-54)
+
+## 27. 作用域
+
+- 作用域链  
+   在查找变量的时候，先在函数作用域中查找，没有找到，再去全局作用域中查找，有一个从里往外查找的过程。 ![image](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/F1866E20E2F34E769495F1BEF73D6803/4723)
+- 词法作用域(静态作用域)  
+   JavaScript 采用的是词法作用域，函数的作用域在函数定义的时候就决定了，即在书写代码时就确定了
+  ```js
+  var value = 1;
+  function foo() {
+    console.log(value);
+  }
+  function bar() {
+    var value = 2;
+    foo();
+  }
+  bar(); // 1
+  // 执行 foo 函数时，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。
+  ```
+- 动态作用域  
+   动态作用域与词法作用域相反，函数的作用域是在函数调用的时候才决定的。  
+   上面代码如果是动态作用域，则会输出 2
+
+## 28. 深拷贝和浅拷贝
+
+### 28.1. 浅拷贝
 
 浅拷贝只会拷贝一层对象，如果对象的属性值是对象类型，那么拷贝出来的结果是对象的引用。
 
@@ -507,7 +655,7 @@ console.log(obj); // {a: 1, b: {c: 4}}
 console.log(obj2); // {a: 3, b: {c: 4}}
 ```
 
-#### 24.2. 深拷贝
+### 28.2. 深拷贝
 
 深拷贝会把一个对象从内存中完整的拷贝一份出来，从堆内存中开辟一个新的区域存放新对象，修改新对象不会影响原对象。
 
@@ -525,7 +673,7 @@ console.log(obj); // {a: 1, b: {c: 2}}
 console.log(obj2); // {a: 3, b: {c: 4}}
 ```
 
-#### 24.3. 赋值和浅拷贝深拷贝的区别
+### 28.3. 赋值和浅拷贝深拷贝的区别
 
 赋值是将某一数值或对象赋给某个变量的过程，分两种情况：
 
@@ -549,7 +697,7 @@ console.log(a); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
 console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
 ```
 
-#### 24.4. 常用深拷贝、浅拷贝方法
+### 28.4. 常用深拷贝、浅拷贝方法
 
 - 浅拷贝
   - Object.assign: 第一级属性是深拷贝，第二级属性是浅拷贝
@@ -586,7 +734,7 @@ console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
     }
     ```
 
-### 25. ES6 模块与 CommonJS 模块有什么异同？
+## 29. ES6 模块与 CommonJS 模块有什么异同？
 
 - `CommonJS` 模块是运行时加载，`ES6 Modules` 是编译时加载模块
 - `CommonJS` 输出是值的拷贝；`ES6 Modules` 输出的是值的引用
@@ -610,16 +758,7 @@ console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
 
   上面代码的实质是从 `fs` 模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 `ES6` 可以在编译时就完成模块加载，效率要比 `CommonJS` 模块的加载方式高。当然，这也导致了没法引用 `ES6` 模块本身，因为它不是对象。
 
-### 26. for...in 和 for...of 的区别
-
-- `for...in` 循环遍历的是对象的属性名，包括原型链上的属性
-- `for...of` 循环遍历的是对象的属性值，不包括原型属性和索引。是 `ES6` 新增的遍历方式
-- `for...in` 比较适合用来遍历对象，也可以遍历数组，但是会存在一些问题
-  - 遍历数组时，会遍历数组的原型链上的属性，而且遍历的顺序不是按照数组的顺序来的，而是按照对象的顺序来的，所以不建议使用 `for in` 来遍历数组
-  - 如果不想遍历原型方法和属性的话，可以在循环内部判断一下，使用 `hasOwnProperty()`方法可以判断某属性是不是该对象的实例属性
-- 一个数据结构只要部署了 `Symbol.iterator` 属性，就被视为具有 `iterator` 接口，就可以用 `for...of` 循环遍历它的成员
-
-### 27. Iterator 接口
+## 30. Iterator 接口
 
 - 原生具备 Iterator 接口的数据结构如下
   - Array
@@ -639,7 +778,7 @@ console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
   - Promise.all()
   - Promise.race()
 
-### 28. for 循环使用 await，for of 以及 for await of
+## 31. for 循环使用 await，for of 以及 for await of
 
 ```js
 function getData(times) {
@@ -708,14 +847,73 @@ function getData(times) {
 - `forEach` 中使用 `await` 无效
 - `map`、`filter`、`reduce` 中使用 `await` 将返回一个 `promise`，还需再使用 `Promise.all` 来获取结果
 
-### 29. forEach 和 map 的区别
+## 32. forEach 和 map 的区别
 
 - `map` 方法会分配内存空间存储新数组并返回
 - `forEach` 方法没有返回值，而是直接对原数组进行操作
 
 > 注: forEach 和 map 不能跳出循环，for of 可以跳出循环
 
-### 30. addEventListener 方法的参数和使用
+## 33. for...in 和 for...of 的区别
+
+- `for...in` 循环遍历的是对象的属性名，包括原型链上的属性
+- `for...of` 循环遍历的是对象的属性值，不包括原型属性和索引。是 `ES6` 新增的遍历方式
+- `for...in` 比较适合用来遍历对象，也可以遍历数组，但是会存在一些问题
+  - 遍历数组时，会遍历数组的原型链上的属性，而且遍历的顺序不是按照数组的顺序来的，而是按照对象的顺序来的，所以不建议使用 `for in` 来遍历数组
+  - 如果不想遍历原型方法和属性的话，可以在循环内部判断一下，使用 `hasOwnProperty()`方法可以判断某属性是不是该对象的实例属性
+- 一个数据结构只要部署了 `Symbol.iterator` 属性，就被视为具有 `iterator` 接口，就可以用 `for...of` 循环遍历它的成员
+
+## 34. 数组迭代方法
+
+- forEach map reduce filter some every  
+  ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/arr.png)
+
+  > 参考 [掘金——数组迭代方法图解](https://juejin.im/post/5835808067f3560065ed4ab2)
+
+- reduce:
+
+  - 语法 `arr.reduce(callback,[initialValue])`
+    - callback （执行数组中每个值的函数，包含四个参数）
+      - previousValue （上一次调用回调返回的值，或者是提供的初始值（initialValue））
+      - currentValue （数组中当前被处理的元素）
+      - index （当前元素在数组中的索引）
+      - array （调用 reduce 的数组）
+    - initialValue （作为第一次调用 callback 的第一个参数。）
+  - 举例
+
+    ```js
+    var arr = [
+      { id: 1, type: 'A', total: 3 },
+      { id: 2, type: 'B', total: 5 },
+      { id: 3, type: 'E', total: 7 },
+    ];
+    // 统计 total 的总和
+    arr.reduce((sum, { total }) => {
+      return sum + total;
+    }, 0); // 15
+
+    // 转换成对象
+    arr.reduce((res, { id, type, total }) => {
+      res[id] = { type, total };
+      return res;
+    }, {});
+    // {1:{type: 'A', total: 3}, 2: { type: 'B', total: 5 },{ type: 'E', total: 7 }}
+    ```
+
+- slice splice
+  - slice
+    - 可操控 Array 及 String
+    - 返回新数组，不该变原值
+    - `arr.slice(begin)` / `arr.slice(begin, end)`
+  - splice
+    - 可操控 Array
+    - 从 Array 中添加/刪除项目，返回被刪除的项目。会改变原值
+    - `array.splice(start, deleteCount, item1, item2, ...)`
+      - start 增加/刪除項目的位置，負數代表從後方算起。
+      - deleteCount 刪除的個數，如為 0 則不會刪除。
+      - item… 添加的新項目。
+
+## 35. addEventListener 方法的参数和使用
 
 ```js
 target.addEventListener(type, listener, options);
@@ -741,13 +939,13 @@ target.addEventListener(type, listener, useCapture, wantsUntrusted);
   - `signal:AbortSignal`  
     当调用给定 `AbortSignal` 对象的 `abort()` 方法时，侦听器将被删除。如果未指定，则 `noAbortSignal` 与侦听器相关联。
 
-### 31. this 的指向以及 call、apply、bind 的区别
+## 36. this 的指向以及 call、apply、bind 的区别
 
-#### 31.1. this 的指向
+### 36.1. this 的指向
 
 this 永远指向最后调用它的那个对象
 
-#### 31.2. call、apply、bind 的区别
+### 36.2. call、apply、bind 的区别
 
 > call、apply、bind 都是用来改变函数的 this 对象的指向的
 
@@ -757,7 +955,7 @@ this 永远指向最后调用它的那个对象
 
 > 参考： https://juejin.cn/post/6844903496253177863
 
-### 32. 对原型链的理解
+## 37. 对原型链的理解
 
 - 原型链是一种机制，指的是 `JavaScript` 每个对象都有一个内置的 `__proto__` 属性指向它的原型对象
 - 它的作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么就会去它的 `__proto__` 属性所指向的那个对象里找，如果父对象也不存在这个属性，则继续往上找，直到原型链顶端 `null`，由以上这种通过 `__proto__` 属性来连接对象直到 `null` 的一条链即为我们所谓的原型链
@@ -765,10 +963,24 @@ this 永远指向最后调用它的那个对象
 - 图形理解  
   ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20230118175459.png)
 
+1.  实例的**proto** === 其构造函数的 prototype ![](https://note.youdao.com/yws/public/resource/5decefaed3b17cd4bab92965ace4d207/xmlnote/36A4E7356D3A42A6A8655EEEF65CEEB2/4117)
+
+    ```js
+    function Person(name) {
+      this.name = name;
+    }
+    let p = new Person('longzi');
+    console.log(p.__proto__); // Person.prototype
+    console.log(Person.__proto__); // Function.prototype
+    ```
+
+2.  `Function.__proto__ === Function.prototype`</br> ![](https://note.youdao.com/yws/public/resource/5decefaed3b17cd4bab92965ace4d207/xmlnote/E02A3DBFB32641C7A10EBC8982CCB875/4114)
+3.  原型链的最顶层都是 null
+
 > 参考: [CSDN——prototype、proto 与 constructor](https://blog.csdn.net/cc18868876837/article/details/81211729)  
 > 参考: [知乎——JavaScript 世界万物诞生记](https://zhuanlan.zhihu.com/p/22989691)
 
-### 33. 实现继承的几种方式
+## 38. 实现继承的几种方式
 
 ```js
 // 假设有父类 Parent
@@ -887,7 +1099,33 @@ Parent.prototype.showName = function () {
 | Object.create() | 1.解决上述三种方式的缺点</br>2.ES5 首选 | 暂无 |
 | class.extends | 清晰 方便 | 注意：子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。 |
 
-### 34. 如何判断一个对象是否属于某个类
+## 39. new 内部的原理，如何实现一个 new
+
+```js
+function _new() {
+  // 创建一个空对象
+  var obj = new Object();
+  // .shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值
+  // 获取构造函数，arguments 中去除第一个参数
+  var Constructor = [].shift.call(arguments);
+  // 将新创建的空对象的隐式原型指向其构造函数的显示原型
+  obj.__proto__ = Constructor.prototype;
+  // 改变构造函数的 this 指向，指向新创建的对象
+  var ret = Constructor.apply(obj, arguments);
+  // 如果构造函数返回的是一个对象，则返回该对象，否则返回新创建的对象
+  return typeof ret === 'object' ? ret : obj;
+}
+
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+var person = _new(Person, 'longzi', 23);
+console.log(person.name, person.age); // longzi, 23
+```
+
+## 40. 如何判断一个对象是否属于某个类
 
 ```js
 function Person() {
@@ -903,14 +1141,14 @@ console.log(person instanceof Person); // true
 console.log(person.constructor === Person); // true
 ```
 
-### 35. 异步编程的几种方式
+## 41. 异步编程的几种方式
 
 - 回调函数
 - promise
 - generator
 - async/await
 
-### 36. promise
+## 42. promise
 
 Promise 是异步编程的一种解决方案, 有以下两个特点:
 
@@ -958,7 +1196,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   // 出错了
   ```
 
-### 37. generator
+## 43. generator
 
 - generator 函数是一个状态机，封装了多个内部状态
 - Generator 还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
@@ -1053,7 +1291,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
     // 所以上面代码的return语句返回的6，不包括在for...of循环之中
     ```
 
-### 38. async/await
+## 44. async/await
 
 - 是 Generator 函数的语法糖
 - 与 Generator 的区别
@@ -1096,3 +1334,232 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   ```
 
 > 参考：[掘金——前端 er，你真的会用 async 吗？](https://juejin.im/post/5c0397186fb9a049b5068e54)
+
+## 45. Set、Map、WeakSet、WeakMap
+
+- Set
+
+  - Set 类似于数组，但是成员的值都是唯一的，没有重复的值
+  - Set 本身是一个构造函数，用来生成 Set 数据结构
+  - Set 函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化
+  - 使用 Set 可以很容易地实现并集、交集和差集
+
+    ```js
+    let a = new Set([1, 2, 3]);
+    let b = new Set([4, 3, 2]);
+
+    // 并集
+    let union = new Set([...a, ...b]);
+    // Set {1, 2, 3, 4}
+
+    // 交集
+    let intersect = new Set([...a].filter((x) => b.has(x)));
+    // set {2, 3}
+
+    // 差集
+    let difference = new Set([...a].filter((x) => !b.has(x)));
+    // Set {1}
+    ```
+
+    ```js
+    const set = new Set([1, 2, 3, 4, 4]);
+    // [1, 2, 3, 4]
+    ```
+
+  - Set 实例的属性和方法
+
+    | 属性/方法                   | 说明                                         |
+    | --------------------------- | -------------------------------------------- |
+    | Set.prototype.constructor   | 构造函数，默认就是 Set 函数                  |
+    | Set.prototype.size          | 返回 Set 实例的成员总数                      |
+    | Set.prototype.add(value)    | 添加某个值，返回 Set 结构本身                |
+    | Set.prototype.delete(value) | 删除某个值，返回一个布尔值，表示删除是否成功 |
+    | Set.prototype.has(value)    | 返回一个布尔值，表示该值是否为 Set 的成员    |
+    | Set.prototype.clear()       | 清除所有成员，没有返回值                     |
+
+- Map
+
+  - Map 类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键
+  - Map 本身是一个构造函数，用来生成 Map 数据结构
+  - Map 函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化
+
+    ```js
+    const map = new Map([
+      ['name', '张三'],
+      ['title', 'Author'],
+    ]);
+    // Map { 'name' => '张三', 'title' => 'Author' }
+    ```
+
+  - Map 实例的属性和方法
+
+    | 属性/方法 | 说明 |
+    | --- | --- |
+    | Map.prototype.constructor | 构造函数，默认就是 Map 函数 |
+    | Map.prototype.size | 返回 Map 结构的成员总数 |
+    | Map.prototype.set(key, value) | 设置键名 key 对应的键值为 value，然后返回整个 Map 结构。如果 key 已经有值，则键值会被更新，否则就新生成该键 |
+    | Map.prototype.get(key) | 读取 key 对应的键值，如果找不到 key，返回 undefined |
+    | Map.prototype.has(key) | 返回一个布尔值，表示某个键是否在当前 Map 对象之中 |
+    | Map.prototype.delete(key) | 删除某个键，返回 true。如果删除失败，返回 false |
+    | Map.prototype.clear() | 清除所有成员，没有返回值 |
+
+- WeakSet
+
+  - WeakSet 结构与 Set 类似，也是不重复的值的集合
+  - WeakSet 的成员只能是对象，而不能是其他类型的值
+  - WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中
+  - WeakSet 不能遍历，方法也有限
+  - WeakSet 没有 size 属性，没有办法遍历它的成员
+  - WeakSet 有三个方法可用：add(value)、delete(value)、has(value)
+
+- WeakMap
+
+  - WeakMap 结构与 Map 结构类似，也是用于生成键值对的集合
+  - WeakMap 只接受对象作为键名（null 除外），不接受其他类型的值作为键名
+  - WeakMap 的键名所指向的对象，不计入垃圾回收机制
+  - WeakMap 的键名所指向的对象，都是弱引用，如果没有其他的变量或属性引用这个对象的话，这个对象会被垃圾回收掉，不考虑这个对象还存在于 WeakMap 之中
+  - WeakMap 没有遍历操作（即没有 keys()、values()和 entries()方法），也没有 size 属性
+  - WeakMap 只有四个方法可用：get(key)、set(key, value)、has(key)、delete(key)
+
+## 46. 事件循环(EventLoop)
+
+![](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/CDE1E05AA6924122A3BC9793CF2C6D0E/5042)
+
+- 同步和异步任务分别进入不同的执行"场所"
+- 同步的进入主线程，异步的进入 Event Table 并注册函数。
+- 当指定的事情完成时，Event Table 会将这个函数移入 Event Queue。
+- 主线程内的任务执行完毕为空，会去 Event Queue 读取对应的函数，进入主线程执行。
+- 上述过程会不断重复，也就是常说的 Event Loop(事件循环)。
+
+### 46.1. 宏任务，微任务
+
+![](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/AC64F1B26FF04EB5A7724F4A8E2080F9/5052)
+
+- 例子
+
+  ```js
+  console.log('1');
+
+  setTimeout(function () {
+    console.log('2');
+    process.nextTick(function () {
+      console.log('3');
+    });
+    new Promise(function (resolve) {
+      console.log('4');
+      resolve();
+    }).then(function () {
+      console.log('5');
+    });
+  }, 500);
+  process.nextTick(function () {
+    console.log('6');
+  });
+  new Promise(function (resolve) {
+    console.log('7');
+    resolve();
+  }).then(function () {
+    console.log('8');
+  });
+
+  setTimeout(function () {
+    console.log('9');
+    process.nextTick(function () {
+      console.log('10');
+    });
+    new Promise(function (resolve) {
+      console.log('11');
+      resolve();
+    }).then(function () {
+      console.log('12');
+    });
+  }, 1000);
+  // 1，7，6，8，2，4，3，5，9，11，10，12
+  ```
+
+  > 写的比较简略，详情请看参考:[掘金——这一次，彻底弄懂 JavaScript 执行机制](https://segmentfault.com/a/1190000018227028)
+
+## 47. 柯里化
+
+- 是高阶函数的一种特殊用法
+- 定义：接收函数 A 作为参数，运行后能够返回一个新的函数，并且这个新的函数能够处理函数 A 的剩余参数。
+- 实现
+  - lodash.curry()
+  - 简单实现，参数只能从右到左传递
+    ```js
+    function createCurry(func, args) {
+      var arity = func.length;
+      var args = args || [];
+      return function () {
+        var _args = [].slice.call(arguments);
+        [].push.apply(_args, args);
+        // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
+        if (_args.length < arity) {
+          return createCurry.call(this, func, _args);
+        }
+        // 参数收集完毕，则执行func
+        return func.apply(this, _args);
+      };
+    }
+    ```
+  - 30 seconds of code:
+    ```js
+    const curry = (fn, arity = fn.length, ...args) =>
+      arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);
+    ```
+- 例子
+  ```js
+  function add(a, b, c) {
+    return a + b + c;
+  }
+  createCurry(add)(1, 2, 3); // 6
+  createCurry(add)(1, 2)(3); // 6
+  createCurry(add)(1)(2)(3); // 6
+  curry(add)(1)(2)(3); // 6
+  curry(add)(1)(2, 3); // 6
+  ```
+  > - 参考：[llh911001——JS 函数式编程指南](https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/ch4.html#%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%8F%8C%E5%85%B3%E8%AF%AD%E5%92%96%E5%96%B1)
+  > - 参考：[简书——深入详解函数的柯里化](https://www.jianshu.com/p/5e1899fe7d6b)
+  > - 参考：[segmentfault——简述几个非常有用的柯里化函数使用场景](https://segmentfault.com/a/1190000015281061)
+
+## 48. 常见设计模式
+
+- 单例模式
+  - 保证一个类仅有一个实例，并提供一个访问它的全局访问点。实现的方法为先判断实例存在与否，如果存在则直接返回，如果不存在就创建了再返回，这就确保了一个类只有一个实例对象。
+  - 适用场景：一个单一对象，比如：弹窗，无论点击多少次，弹窗只应该被创建一次
+- 装饰者模式
+  - 在不改变对象自身的基础上，在程序运行期间给对象动态地添加方法。
+  - 举例：redux connect 与 Hoc
+- 观察者模式
+  - 定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。
+  - 适用场景：发布订阅模式、vue 的 watch、react 的 useEffect
+- 工厂模式
+  - 定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。
+  - 适用场景：创建对象、创建 DOM
+- 代理模式
+  - 为一个对象提供一个代用品或占位符，以便控制对它的访问。
+  - 代理对象和本体对象具有一致的接口
+  - 适用场景：图片懒加载、预加载、缓存
+- 中介者模式
+  - 对象和对象之间借助第三方中介者进行通信
+  - 例如飞机只需要和塔台通信就知道其他飞机的状态，不需要和所有飞机通信
+  - 适用场景：商城购买，多种场景都会触发 onchange
+- 适配器模式
+  - 将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+  - 适用场景：兼容性问题
+- 策略模式
+  - 定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。
+  - 根据不同参数可以命中不同的策略
+  - 适用场景：表单校验
+
+> 参考：[JavaScript 中常见设计模式整理](https://juejin.im/post/6844903607452581896)  
+> 参考：[JavaScript 设计模式](https://juejin.im/post/6844903503266054157)
+
+## 49. 前端工程化是什么？
+
+前端工程化是指在开发过程中，提高开发效率，减少后期维护成本的一个方案。它应该考虑以下几个因素：
+
+- 模块化
+- 组件化
+- 规范化(目录结构, 统一的编码规范, 文档规范, git 分支管理, mock 数据, 接口返回格式)
+- 自动化(自动化测试, 自动化部署)

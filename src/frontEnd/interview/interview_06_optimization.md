@@ -4,13 +4,13 @@ group:
   title: Interview
 ---
 
-## 性能优化
+# 性能优化
 
-### 1. 说一下你对性能优化的理解
+## 1. 说一下你对性能优化的理解
 
 > 性能优化是指在保证功能的前提下，尽可能的减少资源的消耗，提高页面的加载速度，提升用户体验。
 
-### 2. 说一下常用的性能优化的方法
+## 2. 说一下常用的性能优化的方法
 
 - 减少 HTTP 请求，只请求当前需要的资源
   - 异步加载
@@ -40,13 +40,13 @@ group:
     - last-modified
     - etag
 
-### 3. 如果某一段 js 执行时间非常，怎么去分析哪一段代码/函数执行时间过长
+## 3. 如果某一段 js 执行时间非常，怎么去分析哪一段代码/函数执行时间过长
 
 - 使用 performance API，如 performance.now()、performance.mark()、performance.measure()
 - 使用 chrome 的 performance 面板，可以看到每个函数的执行时间
 - console.time()、console.timeEnd()
 
-### 4. 场景题：阿里云 oss 支持通过 url 参数来转换图片格式，尝试写一下把任意图片转换成 webp 格式
+## 4. 场景题：阿里云 oss 支持通过 url 参数来转换图片格式，尝试写一下把任意图片转换成 webp 格式
 
 > 需要先判断浏览器是否支持 webp 格式，如果不支持，就使用原来的图片格式。
 
@@ -79,13 +79,13 @@ function getWebpUrl(url) {
 }
 ```
 
-### 5. 怎么实现一个图片懒加载
+## 5. 怎么实现一个图片懒加载
 
 - 使用 scroll 事件，监听滚动条的位置，如果元素在可视区域，就加载图片
 - getBoundingClientRect()，可以获取元素的位置信息，如果元素在可视区域，就加载图片
 - 使用 [IntersectionObserver](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API) API，可以监听元素是否在可视区域，如果在可视区域，就加载图片
 
-### 6. 如果有巨量的图片要展示，除了懒加载，还有什么方法可以限制同时加载图片的数量
+## 6. 如果有巨量的图片要展示，除了懒加载，还有什么方法可以限制同时加载图片的数量
 
 > 代码题，通过 promise.race 实现 promise 的并发控制
 
