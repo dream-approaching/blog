@@ -217,7 +217,7 @@ autoprefixer 不仅会帮你加-webkit-之类的 prefixer，它还会帮你删�
 
 > 常见于 margin 发生折叠情况
 
-- BFC 即 Block Formatting Contexts (块级格式化上下文)
+- BFC 即 Block Formatting Contexts (块级格式化上下文)，是一个独立的渲染区域
 - 只要元素满足下面任一条件即可触发 BFC 特性
   - body 根元素
   - 浮动元素：float 除 none 以外的值
@@ -241,7 +241,7 @@ autoprefixer 不仅会帮你加-webkit-之类的 prefixer，它还会帮你删�
 
 flex 布局是一种新的布局方式，它可以让我们更加简单的实现各种布局，比如垂直居中、水平居中、两端对齐、等高布局、自适应布局等等。
 
-### 12.1. 常用属性
+常用属性:
 
 - flex-grow: 表示放大比例
 - flex-shrink: 表示缩小比例
@@ -253,7 +253,7 @@ flex 布局是一种新的布局方式，它可以让我们更加简单的实现
 - align-items: flex-start | flex-end | center | baseline | stretch
 - align-content: flex-start | flex-end | center | space-between | space-around | stretch,多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
 
-### flex 1 是什么意思，和 flex: 1 1 0%有什么区别
+### 12.1. flex 1 是什么意思
 
 > flex: 1; 等价于 flex: 1 1 0%; 也就是 flex-grow: 1; flex-shrink: 1; flex-basis: 0%; 三个属性的简写形式。
 
@@ -261,11 +261,11 @@ flex 布局是一种新的布局方式，它可以让我们更加简单的实现
 - flex-shrink: 1 表示缩小比例为 1，即如果空间不足，该项目将缩小。如果所有项目的 flex-shrink 属性都为 1，当空间不足时，都将等比例缩小。如果一个项目的 flex-shrink 属性为 0，其他项目都为 1，则空间不足时，前者不缩小。
 - flex-basis: 0% 表示初始大小为 0，即在分配多余空间之前，项目占据的主轴空间（main size）。
 
-## grid
+## 13. grid
 
 grid 布局是一种二维布局方式，可以很方便的实现多列布局，也可以实现多行布局。
 
-### 常用属性
+常用属性:
 
 - grid-template-columns: 100px 100px 100px; // 列宽
 - grid-template-rows: 100px 100px 100px; // 行高
@@ -283,7 +283,7 @@ grid 布局是一种二维布局方式，可以很方便的实现多列布局，
 - grid-row-start: 1; // 行开始位置
 - grid-row-end: 3; // 行结束位置
 
-## flex 和 grid 的区别，什么场景下用 flex，什么场景下用 grid
+## 14. flex 和 grid 的区别，什么场景下用 flex，什么场景下用 grid
 
 - flex 是一维布局，grid 是二维布局
 - 使用 flex 的场景
@@ -294,3 +294,12 @@ grid 布局是一种二维布局方式，可以很方便的实现多列布局，
   - 二维布局
   - 布局方向不固定
   - 项目数量固定
+
+## 15. CSS 伪类选择器中的: 和 ::(冒号区别)
+
+css3 为了区分两者，已经明确规定了
+
+- : 用于伪类选择器，比如 :hover、:active、:first-child 等
+- :: 用于伪元素选择器，比如 ::before、::after 等
+
+对于 CSS2 之前已有的伪元素，比如:before，单冒号和双冒号的写法::before 作用是一样的
