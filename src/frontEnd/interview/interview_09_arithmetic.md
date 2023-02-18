@@ -735,3 +735,160 @@ var twoSum = function (nums, target) {
   return [];
 };
 ```
+
+### 2.8 数组转换树结构
+
+有一个数组，数组中的每个元素都是一个对象，对象中有一个 id 和 parentId 属性，id 表示当前元素的 id，parentId 表示当前元素的父元素的 id。现在要求将这个数组转换成树结构，要求如下：
+
+1. 数组中的元素以 id 作为唯一标识，不会出现重复的 id
+2. parentId 为 0 的元素为根元素
+3. 转换后的树结构中，每个元素的 children 属性表示当前元素的子元素
+
+```js
+/**
+ * 数组转换树结构
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
+ * @param {object[]} arr
+ * @return {object}
+ */
+var arrayToTree = function (arr) {
+  // 用于存储数组中的值和索引
+  let map = new Map();
+  for (let i = 0; i < arr.length; i++) {
+    map.set(arr[i].id, i);
+  }
+  console.log('%c zjs map:', 'color: #fff;background: #b457ff;', map);
+  let root = null;
+  for (let i = 0; i < arr.length; i++) {
+    let item = arr[i];
+    if (item.parentId === 0) {
+      root = item;
+    } else {
+      let parentIndex = map.get(item.parentId);
+      let parent = arr[parentIndex];
+      if (!parent.children) {
+        parent.children = [];
+      }
+      parent.children.push(item);
+    }
+  }
+  return root;
+};
+
+let arr = [
+  { id: 1, parentId: 0 },
+  { id: 2, parentId: 1 },
+  { id: 3, parentId: 1 },
+  { id: 4, parentId: 2 },
+  { id: 5, parentId: 2 },
+  { id: 6, parentId: 4 },
+  { id: 7, parentId: 3 },
+  { id: 8, parentId: 3 },
+  { id: 9, parentId: 3 },
+  { id: 10, parentId: 5 },
+  { id: 11, parentId: 7 },
+  { id: 12, parentId: 11 },
+];
+
+console.log('%c zjs arrayToTree:', 'color: #fff;background: #b457ff;', arrayToTree(arr));
+```
+
+### 2.9 去除字符串中出现次数最少的字符，不改变原字符串的顺序
+
+```js
+/**
+ * 去除字符串中出现次数最少的字符，不改变原字符串的顺序
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
+ * @param {string} str
+ * @return {string}
+ */
+var removeMinChar = function (str) {
+  // 用一个map存储每个字符出现的次数
+  let map = new Map();
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (map.has(char)) {
+      map.set(char, map.get(char) + 1);
+    } else {
+      map.set(char, 1);
+    }
+  }
+  // 最小出现次数
+  const min = Math.min(...map.values());
+
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (map.get(char) > min) {
+      result += char;
+    }
+  }
+
+  return result;
+};
+
+removeMinChar('ababac'); // 'ababa'
+```
+
+### 2.10 数字转换成汉语的输出
+
+将数字转换成汉语的输出，输入为不超过 10000 亿的数字。如 123456 —— 十二万三千四百五十六
+
+```js
+/**
+ * 数字转换成汉语的输出
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(1)
+ * @param {number} num
+ * @return {string}
+ */
+var numberToChinese = function (num) {
+  // 0-9
+  const numArr = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+  // 单位
+  const unitArr = [
+    '',
+    '十',
+    '百',
+    '千',
+    '万',
+    '十',
+    '百',
+    '千',
+    '亿',
+    '十',
+    '百',
+    '千',
+    '万',
+    '十',
+    '百',
+    '千',
+  ];
+  // 转换成字符串
+  const str = num.toString();
+  // 结果
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    // 获取当前数字
+    const num = str[i];
+    // 获取当前数字对应的单位
+    const unit = unitArr[str.length - i - 1];
+    // 如果当前数字不是 0，拼接到结果中
+    if (num !== '0') {
+      result += numArr[num] + unit;
+    } else {
+      // 如果当前数字是 0，判断是否需要加零
+      // 如果当前数字是最后一个数字，不需要加零
+      // 如果当前数字不是最后一个数字，判断下一个数字是否为 0，如果下一个数字不是 0，需要加零
+      if (i !== str.length - 1 && str[i + 1] !== '0') {
+        result += numArr[num];
+      }
+    }
+  }
+  return result;
+};
+
+numberToChinese(123456); // '一十二万三千四百五十六'
+```
