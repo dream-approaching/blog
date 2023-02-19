@@ -29,10 +29,15 @@ xhr.onreadystatechange = function () {
 
 ## 2. http 请求的方法
 
-> - GET: 获取资源
-> - POST: 创建资源
-> - PUT: 更新资源
-> - DELETE: 删除资源
+- GET: 获取资源
+- POST: 创建资源
+- PUT: 更新资源
+- DELETE: 删除资源
+
+### 2.1. 什么时候会有 options 请求？怎么解决？
+
+跨域请求时，浏览器会先发送一个 options 请求，询问服务器是否允许跨域请求  
+解决方法：在服务器端设置允许跨域请求的域名
 
 ## 3. 常见状态码
 

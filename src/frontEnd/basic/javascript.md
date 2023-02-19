@@ -115,21 +115,10 @@ console.log(a.call(null)); // [object Null]
 - 栈(stack)
   - 会自动分配内存空间，会自动释放。
   - 存放简单的数据段，占据固定大小的空间。
-  - 属于后进先出
-    ```js
-    function multiply(x, y) {
-      return x * y;
-    }
-    function printSquare(x) {
-      var s = multiply(x, x);
-      console.log(s);
-    }
-    printSquare(5);
-    ```
-    ![](https://user-gold-cdn.xitu.io/2017/11/11/bc37a6231fca3b0aa3cd36369e866837?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+  - 属于后进先出的数据结构。
 - 堆(heap)
   - 动态分配的内存，大小不定也不会自动释放。
-  - 存放引用类型变量的指针
+  - 存放复杂的数据段
 
 > 参考：[[译] JavaScript 如何工作：对引擎、运行时、调用堆栈的概述](https://juejin.im/post/6844903510538993671)
 
