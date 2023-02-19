@@ -683,60 +683,7 @@ var bfs = function (arr, target) {
 };
 ```
 
-### 2.7. 两数之和
-
-给定一个整数数组 nums  和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那   两个   整数，并返回它们的数组下标。
-
-你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
-
-你可以按任意顺序返回答案。
-
-实例 1：输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。
-
-```js
-/**
- * 暴力法
- * 时间复杂度：O(n^2)
- * 空间复杂度：O(1)
- */
-var twoSum = function (nums, target) {
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = i + 1; j < nums.length; j++) {
-      if (nums[i] + nums[j] === target) {
-        return [i, j];
-      }
-    }
-  }
-  return [];
-};
-
-/**
- * 哈希表
- * 时间复杂度：O(n)
- * 空间复杂度：O(n)
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
-var twoSum = function (nums, target) {
-  // 用于存储数组中的值和索引
-  let map = new Map();
-  for (let i = 0; i < nums.length; i++) {
-    // 计算差值
-    let complement = target - nums[i];
-    if (map.has(complement)) {
-      // 如果差值存在于哈希表中，说明找到了两个数
-      return [map.get(complement), i];
-    }
-    // 如果差值不存在于哈希表中，将当前值和索引存入哈希表
-    console.log('%c zjs map:', 'color: #fff;background: #b457ff;', map);
-    map.set(nums[i], i);
-  }
-  return [];
-};
-```
-
-### 2.8 数组转换树结构
+### 2.7. 数组转换树结构
 
 有一个数组，数组中的每个元素都是一个对象，对象中有一个 id 和 parentId 属性，id 表示当前元素的 id，parentId 表示当前元素的父元素的 id。现在要求将这个数组转换成树结构，要求如下：
 
@@ -794,7 +741,7 @@ let arr = [
 console.log('%c zjs arrayToTree:', 'color: #fff;background: #b457ff;', arrayToTree(arr));
 ```
 
-### 2.9 去除字符串中出现次数最少的字符，不改变原字符串的顺序
+### 2.8. 去除字符串中出现次数最少的字符，不改变原字符串的顺序
 
 ```js
 /**
@@ -832,7 +779,7 @@ var removeMinChar = function (str) {
 removeMinChar('ababac'); // 'ababa'
 ```
 
-### 2.10 数字转换成汉语的输出
+### 2.9. 数字转换成汉语的输出
 
 将数字转换成汉语的输出，输入为不超过 10000 亿的数字。如 123456 —— 十二万三千四百五十六
 
