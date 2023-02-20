@@ -7,7 +7,27 @@ group:
 
 # CSS
 
-## 1. 用 border 绘制三角形
+## 1. 如何优化 css 性能
+
+- 内联首屏关键 CSS
+- 资源压缩
+- css 的匹配是从右往左的，所以尽量把常用的放在左边
+- 减少 DOM 操作，尽量使用 css3 代替 js 操作
+- 减少 DOM 数量，尽量使用伪类代替标签
+- 减少 css 选择器的层级，尽量使用 class 选择器
+- 减少 css 的计算，可以使用 transform 代替 top、left 等
+- 减少 css 的重绘和重排，可以使用 visibility 代替 display
+- 少用@import，会影响浏览器的并行下载
+- 少用通配符和属性选择器，会影响浏览器的性能
+
+## 2. 有哪些 css 属性可以继承
+
+- 字体相关：`font、font-family、font-size、font-weight、line-height、text-align、text-indent、letter-spacing、white-space、color、direction`
+- 文本相关：`text-decoration、text-shadow、letter-spacing、word-wrap、word-break、vertical-align、direction、white-space`
+- 颜色相关：`color、border、background、outline`
+- 列表相关：`list-style、list-style-type`
+
+## 3. 用 border 绘制三角形
 
 ```css
 width: 0;
@@ -18,7 +38,7 @@ border-color: transparent transparent lightblue;
 
 > 参考： [简书——CSS 绘制三角形](https://www.jianshu.com/p/9a463d50e441)
 
-## 2. 修改 placeholder 样式
+## 4. 修改 placeholder 样式
 
 ```css
 .input::-webkit-input-placeholder {
@@ -32,7 +52,7 @@ border-color: transparent transparent lightblue;
 }
 ```
 
-## 3. 自定义滚动条
+## 5. 自定义滚动条
 
 ```css
 // 滚动条整体部分 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸
@@ -70,42 +90,16 @@ border-color: transparent transparent lightblue;
 }
 ```
 
-## 4. 隐藏滚动条
+## 6. 超出省略号
 
 ```css
-::-webkit-scrollbar {
-  width: 0px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: none;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: none;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: none;
-}
-
-::-webkit-scrollbar-thumb:active {
-  background-color: none;
-}
-```
-
-## 5. 超出省略号
-
-```css
+/* 单行 */
 overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 width: 160px;
-```
 
-## 6. 固定行数超出省略号
-
-```css
+/* 多行 */
 overflow: hidden;
 text-overflow: ellipsis;
 display: -webkit-box;
@@ -303,3 +297,18 @@ css3 为了区分两者，已经明确规定了
 - :: 用于伪元素选择器，比如 ::before、::after 等
 
 对于 CSS2 之前已有的伪元素，比如:before，单冒号和双冒号的写法::before 作用是一样的
+
+## 16. position 的粘性定位
+
+position: sticky; 粘性定位，当元素滚动到指定位置时，元素会固定在指定位置，直到滚动到另一个指定位置。
+
+用法：
+
+```css
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+```

@@ -104,3 +104,23 @@ export default {
   },
 };
 ```
+
+## 14. vue3 中 reactive 是如何实现的
+
+```js
+const reactive = (target) => {
+  const handler = {
+    get(target, key) {
+      const result = Reflect.get(target, key);
+      track(target, key);
+      return result;
+    },
+    set(target, key, value) {
+      const result = Reflect.set(target, key, value);
+      trigger(target, key);
+      return result;
+    },
+  };
+  return new Proxy(target, handler);
+};
+```

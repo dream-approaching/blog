@@ -923,7 +923,100 @@ function getData(times) {
       - deleteCount 刪除的個數，如為 0 則不會刪除。
       - item… 添加的新項目。
 
-## 35. addEventListener 方法的参数和使用
+## 35. string 有哪些方法
+
+### 35.1. 常用方法
+
+- `charAt()`: 返回指定位置的字符
+- `charCodeAt()`: 返回指定位置的字符的 Unicode 编码
+- `concat()`: 连接两个或多个字符串
+- `indexOf()`: 返回某个指定的字符串值在字符串中首次出现的位置
+- `lastIndexOf()`: 返回一个指定的字符串值最后出现的位置，在一个字符串中的指定位置从后向前搜索
+- `match()`: 找到一个或多个正则表达式的匹配
+- `replace()`: 替换与正则表达式匹配的子串
+- `slice()`: 提取字符串的片断，并在新的字符串中返回被提取的部分，不改变原字符串
+- `split()`: 把字符串分割为字符串数组
+- `substr()`: 从起始索引号提取字符串中指定数目的字符，不改变原字符串
+- `substring()`: 提取字符串中两个指定的索引号之间的字符，不改变原字符串
+- `toLowerCase/toUpperCase()`: 把字符串转换为小写
+- `trim()`: 删除字符串的头尾空白符
+- `valueOf()`: 返回某个字符串对象的原始值
+
+### 35.2. ES6+ 新增方法
+
+- `repeat()`: 返回一个新字符串，表示将原字符串重复 n 次
+- `padStart()`: 用另一个字符串填充当前字符串（如果需要的话则重复填充），返回填充后达到指定长度的字符串。从当前字符串的头部（左侧）开始填充
+- `padEnd()`: 用另一个字符串填充当前字符串（如果需要的话则重复填充），返回填充后达到指定长度的字符串。从当前字符串的尾部（右侧）开始填充
+- `startsWith()`: 判断当前字符串是否以另外一个给定的子字符串“开始”，根据判断结果返回 true 或 false
+- `endsWith()`: 判断当前字符串是否以另外一个给定的子字符串“结束”，根据判断结果返回 true 或 false
+- `includes()`: 判断一个字符串是否包含在另一个字符串中，根据判断结果返回 true 或 false
+- `codePointAt()`: 返回一个字符串中指定位置的字符的 Unicode 编码，接受一个参数
+- `trimStart()`: 删除字符串头部的空白符
+- `trimEnd()`: 删除字符串尾部的空白符
+- `trimLeft()`: 删除字符串头部的空白符
+- `trimRight()`: 删除字符串尾部的空白符
+- `replaceAll()`: 替换所有匹配项
+
+### 35.3. 如何反转字符串
+
+```js
+// 方法一
+function reverseString(str) {
+  return str.split('').reverse().join('');
+}
+
+// 方法二
+function reverseString(str) {
+  let result = '';
+  for (let i = str.length - 1; i >= 0; i--) {
+    result += str[i];
+  }
+  return result;
+}
+
+// 方法三
+function reverseString(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i++) {
+    console.log('%c zjs str[i]:', 'color: #fff;background: #b457ff;', str[i], result);
+    result = str[i] + result;
+  }
+  return result;
+}
+```
+
+### 35.4. 如何判断字符串是否包含某个字符
+
+```js
+// 方法一
+function isInclude(str, target) {
+  return str.indexOf(target) !== -1;
+}
+
+// 方法二
+function isInclude(str, target) {
+  return str.includes(target);
+}
+```
+
+### 35.5. substring 和 substr 的区别
+
+- `substring(start, end)`  
+  返回字符串的一个子串，其内容是从 start 处到 end-1 处的所有字符，或从 start 处到字符串末尾的所有字符。如果参数为负数，则被当作 0。如果 end 小于 start，则两者交换。
+  ```js
+  var str = 'Mozilla';
+  console.log(str.substring(1, 3)); // expected output: "oz"
+  console.log(str.substring(2)); // expected output: "zilla"
+  ```
+- `substr(start, length)`  
+  返回一个从 start 处开始的指定长度的子字符串。如果第二个参数 length 未指定，则返回从 start 处开始到原字符串结尾的子字符串。如果参数为负数，则被当作 0。
+  ```js
+  var str = 'Mozilla';
+  console.log(str.substr(1, 3)); // expected output: "ozi"
+  console.log(str.substr(2)); // expected output: "zilla"
+  ```
+
+## 36. addEventListener 方法的参数和使用
 
 ```js
 target.addEventListener(type, listener, options);
@@ -949,13 +1042,13 @@ target.addEventListener(type, listener, useCapture, wantsUntrusted);
   - `signal:AbortSignal`  
     当调用给定 `AbortSignal` 对象的 `abort()` 方法时，侦听器将被删除。如果未指定，则 `noAbortSignal` 与侦听器相关联。
 
-## 36. this 的指向以及 call、apply、bind 的区别
+## 37. this 的指向以及 call、apply、bind 的区别
 
-### 36.1. this 的指向
+### 37.1. this 的指向
 
 this 永远指向最后调用它的那个对象
 
-### 36.2. call、apply、bind 的区别
+### 37.2. call、apply、bind 的区别
 
 > call、apply、bind 都是用来改变函数的 this 对象的指向的
 
@@ -965,7 +1058,7 @@ this 永远指向最后调用它的那个对象
 
 > 参考： https://juejin.cn/post/6844903496253177863
 
-## 37. 对原型链的理解
+## 38. 对原型链的理解
 
 - 原型链是一种机制，指的是 `JavaScript` 每个对象都有一个内置的 `__proto__` 属性指向它的原型对象
 - 它的作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么就会去它的 `__proto__` 属性所指向的那个对象里找，如果父对象也不存在这个属性，则继续往上找，直到原型链顶端 `null`，由以上这种通过 `__proto__` 属性来连接对象直到 `null` 的一条链即为我们所谓的原型链
@@ -990,7 +1083,7 @@ this 永远指向最后调用它的那个对象
 > 参考: [CSDN——prototype、proto 与 constructor](https://blog.csdn.net/cc18868876837/article/details/81211729)  
 > 参考: [知乎——JavaScript 世界万物诞生记](https://zhuanlan.zhihu.com/p/22989691)
 
-## 38. 实现继承的几种方式
+## 39. 实现继承的几种方式
 
 ```js
 // 假设有父类 Parent
@@ -1009,6 +1102,7 @@ Parent.prototype.showName = function () {
   ```js
   function Child() {}
   Child.prototype = new Parent(); // 原型链继承
+
   var a = new Child();
   var b = new Child();
   // 可以访问到父类的属性和方法，但是无法向实例传参
@@ -1028,6 +1122,7 @@ Parent.prototype.showName = function () {
   function Child(name, age) {
     Parent.call(this, name, age); // 或apply  构造函数继承
   }
+
   Child.prototype.showChildName = function () {
     console.log(this.name);
   };
@@ -1073,7 +1168,8 @@ Parent.prototype.showName = function () {
   console.log(child1.showName()); // longzi
   ```
 
-- Object.create()
+- Object.create()  
+  使用现有的对象来作为新创建对象的原型
   ```js
   function Child(name, age) {
     Parent.call(this, name, age); // 构造函数继承
@@ -1109,7 +1205,7 @@ Parent.prototype.showName = function () {
 | Object.create() | 1.解决上述三种方式的缺点</br>2.ES5 首选 | 暂无 |
 | class.extends | 清晰 方便 | 注意：子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。 |
 
-## 39. new 内部的原理，如何实现一个 new
+## 40. new 内部的原理，如何实现一个 new
 
 ```js
 function _new() {
@@ -1135,7 +1231,7 @@ var person = _new(Person, 'longzi', 23);
 console.log(person.name, person.age); // longzi, 23
 ```
 
-## 40. 如何判断一个对象是否属于某个类
+## 41. 如何判断一个对象是否属于某个类
 
 ```js
 function Person() {
@@ -1151,14 +1247,14 @@ console.log(person instanceof Person); // true
 console.log(person.constructor === Person); // true
 ```
 
-## 41. 异步编程的几种方式
+## 42. 异步编程的几种方式
 
 - 回调函数
 - promise
 - generator
 - async/await
 
-## 42. promise
+## 43. promise
 
 Promise 是异步编程的一种解决方案, 有以下两个特点:
 
@@ -1206,7 +1302,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   // 出错了
   ```
 
-## 43. generator
+## 44. generator
 
 - generator 函数是一个状态机，封装了多个内部状态
 - Generator 还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
@@ -1301,7 +1397,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
     // 所以上面代码的return语句返回的6，不包括在for...of循环之中
     ```
 
-## 44. async/await
+## 45. async/await
 
 - 是 Generator 函数的语法糖
 - 与 Generator 的区别
@@ -1345,7 +1441,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 
 > 参考：[掘金——前端 er，你真的会用 async 吗？](https://juejin.im/post/5c0397186fb9a049b5068e54)
 
-## 45. Set、Map、WeakSet、WeakMap
+## 46. Set、Map、WeakSet、WeakMap
 
 - Set
 
@@ -1431,7 +1527,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   - WeakMap 没有遍历操作（即没有 keys()、values()和 entries()方法），也没有 size 属性
   - WeakMap 只有四个方法可用：get(key)、set(key, value)、has(key)、delete(key)
 
-## 46. 事件循环(EventLoop)
+## 47. 事件循环(EventLoop)
 
 ![](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/CDE1E05AA6924122A3BC9793CF2C6D0E/5042)
 
@@ -1441,7 +1537,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 - 主线程内的任务执行完毕为空，会去 Event Queue 读取对应的函数，进入主线程执行。
 - 上述过程会不断重复，也就是常说的 Event Loop(事件循环)。
 
-### 46.1. 宏任务，微任务
+### 47.1. 宏任务，微任务
 
 ![](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/AC64F1B26FF04EB5A7724F4A8E2080F9/5052)
 
@@ -1489,7 +1585,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 
   > 写的比较简略，详情请看参考:[掘金——这一次，彻底弄懂 JavaScript 执行机制](https://segmentfault.com/a/1190000018227028)
 
-## 47. 柯里化
+## 48. 柯里化
 
 - 是高阶函数的一种特殊用法
 - 定义：接收函数 A 作为参数，运行后能够返回一个新的函数，并且这个新的函数能够处理函数 A 的剩余参数。
@@ -1497,29 +1593,27 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   - lodash.curry()
   - 简单实现，参数只能从右到左传递
     ```js
-    function createCurry(func, args) {
-      var arity = func.length;
-      var args = args || [];
-      return function () {
-        var _args = [].slice.call(arguments);
-        [].push.apply(_args, args);
-        // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
-        if (_args.length < arity) {
-          return createCurry.call(this, func, _args);
+    function createCurry(fn, args) {
+      let length = fn.length; // 指参数个数
+      args = args || [];
+      return function (...rest) {
+        let _args = [...args, ...rest];
+        if (_args.length < length) {
+          return createCurry.call(this, fn, _args);
+        } else {
+          return fn.apply(this, _args);
         }
-        // 参数收集完毕，则执行func
-        return func.apply(this, _args);
       };
     }
     ```
   - 30 seconds of code:
     ```js
-    const curry = (fn, arity = fn.length, ...args) =>
-      arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);
+    const curry = (fn, fnLength = fn.length, ...args) =>
+      fnLength <= args.length ? fn(...args) : curry.bind(null, fn, fnLength, ...args);
     ```
 - 例子
   ```js
-  function add(a, b, c) {
+  function add2(a, b, c) {
     return a + b + c;
   }
   createCurry(add)(1, 2, 3); // 6
@@ -1532,7 +1626,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   > - 参考：[简书——深入详解函数的柯里化](https://www.jianshu.com/p/5e1899fe7d6b)
   > - 参考：[segmentfault——简述几个非常有用的柯里化函数使用场景](https://segmentfault.com/a/1190000015281061)
 
-## 48. 常见设计模式
+## 49. 常见设计模式
 
 - 单例模式
   - 保证一个类仅有一个实例，并提供一个访问它的全局访问点。实现的方法为先判断实例存在与否，如果存在则直接返回，如果不存在就创建了再返回，这就确保了一个类只有一个实例对象。
@@ -1565,7 +1659,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 > 参考：[JavaScript 中常见设计模式整理](https://juejin.im/post/6844903607452581896)  
 > 参考：[JavaScript 设计模式](https://juejin.im/post/6844903503266054157)
 
-## 49. 前端工程化是什么？
+## 50. 前端工程化是什么？
 
 前端工程化是指在开发过程中，提高开发效率，减少后期维护成本的一个方案。它应该考虑以下几个因素：
 

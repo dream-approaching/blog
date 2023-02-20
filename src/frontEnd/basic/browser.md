@@ -93,3 +93,26 @@ group:
   - 利用 Cookie 的 SameSite 属性：SameSite 可以设置为三个值，Strict、Lax 和 None
   - 验证来源站点：需要要用到请求头中的两个字段: Origin 和 Referer。
   - 校验 token
+
+## 7. 浏览器对象模型(BOM)
+
+- BOM 是浏览器提供的一系列对象，用来操作浏览器窗口和提供与浏览器交互的方法和接口
+- BOM 的核心对象是 window，它代表浏览器的一个实例，每个浏览器窗口都是一个 window 对象，它有很多属性和方法，比如
+  - window.navigator：浏览器信息
+  - window.location：当前页面的 URL 信息
+  - window.history：浏览器历史记录
+  - window.screen：屏幕信息
+  - window.document：当前页面的文档对象
+  - window.open()：打开新窗口
+  - window.close()：关闭当前窗口
+  - window.alert()：弹出警告框
+  - window.confirm()：弹出确认框
+  - window.setTimeout()：设置定时器
+  - window.clearTimeout()：清除定时器
+  - window.setInterval()：设置间隔定时器
+  - window.clearInterval()：清除间隔定时器
+  - window.requestAnimationFrame()：设置动画定时器
+  - window.cancelAnimationFrame()：清除动画定时器
+  - window.scrollTo()：滚动到指定位置
+  - window.scrollBy()：滚动指定距离
+  - window.scroll()：滚动到指定位置
