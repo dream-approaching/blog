@@ -36,8 +36,21 @@ xhr.onreadystatechange = function () {
 
 ### 2.1. 什么时候会有 options 请求？怎么解决？
 
-跨域请求时，浏览器会先发送一个 options 请求，询问服务器是否允许跨域请求  
-解决方法：在服务器端设置允许跨域请求的域名
+- 简单请求
+  - 请求方法是`GET`、`HEAD`、`POST`之一
+  - `Content-Type`的值只限于`application/x-www-form-urlencoded`、`multipart/form-data`、`text/plain`
+  - 请求中没有使用`ReadableStream`对象
+- 复杂请求
+  - 请求方法是`PUT`、`DELETE`、`CONNECT`、`OPTIONS`、`TRACE`、`PATCH`之一
+  - `Content-Type`的值是`application/json`
+  - 请求中使用了`ReadableStream`对象
+
+当跨域请求时，如果是复杂请求，浏览器会先发送一个`options`请求，询问服务器是否允许这样的请求，如果允许，才会发送真正的请求。所以我们可以在服务器端设置`Access-Control-Allow-Methods`来解决这个问题。
+
+Options 请求优化：
+
+- 服务端设置`Access-Control-Max-Age`，表示预检请求的结果可以缓存多久，单位是秒
+- 服务端设置`Access-Control-Allow-Headers`，表示允许的请求头
 
 ## 3. 常见状态码
 

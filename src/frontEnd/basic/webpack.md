@@ -152,3 +152,14 @@ group:
   - babel-loader 开启缓存
   - cache-loader
   - hard-source-webpack-plugin
+
+## 7. 有哪些方式可以实现微前端
+
+- webpack5 模块联邦
+- qiankun
+- nx
+- lerna
+
+nx 是一个基于 monorepo 的微前端框架，它的核心思想是将微前端的各个子应用作为一个独立的 npm 包来管理，通过 nx 的工具链来管理这些子应用，从而实现微前端的目的。
+
+> lerna 被 nx 收购了
