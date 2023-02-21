@@ -10,13 +10,13 @@ hero:
     - text: 太极
       link: /taiji/83
 features:
-  - icon: /web.png
+  - icon: /blog/web.png
     title: 前端相关
     desc: react、vue、javascript以及一些常见面试题
-  - icon: /taiji.png
+  - icon: /blog/taiji.png
     title: 太极笔记
     desc: 陈氏太极拳81式、72式，健身气功八段锦，八法五步等
-  - icon: /tool.png
+  - icon: /blog/tool.png
     title: 其他工具
     desc: 一些工具网站集合
 footer: Open-source MIT Licensed | Copyright © 闽ICP备19003454号-1<br />Powered by self
