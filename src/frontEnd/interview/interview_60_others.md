@@ -278,3 +278,25 @@ test.slice(2, 5); // "llo"
   - 项目开发
   - 项目测试
   - 项目部署
+
+## 19. 常见的数据可视化库
+
+- ECharts：百度团队开发，封装了绝大多数常规 chart，用户通过配置 options 参数，就可很容易绘制指定图表。
+  - 优点：学习门槛较低、图表丰富
+  - 缺点：自由度较低、很难实现自定义图表
+- antv.g2：蚂蚁金服团队开发，提供了更加友好的 API，支持 React、Vue、Angular 等框架。
+  - 优点：自由度较高、可根据自己的 UI 需求，用 g2 做底层库，封装自己的 charts 库。
+  - 缺点：学习成本稍高
+- d3
+  - 优点：更接近底层，d3 能直接操作 svg，所以拥有极大的自由度
+  - 缺点：学习门槛较高，需要对 svg、canvas 等有一定了解，还要有可视化的设计能力
+
+## 20. 怎么约定团队的代码规范
+
+- 能统一编辑器最好，不能的话尽量不要太多种，一般就是 vscode 和 webstorm
+- 电脑系统最好统一，比如 mac 或者 windows，因为不同系统下的换行符不一样，如果不能统一，需要在 setting.json 中配置换行符为 lf：`"files.eol": "\n"`
+- 代码风格的统一使用 eslint，可以通过配置 .eslintrc.js 来统一团队的代码风格，常用的规范有 standard、plugin:react/recommended、plugin:react-hooks/recommended、plugin:prettier/recommended
+- 代码格式化的统一使用 prettier，可以通过配置 .prettierrc.js 来统一团队的代码格式化
+- 需要打开 eslint 的自动修复功能，这样可以在保存文件时自动修复代码风格问题
+- 代码提交时使用 git hooks，校验代码风格，比如使用 husky 和 lint-staged
+- 代码提交时还可以使用 commitizen 和 commitlint 来规范 commit message
