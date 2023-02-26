@@ -300,3 +300,27 @@ test.slice(2, 5); // "llo"
 - 需要打开 eslint 的自动修复功能，这样可以在保存文件时自动修复代码风格问题
 - 代码提交时使用 git hooks，校验代码风格，比如使用 husky 和 lint-staged
 - 代码提交时还可以使用 commitizen 和 commitlint 来规范 commit message
+
+## 21. 怎么提高开发效率
+
+### 21.1. 工具
+
+- chrome：翻墙、谷歌账号、谷歌插件
+- vscode：常用插件(console-log-quickly、link-to-define、copilot)、快捷键
+- mac
+- 显示器双屏
+- git 图形工具：sourceTree(提交代码灵活)
+- 接口调试：postman(环境变量、脚本)
+- 终端工具：cmder [wsl](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- 笔记：有道云、印象笔记、语雀、Typora、Notion
+- 图床：[picGo](https://github.com/Molunerfinn/PicGo)
+- 其他：whistle、nvm、FoxMail、Xftp、Xshell、[Snipaste](https://zh.snipaste.com/)(截图贴图)
+
+### 21.2. 开发习惯
+
+- 代码层面：可读性、可维护性
+- 调试层面：只有一个原则，减少调试成本，如 whistle、真机调试等
+- 平时习惯：chrome 书签、笔记、代码片段
+- 其他方面
+  - 精神状态：加强锻炼、身体是本钱
+  - 沟通层面：尽量当面沟通、描述清楚问题（预期是什么样，当前是什么样，在什么场景下遇到了什么问题）
