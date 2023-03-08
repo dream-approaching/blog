@@ -63,7 +63,7 @@ const firstElement3: <T>(arr: T[]) => T | undefined = (arr) => {
 };
 
 // 参数是泛型参数
-function map<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
+function map1<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
   return arr.map(func);
 }
 const map2 = <Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] => {

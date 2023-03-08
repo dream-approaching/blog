@@ -246,6 +246,7 @@ flex 布局是一种新的布局方式，它可以让我们更加简单的实现
 - justify-content: flex-start | flex-end | center | space-between | space-around
 - align-items: flex-start | flex-end | center | baseline | stretch
 - align-content: flex-start | flex-end | center | space-between | space-around | stretch,多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+- align-self: auto | flex-start | flex-end | center | baseline | stretch,允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。
 
 ### 12.1. flex 1 是什么意思
 
@@ -329,3 +330,20 @@ position: sticky; 粘性定位，当元素滚动到指定位置时，元素会�
 - Tailwind CSS: 原子化 css 框架
 - styled-components: 用于 react 的 css-in-js 框架
 - linaria: 用于 react 的 css-in-js 框架
+
+## 19. 怎么在 chrome 中显示小于 12px 的字体
+
+- 通过 transform 缩放
+  ```css
+  .small {
+    font-size: 12px; // 12px * 0.8 = 9.6px
+    transform: scale(0.8);
+  }
+  ```
+- 通过 zoom 缩放，有兼容性问题
+  ```css
+  .small {
+    font-size: 12px; // 12px * 0.8 = 9.6px
+    zoom: 0.8;
+  }
+  ```

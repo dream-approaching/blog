@@ -866,7 +866,7 @@ function getData(times) {
 
 ## 33. for...in 和 for...of 的区别
 
-- `for...in` 循环遍历的是对象的属性名，包括原型链上的属性
+- `for...in` 循环遍历的是对象的属性名，包括原型链上的属性。遍历的顺序是不确定的
 - `for...of` 循环遍历的是对象的属性值，不包括原型属性和索引。是 `ES6` 新增的遍历方式
 - `for...in` 比较适合用来遍历对象，也可以遍历数组，但是会存在一些问题
   - 遍历数组时，会遍历数组的原型链上的属性，而且遍历的顺序不是按照数组的顺序来的，而是按照对象的顺序来的，所以不建议使用 `for in` 来遍历数组
@@ -1527,6 +1527,15 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   - WeakMap 没有遍历操作（即没有 keys()、values()和 entries()方法），也没有 size 属性
   - WeakMap 只有四个方法可用：get(key)、set(key, value)、has(key)、delete(key)
 
+### 46.1. map 和 object 的区别
+
+- Map 的键可以是各种类型的值，包括函数、对象、基本类型，而 Object 的键只能是字符串或 Symbols
+- Map 中的键值是有序的，而添加到对象中的键则不是。因此，当对它进行遍历时，Map 对象是按插入的顺序返回键值
+- Map 中的键值对个数可以通过 size 属性获取，而 Object 的键值对个数只能手动计算
+- Object 的原型链上有一个 constructor 属性，指向构造函数 Object，而 Map 没有这个属性
+- Map 中的键值对可以通过 clear 方法清空，而 Object 中的键值对只能一个一个删除
+- Map 中的键值对可以通过 for...of 循环遍历，而 Object 中的键值对只能通过 Object.keys()、Object.values()、Object.entries()、Object.getOwnPropertyNames()、Object.getOwnPropertySymbols() 等方法遍历
+
 ## 47. 事件循环(EventLoop)
 
 ![](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/CDE1E05AA6924122A3BC9793CF2C6D0E/5042)
@@ -1667,3 +1676,26 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 - 组件化
 - 规范化(目录结构, 统一的编码规范, 文档规范, git 分支管理, mock 数据, 接口返回格式)
 - 自动化(自动化测试, 自动化部署)
+
+## 51. js 和 ts 的核心区别是什么
+
+- js 是弱类型语言，ts 是强类型语言
+- TypeScript 是静态类型语言，需要编译成 JavaScript 才能运行，所以可以在编译阶段就发现大部分错误，而 JavaScript 是动态类型语言，只有在运行时才会发现错误
+
+## 52. AST 语法树
+
+- 什么是 AST
+  - 抽象语法树（Abstract Syntax Tree，AST），是源代码的抽象语法结构的树状表现形式。它是源代码的一种抽象语法结构的树状表现形式，用来表示源代码中各级语法结构之间的关系。它可以用来做语法分析、代码生成、代码优化等工作。
+- 为什么要用 AST
+  - 在编译器、IDE、Linter 等工具中，都需要对源代码进行解析，以便能够对源代码进行相应的处理。而解析源代码的过程，就是把源代码转换成 AST 的过程。因此，AST 是这些工具的基础。
+- 常见的通过 AST 分析源代码的工具
+  - babel: 实现对 JavaScript 语法的转换
+  - eslint: 实现对 JavaScript 语法的检查
+  - prettier: 实现对 JavaScript 语法的格式化
+  - vue-loader: 实现对 Vue 组件的编译
+  - webpack: 实现对模块依赖的解析
+  - postcss: 实现对 CSS 语法的转换
+  - rollup: 实现对模块依赖的解析
+  - react: 实现对 JSX 语法的转换
+  - vue: 实现对模板语法的转换
+  - typescript: 实现对 TypeScript 语法的转换

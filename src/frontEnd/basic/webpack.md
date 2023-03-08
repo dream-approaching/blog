@@ -123,6 +123,10 @@ group:
 - 内置的 HMR 支持，不需要再使用 `webpack-dev-server`
 - 内置 terser-webpack-plugin 插件，用于压缩 JS 代码
 
+webpack5 是怎么做缓存的？
+
+- 通过 `contenthash` 来实现的，`contenthash` 是根据文件内容来生成的，只要文件内容不变，`contenthash` 就不会变
+
 ## 6. 怎么优化 Webpack 的构建速度
 
 - 使用高版本的 Webpack
