@@ -31,3 +31,10 @@ BFF 层是 Back-End For Front-End 的缩写，是一种后端服务的设计模�
 
 - 增加后端的复杂度，增加后端的代码量
 - 增加后端的耦合度，增加后端的维护成本
+
+## 3. 常见 node 框架有哪些
+
+- express: 基于 Node.js 平台，快速、开放、极简的 web 开发框架
+- koa: 基于 Node.js 平台的下一代 web 开发框架
+- egg: 基于 Koa 开发的企业级 Node.js 框架
+- nest: 一款基于 Node.js 的后端框架，它使用 TypeScript 编写，并结合了 OOP（面向对象编程）、FP（函数式编程）和 FRP（函数式响应式编程）的元素

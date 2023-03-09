@@ -1665,6 +1665,10 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   - 根据不同参数可以命中不同的策略
   - 适用场景：表单校验
 
+发布订阅模式和观察者模式的区别
+
+- 观察者模式里只有 2 个角色，一个是观察者，一个是被观察者，而发布订阅模式里有 3 个角色，一个是发布者，一个是订阅者，还有一个是消息中心。
+
 > 参考：[JavaScript 中常见设计模式整理](https://juejin.im/post/6844903607452581896)  
 > 参考：[JavaScript 设计模式](https://juejin.im/post/6844903503266054157)
 
@@ -1699,3 +1703,76 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   - react: 实现对 JSX 语法的转换
   - vue: 实现对模板语法的转换
   - typescript: 实现对 TypeScript 语法的转换
+
+## 53. js 分片是什么，什么场景会用到，怎么实现
+
+- 分片是指将一个文件分成多个部分，每个部分都可以独立传输，最后再将这些部分组合起来，形成完整的文件。
+- 场景：上传大文件，断点续传
+
+### 53.1 实现分片上传、断点续传
+
+核心思想是利用 Blob.slice()方法将文件分片，然后将分片上传到服务器，最后将分片合并成完整的文件。
+
+H5 的原生 File 对象 是 Blob 的子类，所以 File 也有 slice()方法，用法和 Blob 的 slice()方法一样。
+
+```js
+// 上传文件，实现进度显示和断点续传
+function uploadFile(file, url, onProgress) {
+  // 1. 创建一个分片对象
+  const chunkSize = 1024 * 1024 * 2; // 2M
+  const chunks = Math.ceil(file.size / chunkSize); // 分片总数
+  let currentChunk = 0;
+  const spark = new SparkMD5.ArrayBuffer(); // 计算文件的 MD5 值, 用于断点续传
+  const fileReader = new FileReader();
+
+  // 2. 计算文件的 MD5 值
+  fileReader.onload = (e) => {
+    spark.append(e.target.result);
+    currentChunk++;
+    if (currentChunk < chunks) {
+      loadNext();
+    } else {
+      console.log('文件的 MD5 值为：' + spark.end());
+    }
+  };
+
+  fileReader.onerror = () => {
+    console.warn('文件读取失败');
+  };
+
+  function loadNext() {
+    const start = currentChunk * chunkSize;
+    const end = start + chunkSize >= file.size ? file.size : start + chunkSize;
+    fileReader.readAsArrayBuffer(file.slice(start, end));
+  }
+
+  loadNext();
+
+  // 3. 上传文件
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('filename', file.name);
+  formData.append('fileMd5', spark.end());
+  formData.append('chunk', currentChunk);
+  formData.append('chunks', chunks);
+
+  axios
+    .post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: (e) => {
+        if (e.lengthComputable) {
+          const percent = (e.loaded / e.total) * 100;
+          onProgress(percent);
+        }
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+```

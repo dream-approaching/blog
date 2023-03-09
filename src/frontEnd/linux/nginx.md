@@ -5,6 +5,34 @@ group:
   order: 55
 ---
 
+## 常用命令
+
+```shell
+# 关闭某个端口的进程
+lsof -i:端口号
+kill -9 进程号
+
+# 查看端口占用
+netstat -anp | grep 端口号
+
+
+mkdir # 创建文件夹
+rm -rf # 删除文件夹
+cd # 进入文件夹
+pwd # 查看当前路径
+ls # 查看当前文件夹下的文件
+ls -a # 查看当前文件夹下的所有文件
+
+
+# nginx 命令
+nginx # 启动 nginx
+nginx -s reload # 重启 nginx
+nginx -s stop # 停止 nginx
+nginx -v # 查看 nginx 版本
+
+
+```
+
 ## nginx 相关
 
 #### 1. 服务器重启后 nginx 启动不了

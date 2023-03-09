@@ -208,7 +208,7 @@ rl.on('line', function (line) {
 
   function wolfAndSheep(sheep, wolf) {
     // 如果狼和羊的数量都为0，说明已经运输完了，输出运输次数
-    if (sheep === 0 && wolf === 0) {
+    if (sheep <= 0 && wolf <= 0) {
       console.log(ans);
     } else {
       // 如果狼和羊的数量都不为0，说明还没有运输完，需要运输
@@ -220,6 +220,8 @@ rl.on('line', function (line) {
         if (wolf > maxCount) {
           wolf -= maxCount;
         } else {
+          // 有剩余的空位，就把剩余的空位给羊
+          sheep -= Math.max(maxCount - wolf, 0);
           // 如果狼的数量小于可载狼和羊的数量，说明狼的数量会变为0
           wolf = 0;
         }
@@ -229,6 +231,8 @@ rl.on('line', function (line) {
         if (sheep > maxCount) {
           sheep -= maxCount;
         } else {
+          // 有剩余的空位，就把剩余的空位给狼
+          wolf -= Math.max(maxCount - sheep, 0);
           // 如果羊的数量小于可载狼和羊的数量，说明羊的数量会变为0
           sheep = 0;
         }

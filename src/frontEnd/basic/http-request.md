@@ -234,13 +234,7 @@ Options 请求优化：
 > - superagent
 > - request
 
-## 17. http 在什么情况下会携带 cookie
-
-- cookie 的 domain 和当前请求的域名一致，或者是子域名
-- cookie 的 path 和当前请求的路径一致，或者是子路径
-- 都是 https 请求，或者都是 http 请求，不能一个是 http，一个是 https，除非设置了 secure 属性为 false
-
-## 18. axios 怎么取消请求
+## 17. axios 怎么取消请求
 
 - 0.22 之前，可以通过`cancelToken`来实现
 - 0.22 之后，可以通过 `new AbortController`来实现

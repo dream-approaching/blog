@@ -58,6 +58,34 @@ group:
 - document.cookie：直接设置，但是只能设置一条
 - 通过响应头的 Set-Cookie 字段设置，可以设置多条
 
+### 2.2. cookie 的属性
+
+- name：cookie 的名称
+- value：cookie 的值
+- expires：cookie 的过期时间，如果不设置，则为会话级 cookie，浏览器关闭时失效
+- path：cookie 的作用路径，如果不设置，则默认为当前文档位置的路径
+- domain：cookie 的作用域，如果不设置，则默认为当前域名
+- secure：是否只通过 https 连接来传递 cookie，如果不设置，则默认为 false
+- httpOnly：是否只允许 http 请求中携带 cookie，如果不设置，则默认为 false
+- sameSite：是否允许第三方 cookie，如果不设置，则默认为 none
+
+### 2.3. 哪些时候 http 请求会带上 cookie
+
+- domain
+  - 如果没有设置 domain，则只有当前域名下的请求才会带上 cookie
+  - 如果设置了 domain，则当前域名下的请求和设置的 domain 域名下的请求都会带上 cookie，包括 domain 的子域名
+- path
+  - 如果没有设置 path，则只有当前路径下的请求才会带上 cookie
+  - 如果设置了 path，则当前路径下的请求和设置的 path 路径下的请求都会带上 cookie
+- secure
+  - 如果没有设置 secure，则 http 和 https 都会带上 cookie
+  - 如果设置了 secure，则只有通过 https 连接的请求才会带上 cookie
+- httpOnly
+  - 如果设置了 httpOnly，则只有 http 请求才会带上 cookie，js 无法获取和修改
+- sameSite
+  - 如果设置了 sameSite，则只有同源请求才会带上 cookie
+  - 如果设置了 sameSite 为 none，则不管是同源还是非同源请求都会带上 cookie，但是需要设置 secure 为 true
+
 ## 3. 输入一个网址到页面展示，发生了什么事情
 
 - DNS 解析:将域名解析成 IP 地址
