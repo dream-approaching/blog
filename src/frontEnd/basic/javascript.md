@@ -1715,64 +1715,58 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 
 H5 的原生 File 对象 是 Blob 的子类，所以 File 也有 slice()方法，用法和 Blob 的 slice()方法一样。
 
+通过缓存判断是否有上传过，如果有上传过，就从上次上传的位置开始上传。
+
+最终在服务端将分片合并成完整的文件。
+
 ```js
-// 上传文件，实现进度显示和断点续传
-function uploadFile(file, url, onProgress) {
-  // 1. 创建一个分片对象
-  const chunkSize = 1024 * 1024 * 2; // 2M
-  const chunks = Math.ceil(file.size / chunkSize); // 分片总数
+// 用axios上传文件，实现进度显示和断点续传
+function uploadFile(file, url) {
+  const chunkSize = 2 * 1024 * 1024; // 每片2M
+  const chunks = Math.ceil(file.size / chunkSize);
   let currentChunk = 0;
-  const spark = new SparkMD5.ArrayBuffer(); // 计算文件的 MD5 值, 用于断点续传
+  const spark = new SparkMD5.ArrayBuffer();
   const fileReader = new FileReader();
-
-  // 2. 计算文件的 MD5 值
-  fileReader.onload = (e) => {
-    spark.append(e.target.result);
-    currentChunk++;
-    if (currentChunk < chunks) {
-      loadNext();
-    } else {
-      console.log('文件的 MD5 值为：' + spark.end());
-    }
-  };
-
-  fileReader.onerror = () => {
-    console.warn('文件读取失败');
-  };
-
-  function loadNext() {
-    const start = currentChunk * chunkSize;
-    const end = start + chunkSize >= file.size ? file.size : start + chunkSize;
-    fileReader.readAsArrayBuffer(file.slice(start, end));
-  }
-
-  loadNext();
-
-  // 3. 上传文件
   const formData = new FormData();
-  formData.append('file', file);
-  formData.append('filename', file.name);
-  formData.append('fileMd5', spark.end());
-  formData.append('chunk', currentChunk);
-  formData.append('chunks', chunks);
-
-  axios
-    .post(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      onUploadProgress: (e) => {
-        if (e.lengthComputable) {
-          const percent = (e.loaded / e.total) * 100;
-          onProgress(percent);
+  // 判断是否有上传过，如果有上传过，就从上次上传的位置开始上传
+  if (localStorage.getItem(file.name)) {
+    currentChunk = localStorage.getItem(file.name);
+  }
+  const upload = () => {
+    const start = currentChunk * chunkSize;
+    const end = Math.min(file.size, start + chunkSize);
+    fileReader.readAsArrayBuffer(file.slice(start, end));
+  };
+  fileReader.onload = (e) => {
+    spark.append(e.target.result); // 每次读取一片，就计算一次md5
+    formData.append('chunk', e.target.result); // 每次读取一片，就上传一片
+    formData.append('filename', file.name); // 文件名
+    formData.append('chunkIndex', currentChunk); // 当前是第几片
+    formData.append('chunks', chunks); // 总共多少片
+    axios
+      .post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: (e) => {
+          const progress = Math.round((currentChunk / chunks) * 100);
+          console.log(progress);
+        },
+      })
+      .then((res) => {
+        currentChunk++;
+        localStorage.setItem(file.name, currentChunk); // 缓存上传到哪一片了
+        if (currentChunk < chunks) {
+          upload();
+        } else {
+          console.log('上传完成');
+          console.log('文件唯一标识', spark.end());
         }
-      },
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      });
+  };
+  upload();
 }
+
+const file = document.querySelector('#file').files[0];
+uploadFile(file, 'http://localhost:3000/upload');
 ```

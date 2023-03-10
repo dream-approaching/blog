@@ -341,9 +341,43 @@ position: sticky; 粘性定位，当元素滚动到指定位置时，元素会�
   }
   ```
 - 通过 zoom 缩放，有兼容性问题
+
   ```css
   .small {
     font-size: 12px; // 12px * 0.8 = 9.6px
     zoom: 0.8;
   }
   ```
+
+## 20. 用 css 画一个扇形
+
+```css
+.sector {
+  width: 100px;
+  height: 100px;
+  background: red;
+  border-radius: 50%;
+  clip-path: polygon(50% 50%, 100% 0, 100% 100%);
+}
+```
+
+## 21. @import 和 link 的区别
+
+- 从属关系：@import 是 CSS 提供的，只有导入样式表的作用；link 是 HTML 提供的，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等。
+- 加载顺序：link 引用的 CSS 被同时加载；@import 引用的 CSS 将在页面加载完毕后被加载。
+- 兼容性：@import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link 是 HTML 标签，无兼容问题。
+- DOM 可控性：可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用 @import 的方式插入样式。
+- 权重：link 引入的样式权重大于@import 引入的样式。
+
+## 22. 清除浮动的几种方式
+
+- 给父元素添加伪元素，清除浮动
+  ```css
+  .clearfix::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+  ```
+- 给父元素添加 overflow: hidden
+- 给父元素添加 overflow: auto
