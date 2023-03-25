@@ -4,6 +4,42 @@ group:
   title: 基本知识
 ---
 
+<!-- TOC -->
+
+- [webpack](#webpack)
+  - [1. 前端模块化是什么](#1-前端模块化是什么)
+    - [1.1. ES6 模块与 CommonJS 模块的差异](#11-es6-模块与-commonjs-模块的差异)
+  - [2. webpack 有几个核心概念](#2-webpack-有几个核心概念)
+  - [3. webpack loader 是什么，有哪些常见的 loader](#3-webpack-loader-是什么有哪些常见的-loader)
+  - [4. webpack plugin 是什么，有哪些常见的 plugin](#4-webpack-plugin-是什么有哪些常见的-plugin)
+    - [4.1. uglifyjs-webpack-plugin 和 terser-webpack-plugin 的区别，webpack5 为什么不再使用 uglifyjs-webpack-plugin](#41-uglifyjs-webpack-plugin-和-terser-webpack-plugin-的区别webpack5-为什么不再使用-uglifyjs-webpack-plugin)
+  - [5. webpack5 有哪些新特性](#5-webpack5-有哪些新特性)
+    - [5.1. webpack5 是怎么做缓存的？](#51-webpack5-是怎么做缓存的)
+    - [5.2. webpack5 的物理缓存是怎么做的？](#52-webpack5-的物理缓存是怎么做的)
+  - [6. 怎么优化 Webpack 的构建速度](#6-怎么优化-webpack-的构建速度)
+  - [7. 有哪些方式可以实现微前端](#7-有哪些方式可以实现微前端)
+  - [8. webpack 的原理是什么](#8-webpack-的原理是什么)
+  - [9. tree shaking 的原理是什么](#9-tree-shaking-的原理是什么)
+  - [10. 热更新的原理是什么](#10-热更新的原理是什么)
+  - [11. Webpack 中的 module 是指什么](#11-webpack-中的-module-是指什么)
+    - [11.1. ES6 模块(ESM)](#111-es6-模块esm)
+    - [11.2. CommonJS 模块(CJS)](#112-commonjs-模块cjs)
+  - [12. Webpack 中的 modules，如何表达依赖关系](#12-webpack-中的-modules如何表达依赖关系)
+  - [13. chunk 和 bundle 的区别](#13-chunk-和-bundle-的区别)
+    - [13.1. chunk](#131-chunk)
+    - [13.2. bundle](#132-bundle)
+    - [13.3. chunk 和 bundle 的关系](#133-chunk-和-bundle-的关系)
+    - [13.4. splitChunks](#134-splitchunks)
+  - [14. webpack 中的 loader 和 plugin 分别是什么？是怎么工作的？](#14-webpack-中的-loader-和-plugin-分别是什么是怎么工作的)
+    - [14.1. loader](#141-loader)
+    - [14.2. plugin](#142-plugin)
+    - [14.3. compiler 和 compilation](#143-compiler-和-compilation)
+  - [15. 简单描述下 webpack 的打包流程](#15-简单描述下-webpack-的打包流程)
+  - [16. 市面上其他的打包工具有哪些？他们的区别是什么？](#16-市面上其他的打包工具有哪些他们的区别是什么)
+    - [16.1. Vite 为什么快](#161-vite-为什么快)
+
+<!-- /TOC -->
+
 # webpack
 
 ## 1. 前端模块化是什么
@@ -110,6 +146,10 @@ group:
 > - `webpack.optimize.AggressiveSplittingPlugin`: 分割 chunk
 > - `webpack.optimize.LimitChunkCountPlugin`: 限制 chunk 的数量
 
+### 4.1. uglifyjs-webpack-plugin 和 terser-webpack-plugin 的区别，webpack5 为什么不再使用 uglifyjs-webpack-plugin
+
+他们都是用来压缩 JS 代码的，但是 `uglifyjs-webpack-plugin` 不支持 ES6 语法，所以在 webpack5 中不再使用 `uglifyjs-webpack-plugin`，而是使用 `terser-webpack-plugin`，`terser-webpack-plugin` 是 `uglifyjs-webpack-plugin` 的替代品，支持 ES6 语法
+
 ## 5. webpack5 有哪些新特性
 
 - 移除了对 Node.js v10 的支持
@@ -117,15 +157,26 @@ group:
 - 新增了资源模块类型，用于替代 `file-loader` 、`url-loader`和 `raw-loader`
 - 模块联邦: 允许一个应用程序使用来自另一个应用程序的代码，
 - 更好的 tree shaking 支持
-  - 支持嵌套的 tree-shaking
-  - 支持模块内部的 tree-shaking
+  - 支持嵌套的 tree-shaking，指模块 a 被 b 引用，b 被 c 引用，c 中只用了 a 的一部分，那么在 c 中只会打包 a 的一部分
+  - 支持模块内部的 tree-shaking，指当一个模块内部引用了另一个模块 a，但是当前模块只是做了导出，没有使用 a 的内容，那么在当前模块中不会打包 a
   - 支持部分 commonjs 的 tree-shaking
 - 内置的 HMR 支持，不需要再使用 `webpack-dev-server`
-- 内置 terser-webpack-plugin 插件，用于压缩 JS 代码
+- 内置 terser-webpack-plugin 插件，用于压缩 JS 代码，不能再使用 `uglifyjs-webpack-plugin`，因为 `uglifyjs-webpack-plugin` 不支持 ES6 语法
 
-webpack5 是怎么做缓存的？
+### 5.1. webpack5 是怎么做缓存的？
 
 - 通过 `contenthash` 来实现的，`contenthash` 是根据文件内容来生成的，只要文件内容不变，`contenthash` 就不会变
+- webpack4 是通过 `hash` 来实现的，`hash` 是根据整个项目来生成的，只要项目中有文件发生变化，那么 `hash` 就会变
+
+### 5.2. webpack5 的物理缓存是怎么做的？
+
+当第一次构建时，会将构建结果存储在缓存中，当第二次构建时，会先从缓存中读取，如果缓存中有构建结果，那么就直接使用缓存中的构建结果，如果缓存中没有构建结果，那么就会重新构建。
+
+- 通过 `cache` 配置项来实现的，`cache` 配置项有两个属性
+  - `type`: 缓存类型，有 `filesystem` 和 `memory` 两种
+  - `cacheDirectory`: 缓存目录，只有在 `type` 为 `filesystem` 时才需要配置
+
+当 `type` 为 `filesystem` 时，会将缓存文件存储在 `cacheDirectory` 目录下，当 `type` 为 `memory` 时，会将缓存文件存储在内存中。
 
 ## 6. 怎么优化 Webpack 的构建速度
 
@@ -284,3 +335,20 @@ module.exports = {
 5. 完成模块编译：在经过第 4 步使用 Loader 翻译完所有模块后，得到每个模块被翻译后的最终内容以及他们之间的依赖关系。（依赖图）
 6. 输出资源：根据依赖关系，组装成一个个包含多个模块的 Chunk
 7. 输出完成：根据配置确定输出的路径和文件名，把文件内容写入到文件系统
+
+## 16. 市面上其他的打包工具有哪些？他们的区别是什么？
+
+- webpack: 一切皆模块，支持各种各样的模块，比如 CommonJS 模块、AMD 模块、ES6 模块、Asset 模块、CSS 模块等
+- vite: 基于 ES Module 的原生浏览器导入和导出语法，通过浏览器原生支持的 ES Module 动态导入功能，实现了按需编译的功能
+- parcel: 无需配置，自动安装依赖，自动打包，自动刷新
+- rollup: 专注于打包 JS 库，不支持代码分割，不支持按需加载，不支持热更新
+- snowpack: 目前已经不维护了
+- WMR: Preact 团队的 WMR ，主要是为了 Preact 项目而设计，并为其提供了集成度更高的功能，比如预渲染
+
+### 16.1. Vite 为什么快
+
+> 相较于传统的打包构建工具（如 Webpack）先打包构建再启动开发服务器，Vite 是先启动开发服务器再在请求时进行构建，利用浏览器的原生 ES Module 支持，实现了按需编译，相当于是让浏览器去做了打包构建的工作，这样就大大提高了开发效率。
+
+- Vite 通过将模块预编译成浏览器可运行的 JavaScript 代码，实现了按需编译，而不是传统的打包构建，这样就大大提高了开发效率。
+- vite 在开发环境中的预构建、文件编译使用的是 ESbuild，而生产环境使用的是 Rollup。这是因为 ESbuild 一些针对构建应用的重要功能仍然还在持续开发中 —— 特别是代码分割和 CSS 处理方面。就目前来说，Rollup 在应用打包方面, 更加成熟和灵活。
+  - rollup 和 webpack 类似，都是打包工具，但是 rollup 更轻量、小众，生态没有 webpack 丰富，适合用来打包库，而 webpack 更适合用来打包应用

@@ -108,3 +108,16 @@ function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
   }
 }
 ```
+
+### 箭头函数怎么定义泛型
+
+```ts
+const firstElement4: <T>(arr: T[]) => T | undefined = (arr) => {
+  return arr[0];
+};
+```
+
+### react + ts 有什么坑
+
+- 由于 React 和 React-dom 并不是使用 TS 进行开发的，所以 TS 不知道 React、 React-dom 的类型，以及该模块导出了什么，此时需要引入 .d.ts 的声明文件
+- 需要使用 `import * as React from 'react';`，否则会报错

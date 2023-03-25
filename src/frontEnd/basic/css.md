@@ -5,6 +5,38 @@ group:
   title: 基本知识
 ---
 
+<!-- TOC -->
+
+- [CSS](#css)
+  - [1. 如何优化 css 性能](#1-如何优化-css-性能)
+  - [2. 有哪些 css 属性可以继承](#2-有哪些-css-属性可以继承)
+  - [3. 用 border 绘制三角形](#3-用-border-绘制三角形)
+  - [4. 修改 placeholder 样式](#4-修改-placeholder-样式)
+  - [5. 自定义滚动条](#5-自定义滚动条)
+  - [6. 超出省略号](#6-超出省略号)
+  - [7. css 盒模型](#7-css-盒模型)
+  - [8. css3 动画样式](#8-css3-动画样式)
+  - [9. css 变量 / css 自定义属性](#9-css-变量--css-自定义属性)
+  - [10. BFC](#10-bfc)
+  - [11. 垂直居中](#11-垂直居中)
+  - [12. flex](#12-flex)
+    - [12.1. flex 1 是什么意思](#121-flex-1-是什么意思)
+  - [13. grid](#13-grid)
+  - [14. flex 和 grid 的区别，什么场景下用 flex，什么场景下用 grid](#14-flex-和-grid-的区别什么场景下用-flex什么场景下用-grid)
+  - [15. CSS 伪类选择器中的: 和 ::(冒号区别)](#15-css-伪类选择器中的-和-冒号区别)
+  - [16. position 的粘性定位](#16-position-的粘性定位)
+  - [17. saas 和 less 有什么区别，各有什么优缺点](#17-saas-和-less-有什么区别各有什么优缺点)
+  - [18. 有哪些 css 预处理器或框架](#18-有哪些-css-预处理器或框架)
+  - [19. 怎么在 chrome 中显示小于 12px 的字体](#19-怎么在-chrome-中显示小于-12px-的字体)
+  - [20. 用 css 画一个扇形](#20-用-css-画一个扇形)
+  - [21. @import 和 link 的区别](#21-import-和-link-的区别)
+  - [22. 清除浮动的几种方式](#22-清除浮动的几种方式)
+  - [23. 移动浏览器中常用的前端图像和动效技术](#23-移动浏览器中常用的前端图像和动效技术)
+  - [24. 在移动端中怎样初始化根元素的字体大小](#24-在移动端中怎样初始化根元素的字体大小)
+  - [25. 移动端布局](#25-移动端布局)
+
+<!-- /TOC -->
+
 # CSS
 
 ## 1. 如何优化 css 性能
@@ -381,3 +413,52 @@ position: sticky; 粘性定位，当元素滚动到指定位置时，元素会�
   ```
 - 给父元素添加 overflow: hidden
 - 给父元素添加 overflow: auto
+
+## 23. 移动浏览器中常用的前端图像和动效技术
+
+- css 动画
+  - 通过 css3 的 animation 属性来实现动画效果，使用连续移动的图片来实现动画效果
+  - 优点：性能好，不占用内存，不占用网络带宽，不占用 CPU 资源，不占用 GPU 资源
+  - `animation: frame 333ms steps(20) both infinite;`
+  - `@keyframes frame { from { background-position: 0 0; } to { background-position: -1000px 0; } }`
+- js 动画
+  - 切换图片 src，通过 setInterval 来实现动画效果，不推荐，因为会占用内存和网络带宽
+  - 通过 js 修改 css 属性值，如 background-position、transform: translate3d()
+- svg
+  - 处理矢量图，不失真
+  - 不依赖分辨率
+  - 支持事件处理器
+  - 最适合带有大型渲染区域的应用程序（比如谷歌地图）
+  - 复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）
+  - 不适合游戏应用
+  - 常用 api： `<svg>`、`<path>`、`<circle>`、`<rect>`、`<line>`、`<polyline>`、`<polygon>`、`<text>`、`<g>`、`<defs>`、`<use>`、`<symbol>`、`<clipPath>`、`<mask>`、`<pattern>`、`<filter>`、`<feBlend>`、`<feColorMatrix>`、`<feComponentTransfer>`、`<feComposite>`、`<feConvolveMatrix>`、`<feDiffuseLighting>`、`<feDisplacementMap>`、`<feFlood>`、`<feGaussianBlur>`、`<feImage>`、`<feMerge>`、`<feMorphology>`、`<feOffset>`、`<feSpecularLighting>`、`<feTile>`、`<feTurbulence>`、`<animate>`、`<animateMotion>`、`<animateTransform>`、`<set>`
+- canvas：通过 JavaScript 来绘制 2D 图形
+  - 效率高、性能好、可控性高，只能处理位图，内存占用恒定
+  - 依赖分辨率
+  - 不支持事件处理器
+  - 弱的文本渲染能力
+  - 能够以 .png 或 .jpg 格式保存结果图像
+  - 最适合图像密集型的游戏，其中的许多对象会被频繁重绘
+  - 常用 api：`<canvas>`、`getContext()`、`fillStyle`、`strokeStyle`、`fillRect()`、`strokeRect()`、`clearRect()`、`beginPath()`、`closePath()`、`moveTo()`、`lineTo()`、`arc()`、`quadraticCurveTo()`、`bezierCurveTo()`、`rect()`、`fill()`、`stroke()`、`clip()`、`isPointInPath()`
+- gif：动图，适合于一些固定展示的场景
+
+## 24. 在移动端中怎样初始化根元素的字体大小
+
+- 动态计算 font-size
+  ```js
+  (function () {
+    var html = document.documentElement;
+    function onWindowResize() {
+      html.style.fontSize = html.getBoundingClientRect().width / 20 + 'px';
+    }
+    window.addEventListener('resize', onWindowResize);
+    onWindowResize();
+  })();
+  ```
+- 还需要配合一个 meta 头 `<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-sacle=1.0, maximum-scale=1.0, user-scalable=no" />`
+
+## 25. 移动端布局
+
+- 移动端布局的方式主要使用 rem 和 flex，可以结合 rem 和媒体查询，然后不同的上视口大小下设置设置 html 的 font-size。
+- 可单独制作移动端页面也可响应式 pc 端移动端共用一个页面。没有好坏，视情况而定，因势利导
+- 我一般是结合两个库`postcss-pxtorem`和`lib-flexible`，前者用于转换单位，后者用于修改根节点字体大小

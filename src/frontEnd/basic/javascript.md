@@ -9,6 +9,85 @@ group:
   order: 0
 ---
 
+<!-- TOC -->
+
+- [1. JavaScript 有哪些数据类型，它们的区别？](#1-javascript-有哪些数据类型它们的区别)
+- [2. 数据类型检测的方式有哪些](#2-数据类型检测的方式有哪些)
+  - [2.1. typeof](#21-typeof)
+  - [2.2. instanceof](#22-instanceof)
+  - [2.3. constructor](#23-constructor)
+  - [2.4. Object.prototype.toString.call()](#24-objectprototypetostringcall)
+- [3. 堆栈的区别](#3-堆栈的区别)
+- [4. null 和 undefined 区别](#4-null-和-undefined-区别)
+- [5. intanceof 操作符的实现原理及实现](#5-intanceof-操作符的实现原理及实现)
+- [6. Object.is() 与比较操作符 "==="、"=="" 的区别？](#6-objectis-与比较操作符--的区别)
+- [7. 为什么会有 BigInt 的提案？](#7-为什么会有-bigint-的提案)
+- [8. 如何判断一个对象是空对象](#8-如何判断一个对象是空对象)
+- [9. 什么是 JavaScript 中的包装类型？](#9-什么是-javascript-中的包装类型)
+- [10. 一段 js 代码是怎么被 js 引擎解析并执行的](#10-一段-js-代码是怎么被-js-引擎解析并执行的)
+- [11. 函数是怎么执行的，进栈出栈，怎么确定 this 指向](#11-函数是怎么执行的进栈出栈怎么确定-this-指向)
+- [12. const 对象的属性可以修改吗](#12-const-对象的属性可以修改吗)
+- [13. 箭头函数与普通函数的区别](#13-箭头函数与普通函数的区别)
+- [14. 如果 new 一个箭头函数会怎么样](#14-如果-new-一个箭头函数会怎么样)
+- [15. 箭头函数的 this 指向哪里？](#15-箭头函数的-this-指向哪里)
+- [16. 执行上下文是什么？this 和执行上下文有什么关系？](#16-执行上下文是什么this-和执行上下文有什么关系)
+  - [16.1. 和 this 有什么关系？](#161-和-this-有什么关系)
+- [17. 扩展运算符的作用及使用场景](#17-扩展运算符的作用及使用场景)
+- [18. Proxy 可以实现什么功能？](#18-proxy-可以实现什么功能)
+- [19. 常用的正则表达式有哪些](#19-常用的正则表达式有哪些)
+- [20. JavaScript 脚本延迟加载的方式有哪些？](#20-javascript-脚本延迟加载的方式有哪些)
+- [21. 什么是 DOM 和 BOM？](#21-什么是-dom-和-bom)
+- [22. 为什么函数的 arguments 参数是类数组而不是数组？如何遍历类数组?](#22-为什么函数的-arguments-参数是类数组而不是数组如何遍历类数组)
+- [23. escape、encodeURI、encodeURIComponent 的区别](#23-escapeencodeuriencodeuricomponent-的区别)
+- [24. 封装一个 ajax 请求](#24-封装一个-ajax-请求)
+- [25. 什么是尾调用，使用尾调用有什么好处？](#25-什么是尾调用使用尾调用有什么好处)
+- [26. 什么是闭包？闭包的优缺点？有哪些常见的闭包使用场景？](#26-什么是闭包闭包的优缺点有哪些常见的闭包使用场景)
+  - [26.1. 闭包](#261-闭包)
+  - [26.2. 闭包的优缺点](#262-闭包的优缺点)
+  - [26.3. 常见的闭包使用场景](#263-常见的闭包使用场景)
+  - [26.4. 用了闭包怎么防止内存泄漏](#264-用了闭包怎么防止内存泄漏)
+- [27. 防抖、节流](#27-防抖节流)
+- [28. 重绘和回流（重绘和重排）](#28-重绘和回流重绘和重排)
+- [29. 作用域](#29-作用域)
+- [30. 深拷贝和浅拷贝](#30-深拷贝和浅拷贝)
+  - [30.1. 浅拷贝](#301-浅拷贝)
+  - [30.2. 深拷贝](#302-深拷贝)
+  - [30.3. 赋值和浅拷贝深拷贝的区别](#303-赋值和浅拷贝深拷贝的区别)
+  - [30.4. 常用深拷贝、浅拷贝方法](#304-常用深拷贝浅拷贝方法)
+- [31. ES6 模块与 CommonJS 模块有什么异同？](#31-es6-模块与-commonjs-模块有什么异同)
+- [32. Iterator 接口](#32-iterator-接口)
+- [33. for 循环使用 await，for of 以及 for await of](#33-for-循环使用-awaitfor-of-以及-for-await-of)
+- [34. forEach 和 map 的区别](#34-foreach-和-map-的区别)
+- [35. for...in 和 for...of 的区别](#35-forin-和-forof-的区别)
+- [36. 数组迭代方法](#36-数组迭代方法)
+- [37. string 有哪些方法](#37-string-有哪些方法)
+  - [37.1. 常用方法](#371-常用方法)
+  - [37.2. ES6+ 新增方法](#372-es6-新增方法)
+  - [37.3. 如何反转字符串](#373-如何反转字符串)
+  - [37.4. 如何判断字符串是否包含某个字符](#374-如何判断字符串是否包含某个字符)
+  - [37.5. substring 和 substr 的区别](#375-substring-和-substr-的区别)
+- [38. addEventListener 方法的参数和使用](#38-addeventlistener-方法的参数和使用)
+- [39. this 的指向以及 call、apply、bind 的区别](#39-this-的指向以及-callapplybind-的区别)
+  - [39.1. this 的指向](#391-this-的指向)
+  - [39.2. call、apply、bind 的区别](#392-callapplybind-的区别)
+- [40. 对原型链的理解](#40-对原型链的理解)
+- [41. 实现继承的几种方式](#41-实现继承的几种方式)
+- [42. new 内部的原理，如何实现一个 new](#42-new-内部的原理如何实现一个-new)
+- [43. 如何判断一个对象是否属于某个类](#43-如何判断一个对象是否属于某个类)
+- [44. Set、Map、WeakSet、WeakMap](#44-setmapweaksetweakmap)
+  - [44.1. map 和 object 的区别](#441-map-和-object-的区别)
+- [45. 事件循环(EventLoop)](#45-事件循环eventloop)
+  - [45.1. 宏任务，微任务](#451-宏任务微任务)
+- [46. 柯里化](#46-柯里化)
+- [47. 常见设计模式和数据结构](#47-常见设计模式和数据结构)
+- [48. 前端工程化是什么？](#48-前端工程化是什么)
+- [49. js 和 ts 的核心区别是什么](#49-js-和-ts-的核心区别是什么)
+- [50. AST 语法树](#50-ast-语法树)
+- [51. js 分片是什么，什么场景会用到，怎么实现](#51-js-分片是什么什么场景会用到怎么实现)
+  - [51.1. 实现分片上传、断点续传](#511-实现分片上传断点续传)
+
+<!-- /TOC -->
+
 ## 1. JavaScript 有哪些数据类型，它们的区别？
 
 JavaScript 共有八种数据类型，分别是 `Undefined`、`Null`、`Boolean`、 `Number`、`String`、`Object`、`Symbol`、`BigInt`。其中 `Symbol` 和 `BigInt` 是 ES6 中新增的数据类型：
@@ -218,13 +297,27 @@ if (!a) {
 
 答案是什么都不会打印，因为虽然包裹的基本类型是 `false`，但是 `false` 被包裹成包装类型后就成了对象，所以其非值为 `false`，所以 循环体中的内容不会运行。
 
-## 10. const 对象的属性可以修改吗
+## 10. 一段 js 代码是怎么被 js 引擎解析并执行的
+
+- js 引擎会将 js 代码转换成抽象语法树（AST），然后再将 AST 转换成字节码，最后再将字节码转换成机器码，最终执行机器码
+- js 引擎的执行过程
+  - 解析：将代码转换成 AST
+  - 优化：对 AST 进行优化，比如将变量声明提升到作用域的最前面
+  - 生成：将 AST 转换成字节码
+  - 执行：将字节码转换成机器码，最终执行机器码
+
+## 11. 函数是怎么执行的，进栈出栈，怎么确定 this 指向
+
+- 函数执行时，会创建一个执行上下文，然后将执行上下文压入执行栈中，然后执行函数中的代码，执行完毕后，将执行上下文从执行栈中弹出
+- this 指向是在函数执行时确定的，而不是在函数定义时确定的
+
+## 12. const 对象的属性可以修改吗
 
 `const` 保证的并不是变量的值不能改动，而是变量指向的那个内存地址不能改动。对于基本类型的数据（数值、字符串、布尔值），其值就保存在变量指向的那个内存地址，因此等同于常量。
 
 但对于引用类型的数据（主要是对象和数组）来说，变量指向数据的内存地址，保存的只是一个指针，`const` 只能保证这个指针是固定不变的，至于它指向的数据结构是不是可变的，就完全不能控制了。
 
-## 11. 箭头函数与普通函数的区别
+## 13. 箭头函数与普通函数的区别
 
 - 箭头函数比普通函数更加简洁
 - 箭头函数没有自己的 `this`
@@ -232,7 +325,7 @@ if (!a) {
 - 箭头函数不能作为构造函数使用
 - 箭头函数不能用作 `Generator` 函数，不能使用 `yield` 关键字
 
-## 12. 如果 new 一个箭头函数会怎么样
+## 14. 如果 new 一个箭头函数会怎么样
 
 箭头函数是 `ES6` 中的提出来的，它没有 `prototype`，也没有自己的 `this` 指向，更不可以使用 `arguments` 参数，所以不能 New 一个箭头函数。
 
@@ -245,7 +338,7 @@ if (!a) {
 
 所以，上面的第二、三步，箭头函数都是没有办法执行的。
 
-## 13. 箭头函数的 this 指向哪里？
+## 15. 箭头函数的 this 指向哪里？
 
 箭头函数不同于传统 `JavaScript` 中的函数，箭头函数并没有属于自己的 `this`，它所谓的 `this` 是捕获其所在上下文的 `this` 值，作为自己的 `this` 值，并且由于没有属于自己的 `this`，所以是不会被 `new` 调用的，这个所谓的 `this` 也不会被改变。可以⽤ Babel 理解⼀下箭头函数:
 
@@ -270,7 +363,7 @@ var obj = {
 };
 ```
 
-## 14. 执行上下文是什么？this 和执行上下文有什么关系？
+## 16. 执行上下文是什么？this 和执行上下文有什么关系？
 
 执行上下文是 `JavaScript` 中的运行环境
 
@@ -280,11 +373,11 @@ var obj = {
 - 函数执行上下文，也就是函数执行时的上下文，包括 `this`、`arguments`、`作用域链`等
 - `eval` 执行上下文，也就是 `eval` 函数执行时的上下文
 
-### 14.1. 和 this 有什么关系？
+### 16.1. 和 this 有什么关系？
 
 `this` 的值在函数被调用时才会被确定，它的值取决于函数的调用方式，也就是函数的执行上下文。
 
-## 15. 扩展运算符的作用及使用场景
+## 17. 扩展运算符的作用及使用场景
 
 （1）对象扩展运算符对象的扩展运算符 (`...`) 用于取出参数对象中的所有可遍历属性，拷贝到当前对象之中。
 
@@ -310,7 +403,7 @@ let baz = { ...bar, ...{ a: 2, b: 4 } }; // {a: 2, b: 4}
 
 利用上述特性就可以很方便的修改对象的部分属性。在 `redux` 中的 `reducer` 函数规定必须是一个纯函数，reducer 中的 state 对象要求不能直接修改，可以通过扩展运算符把修改路径的对象都复制一遍，然后产生一个新的对象返回。
 
-## 16. Proxy 可以实现什么功能？
+## 18. Proxy 可以实现什么功能？
 
 在 Vue3.0 中通过 `Proxy` 来替换原本的 `Object.defineProperty` 来实现数据响应式。
 
@@ -356,7 +449,7 @@ p.a; // 'a' = 2
 
 当然这是简单版的响应式实现，如果需要实现一个 `Vue` 中的响应式，需要在 `get` 中收集依赖，在 `set` 派发更新，之所以 Vue3.0 要使用 `Proxy` 替换原本的 `API` 原因在于 `Proxy` 无需一层层递归为每个属性添加代理，一次即可完成以上操作，性能上更好，并且原本的实现有一些数据更新不能监听到，但是 `Proxy` 可以完美监听到任何方式的数据改变，唯一缺陷就是浏览器的兼容性不好。
 
-## 17. 常用的正则表达式有哪些
+## 19. 常用的正则表达式有哪些
 
 ```js
 // （1）匹配 16 进制颜色值
@@ -375,7 +468,7 @@ var regex = /^1[34578]\d{9}$/g;
 var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
 ```
 
-## 18. JavaScript 脚本延迟加载的方式有哪些？
+## 20. JavaScript 脚本延迟加载的方式有哪些？
 
 - `script defer` 属性，这个属性会让脚本的加载与文档的解析同步解析，然后在文档解析完成后再执行这个脚本文件，这样的话就能使页面的渲染不被阻塞。多个设置了 `defer` 属性的脚本按规范来说最后是顺序执行的，但是在一些浏览器中可能不是这样。
 - `script async` 属性，这个属性会使脚本异步加载，不会阻塞页面的解析过程，但是当脚本加载完成后立即执行 `js` 脚本，这个时候如果文档没有解析完成的话同样会阻塞。多个 `async` 属性的脚本的执行顺序是不可预测的，一般不会按照代码的顺序依次执行。
@@ -383,13 +476,13 @@ var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
 - 使用 `setTimeout` 延迟
 - 让 `JS` 放在文档的底部
 
-## 19. 什么是 DOM 和 BOM？
+## 21. 什么是 DOM 和 BOM？
 
 - DOM 全称是 Document Object Model，也就是文档对象模型。 图中区域 5
 - BOM 全称是 Browser Object Model，也就是浏览器对象模型。 图中区域 1、2、3、4  
    ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20221031144444.png)
 
-## 20. 为什么函数的 arguments 参数是类数组而不是数组？如何遍历类数组?
+## 22. 为什么函数的 arguments 参数是类数组而不是数组？如何遍历类数组?
 
 `arguments` 是一个对象，它的属性是从 0 开始依次递增的数字，还有 `callee` 和 `length` 等属性，与数组相似；但是它却没有数组常见的方法属性，如 `forEach`, `reduce` 等，所以叫它们类数组。
 
@@ -421,7 +514,7 @@ var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
   }
   ```
 
-## 21. escape、encodeURI、encodeURIComponent 的区别
+## 23. escape、encodeURI、encodeURIComponent 的区别
 
 - 字符串编码
   - `escape` 是对字符串(`string`)进行编码(而另外两种是对 `URL`)，作用是让它们在所有电脑上可读。其中 `ASCII 字母 数字 @\*/+` 这几个字符不会被编码，其余的都会
@@ -434,7 +527,7 @@ var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
     encodeURIComponent(uri); // 'http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2Fsome%20other%20thing'
     ```
 
-## 22. 封装一个 ajax 请求
+## 24. 封装一个 ajax 请求
 
 ```js
 //封装一个ajax请求
@@ -473,16 +566,16 @@ function ajax(options) {
 > readyState  
 > ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/20221031151530.png)
 
-## 23. 什么是尾调用，使用尾调用有什么好处？
+## 25. 什么是尾调用，使用尾调用有什么好处？
 
 - 含义：尾调用指的是函数的最后一步调用另一个函数。
 - 好处：代码执行是基于执行栈的，所以当在一个函数里调用另一个函数时，会保留当前的执行上下文，然后再新建另外一个执行上下文加入栈中。但如果使用尾调用的话，因为已经是函数的最后一步，所以这时可以不必再保留当前的执行上下文，从而节省了内存，这就是尾调用优化
 
 > ES6 的尾调用优化只在严格模式下开启，正常模式是无效的。
 
-## 24. 什么是闭包？闭包的优缺点？有哪些常见的闭包使用场景？
+## 26. 什么是闭包？闭包的优缺点？有哪些常见的闭包使用场景？
 
-### 24.1. 闭包
+### 26.1. 闭包
 
 闭包是指有权访问另一个函数作用域中变量的函数，创建闭包的最常见的方式就是在一个函数内创建另一个函数，创建的函数可以访问到当前函数的局部变量。
 
@@ -497,7 +590,7 @@ function foo() {
 }
 ```
 
-### 24.2. 闭包的优缺点
+### 26.2. 闭包的优缺点
 
 - 优点
   - 可以读取函数内部的变量
@@ -506,12 +599,17 @@ function foo() {
   - 会增大内存使用量
   - 使用不当很容易造成内存泄漏
 
-### 24.3. 常见的闭包使用场景
+### 26.3. 常见的闭包使用场景
 
 - 防抖和节流
 - react hooks
 
-## 25. 防抖、节流
+### 26.4. 用了闭包怎么防止内存泄漏
+
+- 闭包的作用域链中保存着父级作用域中的变量，如果父级作用域中的变量不再被使用，那么这些变量就会一直保存在内存中，造成内存泄漏。
+- 解决方法：在父级作用域中，将不再使用的变量设置为 `null`，这样就可以解除对这些变量的引用，从而释放内存。
+
+## 27. 防抖、节流
 
 - 防抖和节流的作用都是防止函数多次调用
 - 防抖：任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行。
@@ -571,7 +669,7 @@ function foo() {
 > - 参考：[InterviewMap——防抖](https://yuchengkai.cn/docs/frontend/#%E9%98%B2%E6%8A%96)
 > - 参考：[github issues——节流和防抖的个人见解](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/5)
 
-## 26. 重绘和回流（重绘和重排）
+## 28. 重绘和回流（重绘和重排）
 
 - 回流也叫重排
 - 当对 DOM 结构的修改引发 DOM 几何尺寸变化的时候，会发生回流的过程
@@ -623,7 +721,7 @@ function foo() {
     > - 参考：[翻译计划-重绘重排重渲染](https://xdlrt.github.io/2016/11/05/2016-11-05/)
     > - 参考：[谈谈你对重绘和回流的理解](https://juejin.im/post/6844904021308735502#heading-54)
 
-## 27. 作用域
+## 29. 作用域
 
 - 作用域链  
    在查找变量的时候，先在函数作用域中查找，没有找到，再去全局作用域中查找，有一个从里往外查找的过程。 ![image](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/F1866E20E2F34E769495F1BEF73D6803/4723)
@@ -645,9 +743,9 @@ function foo() {
    动态作用域与词法作用域相反，函数的作用域是在函数调用的时候才决定的。  
    上面代码如果是动态作用域，则会输出 2
 
-## 28. 深拷贝和浅拷贝
+## 30. 深拷贝和浅拷贝
 
-### 28.1. 浅拷贝
+### 30.1. 浅拷贝
 
 浅拷贝只会拷贝一层对象，如果对象的属性值是对象类型，那么拷贝出来的结果是对象的引用。
 
@@ -665,7 +763,7 @@ console.log(obj); // {a: 1, b: {c: 4}}
 console.log(obj2); // {a: 3, b: {c: 4}}
 ```
 
-### 28.2. 深拷贝
+### 30.2. 深拷贝
 
 深拷贝会把一个对象从内存中完整的拷贝一份出来，从堆内存中开辟一个新的区域存放新对象，修改新对象不会影响原对象。
 
@@ -683,7 +781,7 @@ console.log(obj); // {a: 1, b: {c: 2}}
 console.log(obj2); // {a: 3, b: {c: 4}}
 ```
 
-### 28.3. 赋值和浅拷贝深拷贝的区别
+### 30.3. 赋值和浅拷贝深拷贝的区别
 
 赋值是将某一数值或对象赋给某个变量的过程，分两种情况：
 
@@ -707,7 +805,7 @@ console.log(a); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
 console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
 ```
 
-### 28.4. 常用深拷贝、浅拷贝方法
+### 30.4. 常用深拷贝、浅拷贝方法
 
 - 浅拷贝
   - Object.assign: 第一级属性是深拷贝，第二级属性是浅拷贝
@@ -744,7 +842,7 @@ console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
     }
     ```
 
-## 29. ES6 模块与 CommonJS 模块有什么异同？
+## 31. ES6 模块与 CommonJS 模块有什么异同？
 
 - `CommonJS` 模块是运行时加载，`ES6 Modules` 是编译时加载模块
 - `CommonJS` 输出是值的拷贝；`ES6 Modules` 输出的是值的引用
@@ -768,7 +866,7 @@ console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
 
   上面代码的实质是从 `fs` 模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 `ES6` 可以在编译时就完成模块加载，效率要比 `CommonJS` 模块的加载方式高。当然，这也导致了没法引用 `ES6` 模块本身，因为它不是对象。
 
-## 30. Iterator 接口
+## 32. Iterator 接口
 
 - 原生具备 Iterator 接口的数据结构如下
   - Array
@@ -788,7 +886,7 @@ console.log(b); // { name: 'hahaha', book: { name: 'Vue.js', price: 52 } }
   - Promise.all()
   - Promise.race()
 
-## 31. for 循环使用 await，for of 以及 for await of
+## 33. for 循环使用 await，for of 以及 for await of
 
 ```js
 function getData(times) {
@@ -857,14 +955,14 @@ function getData(times) {
 - `forEach` 中使用 `await` 无效
 - `map`、`filter`、`reduce` 中使用 `await` 将返回一个 `promise`，还需再使用 `Promise.all` 来获取结果
 
-## 32. forEach 和 map 的区别
+## 34. forEach 和 map 的区别
 
 - `map` 方法会分配内存空间存储新数组并返回
 - `forEach` 方法没有返回值，而是直接对原数组进行操作
 
 > 注: forEach 和 map 不能跳出循环，for of 可以跳出循环
 
-## 33. for...in 和 for...of 的区别
+## 35. for...in 和 for...of 的区别
 
 - `for...in` 循环遍历的是对象的属性名，包括原型链上的属性。遍历的顺序是不确定的
 - `for...of` 循环遍历的是对象的属性值，不包括原型属性和索引。是 `ES6` 新增的遍历方式
@@ -873,7 +971,7 @@ function getData(times) {
   - 如果不想遍历原型方法和属性的话，可以在循环内部判断一下，使用 `hasOwnProperty()`方法可以判断某属性是不是该对象的实例属性
 - 一个数据结构只要部署了 `Symbol.iterator` 属性，就被视为具有 `iterator` 接口，就可以用 `for...of` 循环遍历它的成员
 
-## 34. 数组迭代方法
+## 36. 数组迭代方法
 
 - forEach map reduce filter some every  
   ![](https://raw.githubusercontent.com/dream-approaching/pictureMaps/master/img/arr.png)
@@ -923,9 +1021,9 @@ function getData(times) {
       - deleteCount 刪除的個數，如為 0 則不會刪除。
       - item… 添加的新項目。
 
-## 35. string 有哪些方法
+## 37. string 有哪些方法
 
-### 35.1. 常用方法
+### 37.1. 常用方法
 
 - `charAt()`: 返回指定位置的字符
 - `charCodeAt()`: 返回指定位置的字符的 Unicode 编码
@@ -942,7 +1040,7 @@ function getData(times) {
 - `trim()`: 删除字符串的头尾空白符
 - `valueOf()`: 返回某个字符串对象的原始值
 
-### 35.2. ES6+ 新增方法
+### 37.2. ES6+ 新增方法
 
 - `repeat()`: 返回一个新字符串，表示将原字符串重复 n 次
 - `padStart()`: 用另一个字符串填充当前字符串（如果需要的话则重复填充），返回填充后达到指定长度的字符串。从当前字符串的头部（左侧）开始填充
@@ -957,7 +1055,7 @@ function getData(times) {
 - `trimRight()`: 删除字符串尾部的空白符
 - `replaceAll()`: 替换所有匹配项
 
-### 35.3. 如何反转字符串
+### 37.3. 如何反转字符串
 
 ```js
 // 方法一
@@ -985,7 +1083,7 @@ function reverseString(str) {
 }
 ```
 
-### 35.4. 如何判断字符串是否包含某个字符
+### 37.4. 如何判断字符串是否包含某个字符
 
 ```js
 // 方法一
@@ -999,7 +1097,7 @@ function isInclude(str, target) {
 }
 ```
 
-### 35.5. substring 和 substr 的区别
+### 37.5. substring 和 substr 的区别
 
 - `substring(start, end)`  
   返回字符串的一个子串，其内容是从 start 处到 end-1 处的所有字符，或从 start 处到字符串末尾的所有字符。如果参数为负数，则被当作 0。如果 end 小于 start，则两者交换。
@@ -1016,7 +1114,7 @@ function isInclude(str, target) {
   console.log(str.substr(2)); // expected output: "zilla"
   ```
 
-## 36. addEventListener 方法的参数和使用
+## 38. addEventListener 方法的参数和使用
 
 ```js
 target.addEventListener(type, listener, options);
@@ -1042,13 +1140,13 @@ target.addEventListener(type, listener, useCapture, wantsUntrusted);
   - `signal:AbortSignal`  
     当调用给定 `AbortSignal` 对象的 `abort()` 方法时，侦听器将被删除。如果未指定，则 `noAbortSignal` 与侦听器相关联。
 
-## 37. this 的指向以及 call、apply、bind 的区别
+## 39. this 的指向以及 call、apply、bind 的区别
 
-### 37.1. this 的指向
+### 39.1. this 的指向
 
 this 永远指向最后调用它的那个对象
 
-### 37.2. call、apply、bind 的区别
+### 39.2. call、apply、bind 的区别
 
 > call、apply、bind 都是用来改变函数的 this 对象的指向的
 
@@ -1058,7 +1156,7 @@ this 永远指向最后调用它的那个对象
 
 > 参考： https://juejin.cn/post/6844903496253177863
 
-## 38. 对原型链的理解
+## 40. 对原型链的理解
 
 - 原型链是一种机制，指的是 `JavaScript` 每个对象都有一个内置的 `__proto__` 属性指向它的原型对象
 - 它的作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么就会去它的 `__proto__` 属性所指向的那个对象里找，如果父对象也不存在这个属性，则继续往上找，直到原型链顶端 `null`，由以上这种通过 `__proto__` 属性来连接对象直到 `null` 的一条链即为我们所谓的原型链
@@ -1083,7 +1181,7 @@ this 永远指向最后调用它的那个对象
 > 参考: [CSDN——prototype、proto 与 constructor](https://blog.csdn.net/cc18868876837/article/details/81211729)  
 > 参考: [知乎——JavaScript 世界万物诞生记](https://zhuanlan.zhihu.com/p/22989691)
 
-## 39. 实现继承的几种方式
+## 41. 实现继承的几种方式
 
 ```js
 // 假设有父类 Parent
@@ -1205,7 +1303,7 @@ Parent.prototype.showName = function () {
 | Object.create() | 1.解决上述三种方式的缺点</br>2.ES5 首选 | 暂无 |
 | class.extends | 清晰 方便 | 注意：子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。 |
 
-## 40. new 内部的原理，如何实现一个 new
+## 42. new 内部的原理，如何实现一个 new
 
 ```js
 function _new() {
@@ -1231,7 +1329,7 @@ var person = _new(Person, 'longzi', 23);
 console.log(person.name, person.age); // longzi, 23
 ```
 
-## 41. 如何判断一个对象是否属于某个类
+## 43. 如何判断一个对象是否属于某个类
 
 ```js
 function Person() {
@@ -1247,201 +1345,7 @@ console.log(person instanceof Person); // true
 console.log(person.constructor === Person); // true
 ```
 
-## 42. 异步编程的几种方式
-
-- 回调函数
-- promise
-- generator
-- async/await
-
-## 43. promise
-
-Promise 是异步编程的一种解决方案, 有以下两个特点:
-
-- 对象的状态不受外界影响
-- 一旦状态改变，就不会再变
-
-**常用**
-
-- resolve 函数在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；
-- reject 函数，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
-- Promise.prototype.finally()：用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。
-  ```js
-  promise
-  .then(result => {···})
-  .catch(error => {···})
-  .finally(() => {···});
-  ```
-- Promise.all()
-  - 接受一个数组作为参数，p1、p2、p3 都是 Promise 实例，如果不是，就会先调用 Promise.resolve 方法，将参数转为 Promise 实例
-  - Promise.all 方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。
-    ```js
-    const p = Promise.all([p1, p2, p3]);
-    // 只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。
-    // 只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。
-    ```
-- Promise.race()
-  - 基本语法与 Promise.all()类似
-  - 返回的规则不同
-    ```js
-    const p = Promise.race([p1, p2, p3]);
-    // 只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。
-    // 率先改变的 Promise 实例的返回值，就传递给p的回调函数
-    ```
-- Promise.resolve(): 将现有对象转为 Promise 对象
-- Promise.reject(reason): 返回一个新的 Promise 实例，该实例的状态为 rejected
-
-  ```js
-  const p = Promise.reject('出错了');
-  // 等同于
-  const p = new Promise((resolve, reject) => reject('出错了'));
-
-  p.then(null, function (s) {
-    console.log(s);
-  });
-  // 出错了
-  ```
-
-## 44. generator
-
-- generator 函数是一个状态机，封装了多个内部状态
-- Generator 还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。
-- 调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，必须调用遍历器对象的 next 方法，使得指针移向下一个状态
-- 换言之，Generator 函数是分段执行的，yield 表达式是暂停执行的标记，而 next 方法可以恢复执行
-
-  ```js
-  function* helloWorldGenerator() {
-    yield 'hello';
-    yield 'world';
-    return 'ending';
-  }
-
-  var hw = helloWorldGenerator();
-  hw.next(); // { value: 'hello', done: false }
-  hw.next(); // { value: 'world', done: false }
-  hw.next(); // { value: 'ending', done: true }
-  hw.next(); // { value: undefined, done: true }
-  ```
-
-- Generator 函数可以不用 yield 表达式，这时就变成了一个单纯的暂缓执行函数。
-- 语法：下面四种都行
-  ```js
-  function * foo(x, y) { ··· }
-  function *foo(x, y) { ··· }
-  function* foo(x, y) { ··· }
-  function*foo(x, y) { ··· }
-  ```
-- yield 表达式
-  - 遇到 yield 表达式，就暂停执行后面的操作，并将紧跟在 yield 后面的那个表达式的值，作为返回的对象的 value 属性值
-  - 下一次调用 next 方法时，再继续往下执行，直到遇到下一个 yield 表达式。
-  - 如果没有再遇到新的 yield 表达式，就一直运行到函数结束，直到 return 语句为止，并将 return 语句后面的表达式的值，作为返回的对象的 value 属性值。
-  - 如果该函数没有 return 语句，则返回的对象的 value 属性值为 undefined。
-- yield\*表达式
-
-  - 在 Generator 函数内部，调用另一个 Generator 函数，默认情况下是没有效果的
-  - yield\*表达式，用来在一个 Generator 函数里面执行另一个 Generator 函数
-
-    ```js
-    function* bar() {
-      yield 'x';
-      yield* foo();
-      yield 'y';
-    }
-
-    // 等同于
-    function* bar() {
-      yield 'x';
-      yield 'a';
-      yield 'b';
-      yield 'y';
-    }
-
-    // 等同于
-    function* bar() {
-      yield 'x';
-      for (let v of foo()) {
-        yield v;
-      }
-      yield 'y';
-    }
-
-    for (let v of bar()) {
-      console.log(v);
-    }
-    // "x"
-    // "a"
-    // "b"
-    // "y"
-    ```
-
-- for...of 循环
-
-  - for...of 循环可以自动遍历 Generator 函数运行时生成的 Iterator 对象，且此时不再需要调用 next 方法。
-
-    ```js
-    function* foo() {
-      yield 1;
-      yield 2;
-      yield 3;
-      yield 4;
-      yield 5;
-      return 6;
-    }
-
-    for (let v of foo()) {
-      console.log(v);
-    }
-    // 1 2 3 4 5
-    // 上面代码使用for...of循环，依次显示 5 个yield表达式的值。
-    // 这里需要注意，一旦next方法的返回对象的done属性为true，for...of循环就会中止，且不包含该返回对象
-    // 所以上面代码的return语句返回的6，不包括在for...of循环之中
-    ```
-
-## 45. async/await
-
-- 是 Generator 函数的语法糖
-- 与 Generator 的区别
-  - 内置执行器：Generator 函数的执行必须靠执行器，async 函数的执行，与普通函数一模一样，只要一行
-  - 更好的语义
-  - Generator 函数的返回值是 Iterator 对象，async 函数的返回值是 Promise 对象
-- 遇到 await 表达式时，会让 async 函数 暂停执行，等到 await 后面的语句（Promise）状态发生改变（resolved 或者 rejected）之后，再恢复 async 函数的执行（再之后 await 下面的语句），并返回解析值（Promise 的值）
-- 例子
-
-  ```js
-  async function async1() {
-    console.log('async1 start');
-    await async2();
-    console.log('async1 end');
-  }
-  async function async2() {
-    console.log('async2');
-  }
-  console.log('script start');
-  setTimeout(function () {
-    console.log('setTimeout');
-  }, 0);
-  async1();
-  new Promise(function (resolve) {
-    console.log('promise1');
-    resolve();
-  }).then(function () {
-    console.log('promise2');
-  });
-  console.log('script end');
-
-  // script start
-  // async1 start
-  // async2
-  // promise1
-  // script end
-  // async1 end
-  // promise2
-  // setTimeout
-  ```
-
-> 参考：[掘金——前端 er，你真的会用 async 吗？](https://juejin.im/post/5c0397186fb9a049b5068e54)
-
-## 46. Set、Map、WeakSet、WeakMap
+## 44. Set、Map、WeakSet、WeakMap
 
 - Set
 
@@ -1527,7 +1431,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   - WeakMap 没有遍历操作（即没有 keys()、values()和 entries()方法），也没有 size 属性
   - WeakMap 只有四个方法可用：get(key)、set(key, value)、has(key)、delete(key)
 
-### 46.1. map 和 object 的区别
+### 44.1. map 和 object 的区别
 
 - Map 的键可以是各种类型的值，包括函数、对象、基本类型，而 Object 的键只能是字符串或 Symbols
 - Map 中的键值是有序的，而添加到对象中的键则不是。因此，当对它进行遍历时，Map 对象是按插入的顺序返回键值
@@ -1536,7 +1440,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 - Map 中的键值对可以通过 clear 方法清空，而 Object 中的键值对只能一个一个删除
 - Map 中的键值对可以通过 for...of 循环遍历，而 Object 中的键值对只能通过 Object.keys()、Object.values()、Object.entries()、Object.getOwnPropertyNames()、Object.getOwnPropertySymbols() 等方法遍历
 
-## 47. 事件循环(EventLoop)
+## 45. 事件循环(EventLoop)
 
 ![](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/CDE1E05AA6924122A3BC9793CF2C6D0E/5042)
 
@@ -1546,7 +1450,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 - 主线程内的任务执行完毕为空，会去 Event Queue 读取对应的函数，进入主线程执行。
 - 上述过程会不断重复，也就是常说的 Event Loop(事件循环)。
 
-### 47.1. 宏任务，微任务
+### 45.1. 宏任务，微任务
 
 ![](https://note.youdao.com/yws/public/resource/9791688f8f13043d64eb2ded545dc193/xmlnote/AC64F1B26FF04EB5A7724F4A8E2080F9/5052)
 
@@ -1594,7 +1498,7 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 
   > 写的比较简略，详情请看参考:[掘金——这一次，彻底弄懂 JavaScript 执行机制](https://segmentfault.com/a/1190000018227028)
 
-## 48. 柯里化
+## 46. 柯里化
 
 - 是高阶函数的一种特殊用法
 - 定义：接收函数 A 作为参数，运行后能够返回一个新的函数，并且这个新的函数能够处理函数 A 的剩余参数。
@@ -1635,7 +1539,9 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   > - 参考：[简书——深入详解函数的柯里化](https://www.jianshu.com/p/5e1899fe7d6b)
   > - 参考：[segmentfault——简述几个非常有用的柯里化函数使用场景](https://segmentfault.com/a/1190000015281061)
 
-## 49. 常见设计模式
+## 47. 常见设计模式和数据结构
+
+设计模式
 
 - 单例模式
   - 保证一个类仅有一个实例，并提供一个访问它的全局访问点。实现的方法为先判断实例存在与否，如果存在则直接返回，如果不存在就创建了再返回，这就确保了一个类只有一个实例对象。
@@ -1669,10 +1575,30 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 
 - 观察者模式里只有 2 个角色，一个是观察者，一个是被观察者，而发布订阅模式里有 3 个角色，一个是发布者，一个是订阅者，还有一个是消息中心。
 
+数据结构
+
+- 数组
+  - 数组是一种线性表数据结构，用一组连续的内存空间，来存储一组具有相同类型的数据。
+  - 数组的插入和删除操作，需要移动大量的元素，时间复杂度为 O(n)。
+- 链表
+  - 链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。
+  - 链表的插入和删除操作，只需要修改指针的指向，时间复杂度为 O(1)。
+  - 常见的链表有单链表、双向链表、循环链表等。
+  - 已知哪些是通过链表实现的：Promise、LRU 缓存、文件系统、事件循环、react fiber 等。
+- 栈
+  - 栈是一种先进后出的数据结构，只能在一端插入和删除数据。
+  - 常见的栈有函数调用栈、浏览器的前进后退等。
+- 队列
+  - 队列是一种先进先出的数据结构，只能在一端插入数据，在另一端删除数据。
+  - 常见的队列有消息队列、打印队列等。
+- 树
+  - 树是一种非线性的数据结构，它是由 n(n>=1) 个有限节点组成一个具有层次关系的集合。
+  - 常见的树有二叉树、二叉搜索树、平衡二叉树、红黑树、B 树、B+ 树、B\* 树、哈夫曼树等。
+
 > 参考：[JavaScript 中常见设计模式整理](https://juejin.im/post/6844903607452581896)  
 > 参考：[JavaScript 设计模式](https://juejin.im/post/6844903503266054157)
 
-## 50. 前端工程化是什么？
+## 48. 前端工程化是什么？
 
 前端工程化是指在开发过程中，提高开发效率，减少后期维护成本的一个方案。它应该考虑以下几个因素：
 
@@ -1681,12 +1607,12 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
 - 规范化(目录结构, 统一的编码规范, 文档规范, git 分支管理, mock 数据, 接口返回格式)
 - 自动化(自动化测试, 自动化部署)
 
-## 51. js 和 ts 的核心区别是什么
+## 49. js 和 ts 的核心区别是什么
 
 - js 是弱类型语言，ts 是强类型语言
 - TypeScript 是静态类型语言，需要编译成 JavaScript 才能运行，所以可以在编译阶段就发现大部分错误，而 JavaScript 是动态类型语言，只有在运行时才会发现错误
 
-## 52. AST 语法树
+## 50. AST 语法树
 
 - 什么是 AST
   - 抽象语法树（Abstract Syntax Tree，AST），是源代码的抽象语法结构的树状表现形式。它是源代码的一种抽象语法结构的树状表现形式，用来表示源代码中各级语法结构之间的关系。它可以用来做语法分析、代码生成、代码优化等工作。
@@ -1704,12 +1630,12 @@ Promise 是异步编程的一种解决方案, 有以下两个特点:
   - vue: 实现对模板语法的转换
   - typescript: 实现对 TypeScript 语法的转换
 
-## 53. js 分片是什么，什么场景会用到，怎么实现
+## 51. js 分片是什么，什么场景会用到，怎么实现
 
 - 分片是指将一个文件分成多个部分，每个部分都可以独立传输，最后再将这些部分组合起来，形成完整的文件。
 - 场景：上传大文件，断点续传
 
-### 53.1 实现分片上传、断点续传
+### 51.1. 实现分片上传、断点续传
 
 核心思想是利用 Blob.slice()方法将文件分片，然后将分片上传到服务器，最后将分片合并成完整的文件。
 

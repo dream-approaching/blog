@@ -5,6 +5,20 @@ group:
   title: 基本知识
 ---
 
+<!-- TOC -->
+
+- [1. html5 有哪些新特性](#1-html5-有哪些新特性)
+- [2. script defer 和 async 的区别](#2-script-defer-和-async-的区别)
+- [3. 常⽤的 meta 标签有哪些](#3-常⽤的-meta-标签有哪些)
+- [4. canvas](#4-canvas)
+  - [4.1. canvas 元素的属性](#41-canvas-元素的属性)
+  - [4.2. canvas 元素的方法](#42-canvas-元素的方法)
+  - [4.3. canvas 绘图环境的属性](#43-canvas-绘图环境的属性)
+  - [4.4. 代码示例](#44-代码示例)
+- [5. 怎么提升 seo 排名](#5-怎么提升-seo-排名)
+
+<!-- /TOC -->
+
 ## 1. html5 有哪些新特性
 
 - 语义化标签
@@ -68,6 +82,16 @@ group:
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   ```
 
+- http-equiv，设置 http 头部信息
+  ```html
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  ```
+- 把 http 转成 https
+
+  ```html
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  ```
+
   content 参数有以下几种：
 
   - width viewport ：宽度(数值/device-width)
@@ -92,18 +116,18 @@ group:
 
 ## 4. canvas
 
-### canvas 元素的属性
+### 4.1. canvas 元素的属性
 
 - `width`，canvas 元素的宽度
 - `height`，canvas 元素的高度
 
-### canvas 元素的方法
+### 4.2. canvas 元素的方法
 
 - `getContext()`，返回一个用于在画布上绘图的环境对象
 - `toDataURL()`，返回一个包含图片展示的 data URI
 - `toBlob()`，返回一个包含图片展示的 Blob 对象
 
-### canvas 绘图环境的属性
+### 4.3. canvas 绘图环境的属性
 
 - `beginPath()`，新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。
 - `closePath()`，闭合路径之后图形绘制命令又重新指向到上下文中。
@@ -118,7 +142,7 @@ group:
 - `clip()`，从原始画布剪切任意形状和尺寸的区域。
 - `isPointInPath()`，如果指定的点位于当前路径中，则返回 true，否则返回 false。
 
-### 代码示例
+### 4.4. 代码示例
 
 ```js
 // 画一个圆
@@ -160,3 +184,15 @@ function drawTriangle() {
   ctx.fill();
 }
 ```
+
+## 5. 怎么提升 seo 排名
+
+- 网站结构合理，层级清晰
+  - 使用语义化标签，如：`<header>`、`<nav>`、`<main>`、`<footer>`、`<article>`、`<section>`、`<aside>`、`<figure>`、`<figcaption>`、`<time>`、`<mark>`、`<progress>`、`<meter>`、`<video>`、`<audio>`、`<canvas>`、`<svg>`、`<datalist>`、`<keygen>`、`<output>`、`<details>`、`<summary>`
+- 网站页面加载速度快
+- 网站页面标题、关键词、描述合理
+  - 网站页面标题不超过 70 个字符，`<title>` 标签中的内容不要重复
+  - 网站页面关键词不超过 100 个字符, 用英文逗号分隔, `<meta name="keywords" content="关键词" />`
+  - 网站页面描述不超过 150 个字符, `<meta name="description" content="页面描述内容" />`
+- 网站页面内容不重复
+- 网站页面内容不少于 300 个字符
