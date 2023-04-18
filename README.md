@@ -7,11 +7,12 @@
 - translate 外文翻译 5
 - snippets 代码片段 10
 - typescript Typescript 20
+- algorithm 算法 30
 - nodejs NodeJs 40
+- interview Interview 49
 - linux linux 55
 - terminal 常用命令行或快捷键 59
 - error-record 报错记录 80
-- interview Interview 119
 
 <!-- todo -->
 
