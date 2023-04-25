@@ -1,10 +1,12 @@
 ---
-title: OD面试
+title: 算法题：计算器
 group:
-  title: Interview
+  title: 算法
 ---
 
-## 技术一面：四则计算
+## 计算器
+
+### 1. 问题描述
 
 计算简单四则运算，输入为一个四则运算的字符串，输出字符串的计算结果。
 
@@ -14,7 +16,11 @@ group:
 
 如：输入 2+1*2*3+22 输出 30
 
-思路：采用栈的思想，遇到数字就入栈，遇到运算符就出栈，然后计算，最后把结果入栈。
+### 2. 解题思路
+
+采用栈的思想，遇到数字就入栈，遇到运算符就出栈，然后计算，最后把结果入栈。
+
+### 3. 代码实现
 
 ```js
 function calculate(str) {
@@ -60,30 +66,3 @@ function calculate(str) {
   return res;
 }
 ```
-
-## 技术二面：硬币找零
-
-只有 3 种硬币 1 分、2 分、3 分，给定一个数 n，求组成 n 分钱的组合数。
-
-```js
-/**
- * 背包算法
- * @param {number} n
- * @return {number}
- */
-function coin(n) {
-  const dp = new Array(n + 1).fill(0);
-  dp[0] = 1;
-
-  for (let i = 1; i <= 3; i++) {
-    for (let j = i; j <= n; j++) {
-      dp[j] += dp[j - i];
-    }
-  }
-
-  console.log('%c zjs dp:', 'color: #fff;background: #b457ff;', dp);
-  return dp[n];
-}
-```
-
-## 主管面试
