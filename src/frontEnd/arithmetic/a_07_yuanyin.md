@@ -33,10 +33,10 @@ group:
  * @return {number} 最长的指定瑕疵度的元音子串
  */
 var longestVowelSubstring = function (str, flaw) {
-  let left = 0;
-  let right = 0;
-  let max = 0;
-  let count = 0;
+  let left = 0; // 左指针
+  let right = 0; // 右指针
+  let max = 0; // 最大值
+  let count = 0; // 当前元音字符的瑕疵度
   while (right < str.length) {
     // 如果当前字符是元音字符
     if (isVowel(str[right])) {
@@ -86,7 +86,7 @@ function countVowel(str, left, right) {
  * @return {number} 最长的指定瑕疵度的元音子串
  */
 var longestVowelSubstring = function (str, flaw) {
-  // dp[i] 表示以第 i 个字符结尾的最长的指定瑕疵度的元音子串
+  // dp[i] 表示以第 i 个字符结尾的最长的指定瑕疵度的元音子串的长度
   const dp = new Array(str.length).fill(0);
   let max = 0;
   for (let i = 0; i < str.length; i++) {
