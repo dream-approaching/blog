@@ -1,0 +1,128 @@
+---
+title: 算法题：最长的指定瑕疵度的元音子串
+group:
+  title: 算法
+---
+
+## 最长的指定瑕疵度的元音子串
+
+### 1. 问题描述
+
+开头和结尾都是元音字母（aeiouAEIOU）的字符串为元音字符串，其中混杂的非元音字母数量为其瑕疵度。比如: · “a” 、 “aa”是元音字符串，其瑕疵度都为 0 · “aiur”不是元音字符串（结尾不是元音字符） · “abira”是元音字符串，其瑕疵度为 2 给定一个字符串，请找出指定瑕疵度的最长元音字符子串，并输出其长度，如果找不到满足条件的元音字符子串，输出 0。子串：字符串中任意个连续的字符组成的子序列称为该字符串的子串。
+
+输入描述：首行输入是一个整数，表示预期的瑕疵度 flaw，取值范围[0, 65535]。接下来一行是一个仅由字符 a-z 和 A-Z 组成的字符串，字符串长度(0, 65535]。输出描述：输出为一个整数，代表满足条件的元音字符子串的长度。
+
+示例 1：输入 0 asdbuiodevauufgh 输出 3 说明满足条件的最长元音字符子串有两个，分别为 uio 和 auu，长度为 3。
+
+示例 2 输入 2 aeueo 输出 0 说明没有满足条件的元音字符子串，输出 0
+
+示例 3 输入 1 aabeebuu 输出 5 说明满足条件的最长元音字符子串有两个，分别为 aabee 和 eebuu，长度为 5
+
+### 2. 解题思路
+
+### 3. 代码实现
+
+#### 3.1. 滑动窗口
+
+```js
+/**
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(1)
+ * @param {string} str 字符串
+ * @param {number} flaw 瑕疵度
+ * @return {number} 最长的指定瑕疵度的元音子串
+ */
+var longestVowelSubstring = function (str, flaw) {
+  let left = 0;
+  let right = 0;
+  let max = 0;
+  let count = 0;
+  while (right < str.length) {
+    // 如果当前字符是元音字符
+    if (isVowel(str[right])) {
+      // 计算当前元音字符的瑕疵度
+      count = countVowel(str, left, right);
+      // 如果当前元音字符的瑕疵度大于预期的瑕疵度
+      if (count > flaw) {
+        // 移动左指针
+        left++;
+      } else {
+        // 更新最大值
+        max = Math.max(max, right - left + 1);
+        // 移动右指针
+        right++;
+      }
+    } else {
+      // 移动右指针
+      right++;
+    }
+  }
+  return max;
+};
+
+function isVowel(char) {
+  return /[aeiouAEIOU]/.test(char);
+}
+
+function countVowel(str, left, right) {
+  let count = 0;
+  for (let i = left; i <= right; i++) {
+    if (!isVowel(str[i])) {
+      count++;
+    }
+  }
+  return count;
+}
+```
+
+#### 3.2. 动态规划
+
+```js
+/**
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
+ * @param {string} str 字符串
+ * @param {number} flaw 瑕疵度
+ * @return {number} 最长的指定瑕疵度的元音子串
+ */
+var longestVowelSubstring = function (str, flaw) {
+  // dp[i] 表示以第 i 个字符结尾的最长的指定瑕疵度的元音子串
+  const dp = new Array(str.length).fill(0);
+  let max = 0;
+  for (let i = 0; i < str.length; i++) {
+    // 如果当前字符是元音字符
+    if (isVowel(str[i])) {
+      // 如果当前字符是第一个元音字符
+      if (i === 0) {
+        dp[i] = 1;
+      } else {
+        // 如果当前字符的前一个字符是元音字符
+        if (isVowel(str[i - 1])) {
+          dp[i] = dp[i - 1] + 1;
+        } else {
+          dp[i] = 1;
+        }
+      }
+      // 如果当前元音字符的瑕疵度小于等于预期的瑕疵度
+      if (countVowel(str, i - dp[i] + 1, i) <= flaw) {
+        max = Math.max(max, dp[i]);
+      }
+    }
+  }
+  return max;
+};
+
+function isVowel(char) {
+  return /[aeiouAEIOU]/.test(char);
+}
+
+function countVowel(str, left, right) {
+  let count = 0;
+  for (let i = left; i <= right; i++) {
+    if (!isVowel(str[i])) {
+      count++;
+    }
+  }
+  return count;
+}
+```
