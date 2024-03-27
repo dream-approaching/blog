@@ -19,7 +19,7 @@ features:
   - icon: /blog/tool.png
     title: 其他工具
     desc: 一些工具网站集合
-footer: Open-source MIT Licensed | Copyright © 闽ICP备19003454号-1<br />Powered by self
+footer: Open-source MIT Licensed | Copyright © <a href="https://beian.miit.gov.cn">闽ICP备19003454号-1</a><br />Powered by self
 ---
 
 <!-- - 前端开发(都是一些集合的入口，点击跳到自己写的文章集合)
